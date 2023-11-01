@@ -22,59 +22,68 @@
 //     });
 //   }
 
+  //   }
+  // }
+
+  // Copyright 2013 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// ignore_for_file: public_member_api_docs
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker_widget/image_picker_widget.dart';
+import 'package:image_picker/image_picker.dart';
 
-class RegisterApplication extends StatelessWidget {
-  const RegisterApplication({super.key});
-  
+
+class RegisterApplication extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Home(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, this.title}) : super(key: key);
-
-  final String? title;
-
+class Home extends StatefulWidget{
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomeState createState() => _HomeState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeState extends State<Home> { 
+
+  ImagePicker picker = ImagePicker();
+  XFile? image;
+
   @override
-  Widget build(BuildContext context) {
-    //
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title ?? ""),
-      ),
-      body: Center(
-          child: ImagePickerWidget(
-        diameter: 180,
-        initialImage:
-            "https://strattonapps.com/wp-content/uploads/2020/02/flutter-logo-5086DD11C5-seeklogo.com_.png",
-        shape: ImagePickerWidgetShape.circle,
-        isEditable: true,
-        shouldCrop: true,
-        imagePickerOptions: ImagePickerOptions(
-          imageQuality: 65
-        ),
-        onChange: (File file) {
-          print("I changed the file to: ${file.path}");
-        },
-      )
-      ),
-    );
+  Widget build(BuildContext context) { 
+    return  Scaffold(
+          appBar: AppBar(
+            title: Text("Image Picker from Gallery"),
+            backgroundColor: Colors.redAccent
+          ),
+          body: Container(
+            padding: EdgeInsets.only(top:20, left:20, right:20),
+            alignment: Alignment.topCenter,
+            child: Column(
+              children: [
+
+                 ElevatedButton(
+                  onPressed: () async {
+                      image = await picker.pickImage(source: ImageSource.gallery); 
+                      setState(() {
+                        //update UI
+                      });
+                  }, 
+                  child: Text("Pick Image")
+                ),
+ 
+                image == null?Container():
+                Image.file(File(image!.path))
+                
+            ],)
+          )
+       );
   }
 }
