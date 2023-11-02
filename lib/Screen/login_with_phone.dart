@@ -113,7 +113,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
           textColor: Colors.white,
           fontSize: 16.0
       );
-       Navigator.of(context).push(MaterialPageRoute(builder: (context) => MainPage()));
+       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
     });
   }
 }

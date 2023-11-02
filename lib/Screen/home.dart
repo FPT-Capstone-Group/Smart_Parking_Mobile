@@ -4,13 +4,13 @@ import 'package:parking_auto/widget/navigation_drawer_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
   @override
-  _MainPageState createState() => _MainPageState();
+  _Home_Page createState() => _Home_Page();
 }
 
-class _MainPageState extends State<MainPage>  {
+class _Home_Page extends State<HomePage>  {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<String?> token;
 
@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage>  {
         drawer: NavigationDrawerWidget(),
         // endDrawer: NavigationDrawerWidget(),
         appBar: AppBar(
-          title: Text(_MainPageState.title),
+          title: Text(_Home_Page.title),
         ),
         body: Builder(
           builder: (context) => Container(

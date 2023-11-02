@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:parking_auto/Screen/login_with_phone.dart';
+import 'package:parking_auto/Screen/sign_up.dart';
 
 
 Future<void> main() async {
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: Sign_up_Page(),
+      // home: HomeScreen(),
     );
   }
 }
