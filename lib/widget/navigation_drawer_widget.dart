@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:parking_auto/Screen/add_owner.dart';
+import 'package:parking_auto/Screen/face_camera.dart';
 import 'package:parking_auto/Screen/history_log.dart';
 import 'package:parking_auto/Screen/logout.dart';
 import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/payment.dart';
 import 'package:parking_auto/Screen/profile.dart';
-import 'package:parking_auto/Screen/register_application_page.dart';
 import 'package:parking_auto/Screen/user_page.dart';
 
 
@@ -185,7 +185,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => RegisterApplication(),
+          builder: (context) => FaceCameraImage(),
         ));
         break;
       case 2:
@@ -205,12 +205,12 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 5:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Payment(),
+          builder: (context) => NotificationPage(),
         ));
         break;
       case 6:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => NotificationPage(),
+          builder: (context) => Logout(),
         ));
         break;
       case 7:

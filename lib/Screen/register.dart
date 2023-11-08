@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:parking_auto/Screen/login_with_phone.dart';
+import 'package:parking_auto/controller/register_controller.dart';
 
-class Sign_up_Page extends StatelessWidget {
-  const Sign_up_Page({Key? key}) : super(key: key);
+class RegisterUser extends StatefulWidget {
+  const RegisterUser({Key? key}) : super(key: key);
+
+  @override
+  _RegisterUser createState() => _RegisterUser();
+}
+
+class _RegisterUser extends State<RegisterUser> {
 
   @override
   Widget build(BuildContext context) {
-    // AuthController authController = AuthController();
+    RegisterController registerController = RegisterController();
 
-   TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  //TextEditingController usernameController = TextEditingController();
+  //TextEditingController emailController = TextEditingController();
+  //TextEditingController phoneController = TextEditingController();
+  //TextEditingController passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: Text('Register'),
       ),
       body: Column(
         children: [
@@ -24,9 +33,9 @@ class Sign_up_Page extends StatelessWidget {
             child: SizedBox(
               height: 50,
               child: TextFormField(
-                controller: phoneController,
+                controller: registerController.usernameController,
                 decoration: InputDecoration(
-                  hintText: 'Phone',
+                  hintText: 'username',
                
                   enabledBorder: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(),
@@ -34,6 +43,26 @@ class Sign_up_Page extends StatelessWidget {
               ),
             ),
           ),
+
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              height: 50,
+              child: TextFormField(
+                controller: registerController.emailController,
+                decoration: InputDecoration(
+                  hintText: 'email',
+               
+                  enabledBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                ),
+              ),
+            ),
+          ),
+
           SizedBox(
             height: 20,
           ),
@@ -43,7 +72,7 @@ class Sign_up_Page extends StatelessWidget {
               height: 50,
               child: TextFormField(
                 //controller: authController.passwordController,
-                controller: passwordController,
+                controller: registerController.passwordController,
                 decoration: InputDecoration(
                   hintText: 'Password',
                   enabledBorder: OutlineInputBorder(),
@@ -57,11 +86,14 @@ class Sign_up_Page extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                 Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => LoginWithPhone(),
-        ));
-               // authController.loginUser();
-              },
+                //          Navigator.of(context).push(MaterialPageRoute(
+                //   builder: (context) => LoginWithPhone(),
+                // ));
+             
+                registerController.registerUser(context);
+               
+              },  
+              
               child: Text(
                 'Sign up',
               )),
