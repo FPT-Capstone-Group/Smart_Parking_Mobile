@@ -1,12 +1,14 @@
+import 'package:face_camera/face_camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:parking_auto/Screen/login_with_phone.dart';
-import 'package:parking_auto/Screen/sign_up.dart';
+import 'package:parking_auto/Screen/register.dart';
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FaceCamera.initialize();
   runApp(MyApp());
 }
 
@@ -18,8 +20,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Sign_up_Page(),
+      home: RegisterUser(),
       // home: HomeScreen(),
+      //home: HomePage(),
     );
   }
 }

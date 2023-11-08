@@ -25,20 +25,12 @@
 //   }
 // }
 
-// Copyright 2013 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// ignore_for_file: public_member_api_docs
-
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:parking_auto/Screen/home.dart';
 
+class RegisterApplication extends StatelessWidget  {
 
-class RegisterApplication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,7 +46,7 @@ class _RegisterApplication extends StatefulWidget {
 }
 
 class _HomeState extends State<_RegisterApplication> {
-
+  
   final ImagePicker picker = ImagePicker();
   XFile? image;
   @override
@@ -68,111 +60,48 @@ class _HomeState extends State<_RegisterApplication> {
             alignment: Alignment.topCenter,
             child: Column(
               children: [
-                //pick image gallery
-                // ElevatedButton(
-                //     onPressed: () async { 
-                //     final filePicked =
-                //           await picker.pickImage(source: ImageSource.gallery);
-                //       setState(() {
-                //         //update UI
-                //         image = filePicked;
-                //       });
-                //       print(image!.path);
-                //     },
-                //     child: Text("Pick Image")
-                //     ),
 
-                    //  FloatingActionButton(
-                    //       // Provide an onPressed callback.
-                    //        onPressed: () async { 
-                    // final filePicked =
-                    //       await picker.pickImage(source: ImageSource.camera);
-                    //   setState(() {
-                    //     //update UI
-                    //     image = filePicked;
-                    //   });
-                    //   print(image!.path);
-                    // },
-                    //       child: const Icon(Icons.camera_alt),
-                    // ),
-
-                SizedBox(
-                    height: 115,
-                    width: 115,
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      fit: StackFit.expand,
-                      children: [
-                         CircleAvatar(
-                              radius: 70.0,
-                              backgroundImage: image == null
-                              ? const AssetImage("assets/Atime.jpg") as ImageProvider
-                              : FileImage(File(image!.path)) as ImageProvider,
-                            ),
-                        Positioned(
-                            right: -16,
-                            bottom: 0,
-                            child: SizedBox(
-                                height: 46,
-                                width: 46,
-                                child: FloatingActionButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    side: BorderSide(color: Colors.white),
-                                  ),
+                  // SizedBox(
+                  //   height: 115,
+                  //   width: 115,
+                  //   child: Stack(
+                  //     clipBehavior: Clip.none,
+                  //     fit: StackFit.expand,
+                  //     children: [
+                  //        CircleAvatar(
+                  //             radius: 70.0,
+                  //             backgroundImage: image == null
+                  //             ? const AssetImage("assets/Atime.jpg") as ImageProvider
+                  //             : FileImage(File(image!.path)) as ImageProvider,
+                  //           ),
+                  //       Positioned(
+                  //           right: -16,
+                  //           bottom: 0,
+                  //           child: SizedBox(
+                  //               height: 46,
+                  //               width: 46,
+                  //               child: FloatingActionButton(
+                  //                 shape: RoundedRectangleBorder(
+                  //                   borderRadius: BorderRadius.circular(50),
+                  //                   side: BorderSide(color: Colors.white),
+                  //                 ),
               
-                                  onPressed: () async { 
-                                    final filePicked =
-                                          await picker.pickImage(source: ImageSource.camera);
-                                      setState(() {
-                                        //update UI
-                                        image = filePicked;
-                                      });
-                                      print(image!.path);
-                                    },
-                                  // TODO: Icon not centered.
-                                  child: Center(child: Icon(Icons.camera_alt_outlined)),
-                                )))
-                      ],
-                    ),
-                  ),
+                  //                 onPressed: () async { 
+                  //                   final filePicked =
+                  //                         await picker.pickImage(source: ImageSource.camera);
+                  //                     setState(() {
+                  //                       //update UI
+                  //                       image = filePicked;
+                  //                     });
+                  //                     print(image!.path);
+                  //                   },
+                  //                 // TODO: Icon not centered.
+                  //                 child: Center(child: Icon(Icons.camera_alt_outlined)),
+                  //               )))
+                  //     ],
+                  //   ),
+                  // ),
 
-              //   CircleAvatar(
-              //   radius: 70.0,
-              //   backgroundImage: image == null
-              //   ? const AssetImage("assets/Atime.jpg")
-              //   : FileImage(File(image!.path)) as ImageProvider,
-              //   child:  
-              //   FloatingActionButton.small(
-              //             // Provide an onPressed callback.
-              //       onPressed: () async { 
-              //       final filePicked =
-              //             await picker.pickImage(source: ImageSource.camera);
-              //         setState(() {
-              //           //update UI
-              //           image = filePicked;
-              //         });
-              //         print(image!.path);
-              //       },
-              //             child: const Icon(Icons.camera_alt),
-              //       ),
-                    
-              // ),
-
-
-
-
-              // Container(
-              //   decoration: BoxDecoration(
-              //     shape: BoxShape.circle,
-              //     border: Border.all(color: Colors.blueAccent, width: 50.0, style: BorderStyle.solid),
-              //     image: DecorationImage(
-              //       fit: BoxFit.cover,
-              //       image: (image != null) ? FileImage(File(image!.path)) as ImageProvider : AssetImage("assets/Atime.jpg")
-              //     ),
-              //   ),
-              // ),
-                // image == null ? Container() : Image.file(File(image!.path)),
                const SizedBox(height: 16),
                 Divider(color: Colors.white70),
                 Text(
@@ -216,6 +145,8 @@ class _HomeState extends State<_RegisterApplication> {
                     },
                     child: Text("Home")),
               ],
-            )));
+            )
+            )
+            );
   }
 }

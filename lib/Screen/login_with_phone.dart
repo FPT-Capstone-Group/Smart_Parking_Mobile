@@ -39,7 +39,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
             TextField(
               controller: phoneController,
               decoration: InputDecoration(labelText: "Phone number"),
-              keyboardType: TextInputType.phone,
+            //  keyboardType: TextInputType.phone,
             ),
 
             Visibility(child: TextField(
@@ -94,7 +94,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
       codeAutoRetrievalTimeout: (String verificationId) {
 
       },
-    );
+      );
   }
 
   void verifyOTP() async {
@@ -102,6 +102,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationID, smsCode: otpController.text);
 
     await auth.signInWithCredential(credential).then((value){
+    //  AuthController.loginUser(phoneController,passwordController);
       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
       print("You are logged in successfully");
       Fluttertoast.showToast(
