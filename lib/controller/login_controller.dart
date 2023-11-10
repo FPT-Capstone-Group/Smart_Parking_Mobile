@@ -10,7 +10,11 @@ class LoginController {
     const url = 'https://smart-parking-server-dev.azurewebsites.net/api/auth/local';
 
     try {
+       Map<String, String> headers = {
+      "Content-type": "application/json"
+      };
     var response = await http.post(Uri.parse(url),
+        headers: headers,
         body: jsonEncode({
           "email": emailController.text,
           "password": passwordController.text,

@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:face_camera/face_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:parking_auto/Screen/register_application_page.dart';
+import 'package:parking_auto/Screen/registration.dart';
+
 
 class FaceCameraImage extends StatefulWidget {
   const FaceCameraImage({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _FaceCameraTest extends State<FaceCameraImage> {
                            ElevatedButton(
                         onPressed: () {
                            Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => RegisterApplication(),
+                            builder: (context) => Registration(),
                           ));
                         },
                         child: const Text(
@@ -54,11 +55,8 @@ class _FaceCameraTest extends State<FaceCameraImage> {
                               fontSize: 14,),
                         ))
                         
-                     
                   ],
                 ),
-               
-                
               );
               
             }

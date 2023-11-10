@@ -10,15 +10,10 @@ class RegisterUser extends StatefulWidget {
 }
 
 class _RegisterUser extends State<RegisterUser> {
-
   @override
   Widget build(BuildContext context) {
     RegisterController registerController = RegisterController();
 
-  //TextEditingController usernameController = TextEditingController();
-  //TextEditingController emailController = TextEditingController();
-  //TextEditingController phoneController = TextEditingController();
-  //TextEditingController passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: Text('Register'),
@@ -36,14 +31,12 @@ class _RegisterUser extends State<RegisterUser> {
                 controller: registerController.usernameController,
                 decoration: InputDecoration(
                   hintText: 'username',
-               
                   enabledBorder: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(),
                 ),
               ),
             ),
           ),
-
           SizedBox(
             height: 20,
           ),
@@ -55,14 +48,29 @@ class _RegisterUser extends State<RegisterUser> {
                 controller: registerController.emailController,
                 decoration: InputDecoration(
                   hintText: 'email',
-               
                   enabledBorder: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(),
                 ),
               ),
             ),
           ),
-
+          SizedBox(
+            height: 20,
+          ),
+           Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              height: 50,
+              child: TextFormField(
+                controller: registerController.phoneController,
+                decoration: InputDecoration(
+                  hintText: 'phone',
+                  enabledBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                ),
+              ),
+            ),
+          ),
           SizedBox(
             height: 20,
           ),
@@ -71,7 +79,6 @@ class _RegisterUser extends State<RegisterUser> {
             child: SizedBox(
               height: 50,
               child: TextFormField(
-                //controller: authController.passwordController,
                 controller: registerController.passwordController,
                 decoration: InputDecoration(
                   hintText: 'Password',
@@ -86,27 +93,20 @@ class _RegisterUser extends State<RegisterUser> {
           ),
           ElevatedButton(
               onPressed: () {
-                //          Navigator.of(context).push(MaterialPageRoute(
-                //   builder: (context) => LoginWithPhone(),
-                // ));
-             
                 registerController.registerUser(context);
-               
-              },  
-              
+              },
               child: Text(
                 'Sign up',
               )),
-              Text('If you have account, please click "Login" button'),
-              TextButton(
-             onPressed: () {
-                 Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => LoginWithPhone(),
-        ));
-               // authController.loginUser();
-              },
-              child: const Text('Login'),
-            ),
+          Text('If you have account, please click "Login" button'),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => LoginWithPhone(),
+              ));
+            },
+            child: const Text('Login'),
+          ),
         ],
       ),
     );

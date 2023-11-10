@@ -7,7 +7,17 @@ import 'package:parking_auto/Screen/register.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  const firebaseOptions = FirebaseOptions(
+  appId: '1:551718773591:android:24033e9e023cc944bf9412',
+  apiKey: 'AIzaSyDNW6v89hiVt603ROCUeD6GUybhMBX2yjU',
+  projectId: 'parkingauto-78411',
+  messagingSenderId: '551718773591',
+  authDomain: 'parkingauto-78411.firebaseapp.com',
+);
+  await Firebase.initializeApp(
+    options: firebaseOptions
+  );
+  // await Firebase.initializeApp();
   FaceCamera.initialize();
   runApp(MyApp());
 }
@@ -21,7 +31,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: RegisterUser(),
-      // home: HomeScreen(),
       //home: HomePage(),
     );
   }
