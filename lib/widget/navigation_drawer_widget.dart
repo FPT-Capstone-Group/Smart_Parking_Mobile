@@ -200,7 +200,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 4:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Payment(),
+          builder: (context) => MyMomoPayment(),
         ));
         break;
       case 5:

@@ -1,89 +1,13 @@
 {
   "project_info": {
-    "project_number": "227756988291",
-    "project_id": "flutterapp-c26b5",
-    "storage_bucket": "flutterapp-c26b5.appspot.com"
+    "project_number": "551718773591",
+    "project_id": "parkingauto-78411",
+    "storage_bucket": "parkingauto-78411.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:227756988291:android:cf4ebe05f71c9df96988b6",
-        "android_client_info": {
-          "package_name": "com.example.automation_parking"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAHzzpT2m4lNf3_xnvc161I6Ko_sPmQphw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:227756988291:android:e73fc79f70787e676988b6",
-        "android_client_info": {
-          "package_name": "com.example.automation_parkingg"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAHzzpT2m4lNf3_xnvc161I6Ko_sPmQphw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:227756988291:android:929c47fe391bb7786988b6",
-        "android_client_info": {
-          "package_name": "com.example.park"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAHzzpT2m4lNf3_xnvc161I6Ko_sPmQphw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:227756988291:android:fc89056b140b36f86988b6",
-        "android_client_info": {
-          "package_name": "com.example.parke"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAHzzpT2m4lNf3_xnvc161I6Ko_sPmQphw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:227756988291:android:1d5994daf1ad04216988b6",
+        "mobilesdk_app_id": "1:551718773591:android:24033e9e023cc944bf9412",
         "android_client_info": {
           "package_name": "com.example.parking_auto"
         }
@@ -91,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAHzzpT2m4lNf3_xnvc161I6Ko_sPmQphw"
+          "current_key": "AIzaSyDNW6v89hiVt603ROCUeD6GUybhMBX2yjU"
         }
       ],
       "services": {

@@ -29,23 +29,23 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:parking_auto/Screen/home.dart';
 
-class RegisterApplication extends StatelessWidget  {
+class Registration extends StatelessWidget  {
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: _RegisterApplication(),
+      home: _Registration(),
       
     );
   }
 }
 
-class _RegisterApplication extends StatefulWidget {
+class _Registration extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<_RegisterApplication> {
+class _HomeState extends State<_Registration> {
   
   final ImagePicker picker = ImagePicker();
   XFile? image;
@@ -53,7 +53,7 @@ class _HomeState extends State<_RegisterApplication> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Register application"),
+            title: Text("Registration"),
             backgroundColor: Colors.redAccent),
         body: Container(
             padding: EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -150,3 +150,4 @@ class _HomeState extends State<_RegisterApplication> {
             );
   }
 }
+  
