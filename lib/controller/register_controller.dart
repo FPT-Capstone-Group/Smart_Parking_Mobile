@@ -6,24 +6,28 @@ import 'package:http/http.dart' as http;
 import 'package:parking_auto/Screen/home.dart';
 
 class RegisterController {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   Future registerUser(BuildContext context) async {
-    const url =
-        'https://smart-parking-server-dev.azurewebsites.net/api/auth/local/register';
 
+    print("firstname : " + firstNameController.text);
+    print("lasttname : " + lastNameController.text);
+    print("phone : " + phoneController.text);
+    print("password : " + passwordController.text);
+    //const url ='https://smart-parking-server-dev.azurewebsites.net/api/auth/local/register';
+    const url = 'localhost:3000/pub/register';
     Map<String, String> headers = {
       "Content-type": "application/json"
       };
     var response = await http.post(Uri.parse(url),
         headers: headers,
         body: jsonEncode({
-          'username': usernameController.text,
-          'email': emailController.text,
-          'PhoneNumber': phoneController.text,
+          'firstName': firstNameController.text,
+          'lastName': lastNameController.text,
+          'phoneNumber': phoneController.text,
           'password': passwordController.text,
         }));
 
@@ -45,13 +49,15 @@ class RegisterController {
           context, MaterialPageRoute(builder: (context) => HomePage()));
     } else if (response.statusCode == 400) {
       Fluttertoast.showToast(
-          msg: "Email or Username are already taken",
+          msg: "User already exists with same phoneNumber",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    } else {}
+    } else {
+
+    }
   }
 }

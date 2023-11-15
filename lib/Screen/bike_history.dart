@@ -2,28 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:parking_auto/controller/get_data_controller.dart';
 import 'package:parking_auto/model/reistraion_model.dart';
 
-class BikeOfUser extends StatelessWidget {
-  const BikeOfUser({super.key});
-
+class BikeHistoryLog extends StatelessWidget  {
+ const BikeHistoryLog({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return Scaffold(
         appBar: AppBar(
-          title: const Text('Bike Of User'),
+          title: const Text('Bike History Log'),
         ),
-        body: const _BikeOfUser());
+        body: const _BikeHistoryLog());
   }
-}
+  }
 
-class _BikeOfUser extends StatefulWidget {
-  const _BikeOfUser({super.key});
-
+class _BikeHistoryLog extends StatefulWidget {
+  const _BikeHistoryLog({super.key});
   @override
-  State<_BikeOfUser> createState() => __BikeOfUser();
+  __BikeHistoryLog createState() => __BikeHistoryLog();
 }
 
-class __BikeOfUser extends State<_BikeOfUser> {
-  GetDataController getData = GetDataController();
+class __BikeHistoryLog extends State<_BikeHistoryLog> {
+  
+GetDataController getData = GetDataController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +44,8 @@ class __BikeOfUser extends State<_BikeOfUser> {
                         Row(
                           //mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text('Plate number: ' + snapshot.data![index].title),
-                            TextButton(
-                              child: const Text('See'),
-                              onPressed: () {/* ... */},
-                            ),
+                            Text(snapshot.data![index].title),
+                            Text(snapshot.data![index].userId.toString()),
                             const SizedBox(width: 5),
                           ],
                         ),  

@@ -1,6 +1,6 @@
 // import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
- //import 'package:momo_vn/momo_vn.dart';
+// import 'package:momo_vn/momo_vn.dart';
 
 // class MyMomoPayment extends StatefulWidget {
 //   @override 
@@ -116,16 +116,3 @@
 //   }
 // }
 
-import 'package:flutter/material.dart';
-
-class MyMomoPayment extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        //drawer: NavigationDrawerWidget(),
-        appBar: AppBar(
-          title: Text('Notification'),
-          centerTitle: true,
-          backgroundColor: Colors.green,
-        ),
-      );
-}

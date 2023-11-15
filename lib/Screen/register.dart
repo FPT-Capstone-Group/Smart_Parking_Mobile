@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parking_auto/Screen/login_with_phone.dart';
+import 'package:parking_auto/Screen/otp_phone.dart';
 import 'package:parking_auto/controller/register_controller.dart';
 
 class RegisterUser extends StatefulWidget {
@@ -28,9 +28,9 @@ class _RegisterUser extends State<RegisterUser> {
             child: SizedBox(
               height: 50,
               child: TextFormField(
-                controller: registerController.usernameController,
+                controller: registerController.firstNameController,
                 decoration: InputDecoration(
-                  hintText: 'username',
+                  hintText: 'firstName',
                   enabledBorder: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(),
                 ),
@@ -45,9 +45,9 @@ class _RegisterUser extends State<RegisterUser> {
             child: SizedBox(
               height: 50,
               child: TextFormField(
-                controller: registerController.emailController,
+                controller: registerController.lastNameController,
                 decoration: InputDecoration(
-                  hintText: 'email',
+                  hintText: 'lastName',
                   enabledBorder: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(),
                 ),
@@ -102,7 +102,7 @@ class _RegisterUser extends State<RegisterUser> {
           TextButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => LoginWithPhone(),
+                builder: (context) => OtpPhone(),
               ));
             },
             child: const Text('Login'),
@@ -111,4 +111,6 @@ class _RegisterUser extends State<RegisterUser> {
       ),
     );
   }
+
+  
 }
