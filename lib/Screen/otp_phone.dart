@@ -2,23 +2,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:parking_auto/Screen/home.dart';
-import 'package:parking_auto/main.dart';
+import 'package:parking_auto/Screen/login.dart';
+import 'package:parking_auto/controller/login_controller.dart';
 
 
-class LoginWithPhone extends StatefulWidget {
-  const LoginWithPhone({Key? key}) : super(key: key);
+class OtpPhone extends StatefulWidget {
+  const OtpPhone({Key? key}) : super(key: key);
 
   @override
   _LoginWithPhoneState createState() => _LoginWithPhoneState();
 }
 
-class _LoginWithPhoneState extends State<LoginWithPhone> {
+class _LoginWithPhoneState extends State<OtpPhone> {
   TextEditingController phoneController = TextEditingController(text: "+84867698543");
-  TextEditingController passwordController = TextEditingController(text: "***");
+  //TextEditingController passwordController = TextEditingController(text: "***");
   TextEditingController otpController = TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  LoginController logincontroller = LoginController();
 
   bool otpVisibility = false;
   bool passwordVisibility = true;
@@ -29,7 +31,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login With Phone"),
+        title: Text("Otp Phone Number"),
       ),
       body: Container(
         margin: EdgeInsets.all(10),
@@ -51,19 +53,21 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
             SizedBox(
               height: 10,
             ),
-            Visibility(child: TextField(
-              obscureText: true,
-              controller: passwordController,
-              decoration: InputDecoration(labelText: "Password"),
-              keyboardType: TextInputType.visiblePassword,
-            ),visible: passwordVisibility,),
+            // Visibility(child: TextField(
+            //   obscureText: true,
+            //   controller: passwordController,
+            //   decoration: InputDecoration(labelText: "Password"),
+            //   keyboardType: TextInputType.visiblePassword,
+            // ),visible: passwordVisibility,),
 
             ElevatedButton(
                 onPressed: () {
+
                   if(otpVisibility){
                     verifyOTP();
                   }
                   else {
+                   
                     loginWithPhone();
                   }
                 },
@@ -86,7 +90,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
         print(e.message);
       },
       codeSent: (String verificationId, int? resendToken) {
-        passwordVisibility = false;
+        // passwordVisibility = false;
         otpVisibility = true;
         verificationID = verificationId;
         setState(() {});
@@ -100,13 +104,12 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
   void verifyOTP() async {
 
     PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationID, smsCode: otpController.text);
-
     await auth.signInWithCredential(credential).then((value){
     //  AuthController.loginUser(phoneController,passwordController);
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+       Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginWithPhone()));
       print("You are logged in successfully");
       Fluttertoast.showToast(
-          msg: "You are logged in successfully",
+          msg: "Phone otp successfully",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -114,7 +117,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
           textColor: Colors.white,
           fontSize: 16.0
       );
-       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginWithPhone()));
     });
   }
 }

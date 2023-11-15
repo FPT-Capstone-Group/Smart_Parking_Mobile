@@ -1,12 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:parking_auto/Screen/add_owner.dart';
 import 'package:parking_auto/Screen/face_camera.dart';
 import 'package:parking_auto/Screen/history_log.dart';
 import 'package:parking_auto/Screen/logout.dart';
 import 'package:parking_auto/Screen/notification.dart';
-import 'package:parking_auto/Screen/payment.dart';
-import 'package:parking_auto/Screen/profile.dart';
+import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/user_page.dart';
 
 
@@ -180,7 +178,7 @@ class NavigationDrawerWidget extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ProfilePage(),
+          builder: (context) => BikeOfUser(),
         ));
         break;
       case 1:
@@ -190,17 +188,17 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => History(),
+          builder: (context) => BikeOfUser(),
         ));
         break;
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => AddOwner(),
+          builder: (context) => RegistrationHistory(),
         ));
         break;
       case 4:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MyMomoPayment(),
+          builder: (context) => RegistrationHistory(),
         ));
         break;
       case 5:

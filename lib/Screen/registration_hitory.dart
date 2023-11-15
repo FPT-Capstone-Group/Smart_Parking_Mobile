@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:parking_auto/controller/get_data_controller.dart';
 import 'package:parking_auto/model/reistraion_model.dart';
 
-class BikeOfUser extends StatelessWidget {
-  const BikeOfUser({super.key});
+class RegistrationHistory extends StatelessWidget {
+  const RegistrationHistory({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Bike Of User'),
+          title: const Text('Registration History'),
         ),
-        body: const _BikeOfUser());
+        body: const MyStatefulWidget());
   }
 }
 
-class _BikeOfUser extends StatefulWidget {
-  const _BikeOfUser({super.key});
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({super.key});
 
   @override
-  State<_BikeOfUser> createState() => __BikeOfUser();
+  State<MyStatefulWidget> createState() => _RegistrationHistory();
 }
 
-class __BikeOfUser extends State<_BikeOfUser> {
+class _RegistrationHistory extends State<MyStatefulWidget> {
   GetDataController getData = GetDataController();
 
   @override
@@ -45,9 +45,15 @@ class __BikeOfUser extends State<_BikeOfUser> {
                         Row(
                           //mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text('Plate number: ' + snapshot.data![index].title),
+                            Text(snapshot.data![index].title),
+                            Text(snapshot.data![index].userId.toString()),
                             TextButton(
-                              child: const Text('See'),
+                              child: const Text('Detail'),
+                              onPressed: () {/* ... */},
+                            ),
+                            const SizedBox(width: 5),
+                            TextButton(
+                              child: const Text('Delete'),
                               onPressed: () {/* ... */},
                             ),
                             const SizedBox(width: 5),

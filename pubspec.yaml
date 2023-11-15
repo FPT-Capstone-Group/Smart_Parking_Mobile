@@ -60,7 +60,7 @@ dependencies:
 
   get: ^4.6.5
   http: ^0.13.5
-  # momo_vn: ^2.0.2
+  dio: ^5.3.3
 
 dev_dependencies:
   flutter_test:
