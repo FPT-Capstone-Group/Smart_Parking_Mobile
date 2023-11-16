@@ -12,6 +12,8 @@ class LoginController {
   var strtoken;
   
   Future loginUser(BuildContext context) async {
+    print("phone: " + phoneNumberController.text);
+    print("passs: " + passwordController.text);
   //const url = 'https://smart-parking-server-dev.azurewebsites.net/api/auth/local';
     const url = 'http://localhost:3000/pub/login';
 
@@ -26,14 +28,19 @@ class LoginController {
           "password": passwordController.text,
         }));
     if (response.statusCode == 200) {
-      var loginArr = json.decode(response.body);
-      strtoken = loginArr['token'];
+
+        var loginArr = json.decode(response.body);
+        strtoken = loginArr['data']['token'];
         SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.remove('token');
         final key = 'token';
         final value = strtoken;
         prefs.setString(key, value);
+
+        //var tokenSaved = prefs.getString(key);
+        //print("token: " + tokenSaved.toString());
         
-      Fluttertoast.showToast(
+        Fluttertoast.showToast(
           msg: "You are login successfully",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
@@ -42,7 +49,6 @@ class LoginController {
           textColor: Colors.white,
           fontSize: 16.0);
       // save this token in shared prefrences and make user logged in and navigate
-      print('token: '+loginArr['data']['token']);
        Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => HomePage(),
         ));
@@ -59,29 +65,8 @@ class LoginController {
       );
     }
      } catch (e) {
-      print(e);
+      //print(e);
     }
   }
-
-  
-      token_save(strtoken) async {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        final key = 'token';
-        final value = strtoken;
-        prefs.setString(key, value);
-        print('saved $value');
-        
-        //remove token
-        //prefs.remove('token');
-
-      }
-
-      // token_read() async {
-      //   final prefs = await SharedPreferences.getInstance();
-      //   final key = 'token';
-      //   final read_value = prefs.getString(key) ?? 0;
-      //   print('read: $read_value');
-      //   return read_value;
-      // }
 
 } 

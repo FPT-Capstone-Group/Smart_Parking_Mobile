@@ -1,29 +1,28 @@
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:parking_auto/controller/login_controller.dart';
 
 
-class LoginWithPhone extends StatefulWidget {
+class LoginWithPhone extends StatefulWidget  {
+ 
   const LoginWithPhone({Key? key}) : super(key: key);
 
   @override
   _LoginWithPhoneState createState() => _LoginWithPhoneState();
 }
 
-class _LoginWithPhoneState extends State<LoginWithPhone> {
+class _LoginWithPhoneState extends State<LoginWithPhone>  {
+
   // TextEditingController phoneController = TextEditingController(text: "+84867698543");
   // TextEditingController passwordController = TextEditingController(text: "***");
   TextEditingController otpController = TextEditingController();
 
-  FirebaseAuth auth = FirebaseAuth.instance;
+
 
   LoginController logincontroller = LoginController();
 
-  bool otpVisibility = false;
   bool passwordVisibility = true;
 
-  String verificationID = "";
 
   @override
   Widget build(BuildContext context) {

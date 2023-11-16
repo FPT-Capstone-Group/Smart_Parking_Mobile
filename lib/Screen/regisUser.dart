@@ -15,7 +15,7 @@ class _RegisU extends State<RegisU> {
   var countryCode = "+84";
   //TextEditingController phoneController = TextEditingController(text: "+84867698543");
   TextEditingController phoneController =
-      TextEditingController(text: "0867698543");
+      TextEditingController();
   TextEditingController firstController =
       TextEditingController(text: "First Name");
   TextEditingController lastController =
@@ -39,6 +39,7 @@ class _RegisU extends State<RegisU> {
   bool textVisible = false;
   bool sendOtpAgainButtonVisible = false;
 
+
   String verificationID = "";
 
   @override
@@ -52,10 +53,27 @@ class _RegisU extends State<RegisU> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+            TextFormField(
               controller: phoneController,
-              decoration: InputDecoration(labelText: "Phone number"),
+              decoration: InputDecoration(labelText: 'Enter your phone'),
               keyboardType: TextInputType.number,
+             // validate after each user interaction
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+                // The validator receives the text that the user has entered.
+              validator: (phoneController) {
+                String pattern = r'(^(?:[0])?[0-9]{10,12}$)';
+                  RegExp regExp = new RegExp(pattern);
+                  if (phoneController == null || phoneController.isEmpty) {
+                    return 'Can\'t be empty';
+                  }
+                  if (phoneController.length < 4) {
+                    return 'Too short';
+                  }if(!regExp.hasMatch(phoneController)){
+                    return 'Phone number must be number and length 10 to 12';
+                  }
+                  return null;
+                  
+                },
             ),
             Visibility(
               child: TextField(
@@ -103,7 +121,7 @@ class _RegisU extends State<RegisU> {
             ),
             Visibility(
               child: ElevatedButton(
-                  onPressed: () {
+                  onPressed:() {
                     loginWithPhone();
                   },
                   child: Text("send Otp")),
