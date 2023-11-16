@@ -8,27 +8,38 @@ import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/user_page.dart';
 
 
-class NavigationDrawerWidget extends StatelessWidget {
+class NavigationDrawerWidget extends StatefulWidget {
+  const NavigationDrawerWidget({Key? key}) : super(key: key);
+
+  @override
+  _NavigationDrawerWidget createState() => _NavigationDrawerWidget();
+}
+class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
+    var firstName = 'Dat';
+    var lastName = 'Nguyen';
+//class NavigationDrawerWidget extends StatelessWidget {
+  // GetUserController getuser= GetUserController();
   final padding = EdgeInsets.symmetric(horizontal: 20);
   @override
   Widget build(BuildContext context) {
-    final name = 'Dat';
-    final email = 'Dat@abs.com';
-    final urlImage =
-        '"C:\Users\yayuk\Downloads\Atime.jpg"';
+
+   
+    // final urlImage =
+    //     "C:\Users\yayuk\Downloads\Atime.png";
     return Drawer(
       child: Material(
         color: Color.fromRGBO(50, 75, 205, 1),
         child: ListView(
           children: <Widget>[
             buildHeader(
-              urlImage: urlImage,
-              name: name,
-              email: email,
+             // urlImage: urlImage,
+              firstName: firstName,
+              lastName: lastName,
               onClicked: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => UserPage(
-                  name: 'Dat', //name user/api
-                  urlImage: urlImage,
+                  firstName: 'Dat', 
+                  lastName: 'Dat',//name user/api
+                 // urlImage: urlImage,
                 ),
               )),
             ),
@@ -94,9 +105,9 @@ class NavigationDrawerWidget extends StatelessWidget {
   }
 
   Widget buildHeader({
-    required String urlImage,
-    required String name,
-    required String email,
+    required String firstName,
+    required String lastName,
+    // required String email,
     required VoidCallback onClicked,
   }) =>
       InkWell(
@@ -105,18 +116,18 @@ class NavigationDrawerWidget extends StatelessWidget {
           padding: padding.add(EdgeInsets.symmetric(vertical: 40)),
           child: Row(
             children: [
-              CircleAvatar(radius: 30, backgroundImage: NetworkImage(urlImage)),
-              SizedBox(width: 20),
+              // CircleAvatar(radius: 30, backgroundImage: NetworkImage(urlImage)),
+              // SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    firstName,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    email,
+                    lastName,
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                 ],
@@ -177,8 +188,9 @@ class NavigationDrawerWidget extends StatelessWidget {
 
     switch (index) {
       case 0:
+      
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => BikeOfUser(),
+          builder: (context) => UserPage(firstName: firstName, lastName: lastName),
         ));
         break;
       case 1:

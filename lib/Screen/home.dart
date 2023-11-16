@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parking_auto/widget/button_widget.dart';
 import 'package:parking_auto/widget/navigation_drawer_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 class HomePage extends StatefulWidget {
@@ -11,17 +11,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _Home_Page extends State<HomePage>  {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  late Future<String?> token;
+  // final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  // late Future<String?> token;
 
  @override
   void initState() {
     super.initState();
-    token = _prefs.then((SharedPreferences prefs) {
-      print(prefs.getString('token'));
-      return prefs.getString('token');
+    // token = _prefs.then((SharedPreferences prefs) {
+    //   print(prefs.getString('token'));
+    //   return prefs.getString('token');
       
-    });
+    // });
   }
 
   

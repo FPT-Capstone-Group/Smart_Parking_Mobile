@@ -83,8 +83,14 @@ class _RegisterUser extends State<RegisterUser> {
                 decoration: InputDecoration(
                   hintText: 'Password',
                   enabledBorder: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(), 
                 ),
+                validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
               ),
             ),
           ),

@@ -1,8 +1,8 @@
 import 'package:face_camera/face_camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:parking_auto/Screen/login.dart';
 import 'package:parking_auto/Screen/otp_phone.dart';
-import 'package:parking_auto/Screen/regisUser.dart';
 
 
 
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       // home: RegisterUser(),
       //home: HomePage(),
       //home: RegistrationHistory(),
-      home: RegisU(),
+      home: LoginWithPhone(),
       //home: LoginWithPhone(),
     );
   }
