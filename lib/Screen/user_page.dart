@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:parking_auto/controller/get_current_user.dart';
+import 'package:parking_auto/model/user.dart';
 
 class UserPage extends StatelessWidget {
-  
   final String firstName;
   final String lastName;
   //final String urlImage;
@@ -18,31 +18,33 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.pink,
-          title: Text("User Page"),
+          title: Text("User Page" + firstName),
           centerTitle: true,
         ),
         body: const MyCustomForm(),
       );
-
-  
 }
 
-  class MyCustomForm extends StatefulWidget {
+class MyCustomForm extends StatefulWidget {
   const MyCustomForm({super.key});
 
   @override
   MyCustomFormState createState() {
-
     return MyCustomFormState();
   }
 }
 
-// Create a corresponding State class.
-// This class holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
-  final _formKey = GlobalKey<FormState>();
-
   GetUserController getUser = GetUserController();
+  @override
+  void initState() {
+    super.initState();
+    getUser.getUserData(context);
+  }
+
+  final _formKey = GlobalKey<FormState>();
+  User user = User();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +63,13 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
+          Text('first name: '),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
               onPressed: () {
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
-                
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
@@ -75,17 +77,15 @@ class MyCustomFormState extends State<MyCustomForm> {
               },
               child: const Text('Submit'),
             ),
-            
           ),
-           Padding(
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
               onPressed: () {
-                  getUser.getUserData();             
+                getUser.getUserData(context);
               },
               child: const Text('Getdata'),
             ),
-            
           ),
         ],
       ),
