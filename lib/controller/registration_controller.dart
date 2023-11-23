@@ -1,110 +1,79 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserController extends GetxController {
-  //UserModel? userModel;
-  TextEditingController approvedByController = TextEditingController();
-  TextEditingController faceImageController = TextEditingController();
-  TextEditingController plateNumberController = TextEditingController();
-  //TextEditingController statusController = TextEditingController();
-  var imagePath;
-  var token ;
-  registrion() async {
-     SharedPreferences prefs = await SharedPreferences.getInstance();
-     token = prefs.getString('token');
+class RegistrationBike {
 
-    String url = "{{host}}/api/registrations/create";
+  TextEditingController approvedByController = TextEditingController();
+  TextEditingController faceImagePath = TextEditingController();
+  TextEditingController plateNumberController = TextEditingController();
+
+  //String? imagePath;
+  var token;
+  Future registrion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token');
+    print('token: ' + token);
     
-    var request = new http.MultipartRequest("POST", Uri.parse(url));
-    request.headers['Authorization'] =
-    'Bearer $token';
-    request.headers['plateNumber'] = plateNumberController.text;  
-  
+    var imagePath = prefs.getString('imagePath').toString();
+    print('imagePath: ' + imagePath);
+    //localhost test api
+    //String url = "http://localhost:3000/api/registrations/create";
+    // mobile test localhost
+    String urlLocalhost = "http://192.168.1.3:3000/api/registrations/create";
+
+    //String urlLocalhost = "http://192.168.0.11:3000/api/registrations/create";
+
+    var request = new http.MultipartRequest("POST", Uri.parse(urlLocalhost));
+    request.headers['Authorization'] = 'Bearer $token';
+    //request.headers['Content-Type'] ='multipart/form-data';
+
+    request.fields['approvedBy'] = approvedByController.text;
+    request.fields['plateNumber'] = plateNumberController.text;
     request.files.add(await http.MultipartFile.fromPath(
-      'file',
-      imagePath,
-      contentType: MediaType('image', 'png'),
+      'faceImage',
+      imagePath.toString(),
+      contentType: new MediaType('image', 'jpg'),
     ));
 
     try {
-    var response = await request.send();
-    var res = await http.Response.fromStream(response);
+      var response = await request.send();
+      var res = await http.Response.fromStream(response);
 
-    if (res.statusCode == 200){
-      print("SUCCESS! 200 HTTP");
+      final Map<String, dynamic> parsed = json.decode(res.body);
+      print("parsed");
+      print(parsed);
+      print("-------------------------------");
+      prefs.remove('imagePath');
+      print("-------------------------------");
+      if (res.statusCode == 200) {
+        print("SUCCESS! 200 HTTP");
 
-       Fluttertoast.showToast(
-          msg: "Registration successfull",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+        Fluttertoast.showToast(
+            msg: "Registration successfull",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
 
-      print("HTTP CODE:${res.statusCode}");
-      String respString = res.body;
-      print("respString::$respString");
-
-    }else {
+        print("HTTP CODE:${res.statusCode}");
+        String respString = res.body;
+        print("respString::$respString");
+      } else {
+        print(response.statusCode);
         print('response status code not 200');
       }
-      
-    //SpellRoot spellRoot=spellRootFromJson(respString);
+
+      //SpellRoot spellRoot=spellRootFromJson(respString);
     } catch (e, s) {
       print("ERRR 200 responsecode");
       print("$e __ $s");
-    
+    }
   }
-    
-  
-    
-     //getx update api data
-    // var token =
-    //     'YOUR_TOKEN';
-    // try {
-    //   var body = {
-    //     'name': approvedByController.text,
-    //     'email': faceImageController.text,
-    //     'gender': plateNumberController.text
-    //     //'status': statusController.text,
-    //   };
-
-    //   http.Response response = await http.put(
-    //     Uri.parse('https://smart-parking-server-dev.azurewebsites.net/api/registrations'),
-    //     body: jsonEncode(body),
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accept': 'application/json',
-    //       'Authorization': 'Bearer $token'
-    //     },
-    //   );
-
-    //   if (response.statusCode == 200) {
-    //     final json = jsonDecode(response.body);
-        
-    //   Fluttertoast.showToast(
-    //       msg: "Registration successfull",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.CENTER,
-    //       timeInSecForIosWeb: 1,
-    //       backgroundColor: Colors.red,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0);
-    //     print(json);
-    //   } else {
-    //     print('response status code not 200');
-    //     throw jsonDecode(response.body)['meta']["message"] ??
-    //         "Unknown Error Occured";
-    //   }
-    // } catch (e) {
-    //   print(e);
-    // }
-  }
-
-  
 }

@@ -10,13 +10,18 @@ class LoginController {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var strtoken;
+  var phoneCurrent;
+  var firstName;
+  var lastName;
   
   Future loginUser(BuildContext context) async {
-    print("phone: " + phoneNumberController.text);
-    print("passs: " + passwordController.text);
   //const url = 'https://smart-parking-server-dev.azurewebsites.net/api/auth/local';
     const url = 'http://localhost:3000/pub/login';
 
+    // mobile test localhost
+    //String urlLocalhost = "http://192.168.1.3:3000/pub/login";
+    //wifi localhost test
+    //String urlLocalhost = "http://192.168.0.11:3000/pub/login";
     try {
        Map<String, String> headers = {
       "Content-type": "application/json"
@@ -27,19 +32,30 @@ class LoginController {
           "phoneNumber": phoneNumberController.text,
           "password": passwordController.text,
         }));
+        
     if (response.statusCode == 200) {
-
+        print("200");
         var loginArr = json.decode(response.body);
         strtoken = loginArr['data']['token'];
+
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.remove('token');
-        final key = 'token';
-        final value = strtoken;
-        prefs.setString(key, value);
-
-        //var tokenSaved = prefs.getString(key);
-        //print("token: " + tokenSaved.toString());
+        final keyToken = 'token';
+        final valueToken = strtoken;
+        //save token
+        prefs.setString(keyToken, valueToken);
+        phoneCurrent = loginArr['data']['user']['phoneNumber'];
         
+        final keyPhoneCurrent = 'phoneCurrent';
+        final valuePhoneCurrent = phoneCurrent;
+         //save phone login current
+        prefs.setString(keyPhoneCurrent, valuePhoneCurrent);
+        
+        //set first name 
+        //prefs.setString('fullname', loginArr['data']['user']['fullName']);
+        //set last name
+        //prefs.setString('lastName', loginArr['data']['user']['lastName']);
+
         Fluttertoast.showToast(
           msg: "You are login successfully",
           toastLength: Toast.LENGTH_SHORT,
@@ -48,10 +64,14 @@ class LoginController {
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
+          // GetUserController get = GetUserController();
+          // get.getUserData(context);
       // save this token in shared prefrences and make user logged in and navigate
-       Navigator.of(context).push(MaterialPageRoute(
+    
+      Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => HomePage(),
         ));
+ 
 
     } else {
       Fluttertoast.showToast(

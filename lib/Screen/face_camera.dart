@@ -4,6 +4,8 @@ import 'package:face_camera/face_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:parking_auto/Screen/registration.dart';
+import 'package:parking_auto/controller/registration_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class FaceCameraImage extends StatefulWidget {
@@ -14,6 +16,7 @@ class FaceCameraImage extends StatefulWidget {
 }
 
 class _FaceCameraTest extends State<FaceCameraImage> {
+  RegistrationBike registrationBike = RegistrationBike();
   File? _capturedImage;
   var imgPath;
   @override
@@ -63,20 +66,25 @@ class _FaceCameraTest extends State<FaceCameraImage> {
             return SmartFaceCamera(
                 autoCapture: true,
                 defaultCameraLens: CameraLens.front,
-                onCapture: (File? image) {
+                onCapture: (File? image) async {
                  
                   setState(() => _capturedImage = image);
                   imgPath= image!.path;
-                  print(imgPath);
+                  //registrationBike.imagePath = imgPath;
                    Fluttertoast.showToast(
-                      msg: imgPath,
+                      msg: "capture sucessfully",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,
                       backgroundColor: Colors.red,  
                       textColor: Colors.white,
-                      fontSize: 16.0
+                      fontSize: 12.0
                   );
+                  //save image path
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.remove('imagePath');
+                    prefs.setString('imagePath', imgPath);
+                    print(imgPath);
                  
                 },
                 onFaceDetected: (Face? face) {

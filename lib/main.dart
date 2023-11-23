@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:parking_auto/Screen/login.dart';
 import 'package:parking_auto/Screen/otp_phone.dart';
 
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // firebase option parkingauto (gmail:hekimta@gmail.com)
+   // firebase option parkingauto (gmail:hekimta@gmail.com)
   const firebaseOptions = FirebaseOptions(
     appId: '1:551718773591:android:24033e9e023cc944bf9412',
     apiKey: 'AIzaSyDNW6v89hiVt603ROCUeD6GUybhMBX2yjU',
@@ -18,7 +16,7 @@ Future<void> main() async {
     authDomain: 'parkingauto-78411.firebaseapp.com',
   );
 
-  // firebase option smart-parking (gmail:hekimta@gmail.com)
+  //firebase option smart-parking (gmail:hekimta@gmail.com)
   // const firebaseOptions = FirebaseOptions(
   //   appId: '1:601251091983:android:a7fd23a34760410193f57a',
   //   apiKey: 'AIzaSyAZ1gYbNl6qwQHpAEV08ZvJakjXnonsO5o',
@@ -55,7 +53,8 @@ class MyApp extends StatelessWidget {
       // home: RegisterUser(),
       //home: HomePage(),
       //home: RegistrationHistory(),
-      home: LoginWithPhone(),
+      home: 
+      LoginWithPhone(),
       //home: LoginWithPhone(),
     );
   }

@@ -1,11 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:parking_auto/Screen/face_camera.dart';
-import 'package:parking_auto/Screen/history_log.dart';
 import 'package:parking_auto/Screen/logout.dart';
 import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
-import 'package:parking_auto/Screen/user_page.dart';
+import 'package:parking_auto/controller/get_current_user.dart';
 
 
 class NavigationDrawerWidget extends StatefulWidget {
@@ -15,8 +14,28 @@ class NavigationDrawerWidget extends StatefulWidget {
   _NavigationDrawerWidget createState() => _NavigationDrawerWidget();
 }
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
-    var firstName = 'Dat';
-    var lastName = 'Nguyen';
+  var firstNameCurrent ="aa";
+  var lastNameCurrent ="aa";
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _loadData();
+  // }
+
+  // _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     firstNameCurrent = prefs.getString('firstName');
+  //     if (firstNameCurrent == null) {
+  //       firstNameCurrent = ' ';
+  //     }
+  //     lastNameCurrent = prefs.getString('lastName');
+  //     if (lastNameCurrent == null) {
+  //       lastNameCurrent = ' ';
+  //     }
+  //   });
+  // }
+
 //class NavigationDrawerWidget extends StatelessWidget {
   // GetUserController getuser= GetUserController();
   final padding = EdgeInsets.symmetric(horizontal: 20);
@@ -33,15 +52,12 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
           children: <Widget>[
             buildHeader(
              // urlImage: urlImage,
-              firstName: firstName,
-              lastName: lastName,
-              onClicked: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => UserPage(
-                  firstName: 'Dat', 
-                  lastName: 'Dat',//name user/api
-                 // urlImage: urlImage,
-                ),
-              )),
+              firstName: firstNameCurrent,
+              lastName: lastNameCurrent,
+              onClicked: () {
+                 GetUserController get = GetUserController();
+                get.getUserData(context);
+              },
             ),
             Container(
               padding: padding,
@@ -58,7 +74,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Register application',
+                    text: 'Registration',
                     icon: Icons.app_registration_rounded,
                     onClicked: () => selectedItem(context, 1),
                   ),
@@ -136,36 +152,12 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
               CircleAvatar(
                 radius: 24,
                 backgroundColor: Color.fromRGBO(30, 60, 168, 1),
-                child: Icon(Icons.add_comment_outlined, color: Colors.white),
+                child: Icon(Icons.face, color: Colors.white),
               )
             ],
           ),
         ),
       );
-
-  // Widget buildSearchField() {
-  //   final color = Colors.white;
-
-  //   return TextField(
-  //     style: TextStyle(color: color),
-  //     decoration: InputDecoration(
-  //       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-  //       hintText: 'Search',
-  //       hintStyle: TextStyle(color: color),
-  //       prefixIcon: Icon(Icons.search, color: color),
-  //       filled: true,
-  //       fillColor: Colors.white12,
-  //       enabledBorder: OutlineInputBorder(
-  //         borderRadius: BorderRadius.circular(5),
-  //         borderSide: BorderSide(color: color.withOpacity(0.7)),
-  //       ),
-  //       focusedBorder: OutlineInputBorder(
-  //         borderRadius: BorderRadius.circular(5),
-  //         borderSide: BorderSide(color: color.withOpacity(0.7)),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget buildMenuItem({
     required String text,
@@ -188,10 +180,17 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
 
     switch (index) {
       case 0:
-      
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => UserPage(firstName: firstName, lastName: lastName),
-        ));
+      // Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) => MyproFile(),
+      //   ));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => MyproFile(),
+        // ));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => FaceCameraImage(),
+        // ));
+        GetUserController get = GetUserController();
+                get.getUserData(context);
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
@@ -200,7 +199,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => BikeOfUser(),
+          builder: (context) => RegistrationHistory(),
         ));
         break;
       case 3:

@@ -14,13 +14,10 @@ class RegisU extends StatefulWidget {
 class _RegisU extends State<RegisU> {
   var countryCode = "+84";
   //TextEditingController phoneController = TextEditingController(text: "+84867698543");
-  TextEditingController phoneController =
-      TextEditingController();
-  TextEditingController firstController =
-      TextEditingController(text: "First Name");
-  TextEditingController lastController =
-      TextEditingController(text: "Last Name");
-  TextEditingController passwordController = TextEditingController(text: "***");
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   TextEditingController otpController = TextEditingController();
 
@@ -35,10 +32,11 @@ class _RegisU extends State<RegisU> {
   bool sendOtpButtonVisible = true;
   bool verifyButtonVisible = false;
   bool registerButtonVisible = false;
-  bool loginButtonVisible = false;
+  bool loginButtonVisible = true;
   bool textVisible = false;
   bool sendOtpAgainButtonVisible = false;
 
+  bool showpassword = false;
 
   String verificationID = "";
 
@@ -55,31 +53,48 @@ class _RegisU extends State<RegisU> {
           children: [
             TextFormField(
               controller: phoneController,
-              decoration: InputDecoration(labelText: 'Enter your phone'),
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(),
+                labelText: 'Phone Number',
+                hintText: 'Enter your phone',
+              ),
               keyboardType: TextInputType.number,
-             // validate after each user interaction
+              // validate after each user interaction
               autovalidateMode: AutovalidateMode.onUserInteraction,
-                // The validator receives the text that the user has entered.
+              // The validator receives the text that the user has entered.
               validator: (phoneController) {
                 String pattern = r'(^(?:[0])?[0-9]{10,12}$)';
-                  RegExp regExp = new RegExp(pattern);
-                  if (phoneController == null || phoneController.isEmpty) {
-                    return 'Can\'t be empty';
-                  }
-                  if (phoneController.length < 4) {
-                    return 'Too short';
-                  }if(!regExp.hasMatch(phoneController)){
-                    return 'Phone number must be number and length 10 to 12';
-                  }
-                  return null;
-                  
-                },
+                RegExp regExp = new RegExp(pattern);
+                if (phoneController == null || phoneController.isEmpty) {
+                  return 'Can\'t be empty';
+                }
+                if (!regExp.hasMatch(phoneController)) {
+                  return 'Phone number must be number and length 10 to 12';
+                }
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 10,
             ),
             Visibility(
-              child: TextField(
-                controller: firstController,
-                decoration: InputDecoration(labelText: "FirstName"),
+              child: TextFormField(
+                controller: firstNameController,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                  labelText: 'FirstName',
+                  hintText: 'Enter your firstName',
+                ),
                 keyboardType: TextInputType.text,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (firstNameController) {
+                  if (firstNameController == null || firstNameController.isEmpty) {
+                    return 'Can\'t be empty';
+                  }
+                  return null;
+                },
               ),
               visible: firstNameVisible,
             ),
@@ -87,10 +102,21 @@ class _RegisU extends State<RegisU> {
               height: 10,
             ),
             Visibility(
-              child: TextField(
-                controller: lastController,
-                decoration: InputDecoration(labelText: "LastName"),
+              child: TextFormField(
+                controller: lastNameController,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                  labelText: 'LastName',
+                  hintText: 'Enter your lastName',
+                ),
                 keyboardType: TextInputType.text,
+                validator: (lastNameController) {
+                  if (lastNameController == null || lastNameController.isEmpty) {
+                    return 'Can\'t be empty';
+                  }
+                  return null;
+                },
               ),
               visible: lastNameVisible,
             ),
@@ -98,10 +124,36 @@ class _RegisU extends State<RegisU> {
               height: 10,
             ),
             Visibility(
-              child: TextField(
-                controller: passwordController,
-                decoration: InputDecoration(labelText: "Password"),
+              child: TextFormField(
                 keyboardType: TextInputType.text,
+                controller: passwordController,
+                obscureText: !showpassword, //This will obscure text dynamically
+                validator: (passwordController) {
+                  if (passwordController == null || passwordController.isEmpty) {
+                    return 'Can\'t be empty';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                  labelText: 'Password',
+                  hintText: 'Enter your password',
+                  // Here is key idea
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      // Based on passwordVisible state choose the icon
+                      showpassword ? Icons.visibility : Icons.visibility_off,
+                      color: Theme.of(context).primaryColorDark,
+                    ),
+                    onPressed: () {
+                      // Update the state i.e. toogle the state of passwordVisible variable
+                      setState(() {
+                        showpassword = !showpassword;
+                      });
+                    },
+                  ),
+                ),
               ),
               visible: passwordVisibility,
             ),
@@ -109,10 +161,21 @@ class _RegisU extends State<RegisU> {
               height: 10,
             ),
             Visibility(
-              child: TextField(
+              child: TextFormField(
                 controller: otpController,
-                decoration: InputDecoration(),
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                  labelText: 'Otp',
+                  hintText: 'Enter your otp number',
+                ),
                 keyboardType: TextInputType.number,
+                validator: (otpController) {
+                  if (otpController == null || otpController.isEmpty) {
+                    return 'Can\'t be empty';
+                  }
+                  return null;
+                },
               ),
               visible: otpVisibility,
             ),
@@ -121,11 +184,14 @@ class _RegisU extends State<RegisU> {
             ),
             Visibility(
               child: ElevatedButton(
-                  onPressed:() {
+                  onPressed: () {
                     loginWithPhone();
                   },
                   child: Text("send Otp")),
               visible: sendOtpButtonVisible,
+            ),
+            SizedBox(
+              height: 5,
             ),
             Visibility(
               child: ElevatedButton(
@@ -135,6 +201,9 @@ class _RegisU extends State<RegisU> {
                   child: Text("Send Otp Again")),
               visible: sendOtpAgainButtonVisible,
             ),
+            SizedBox(
+              height: 5,
+            ),
             Visibility(
               child: ElevatedButton(
                   onPressed: () {
@@ -143,35 +212,47 @@ class _RegisU extends State<RegisU> {
                   child: Text("Verify")),
               visible: verifyButtonVisible,
             ),
+            SizedBox(
+              height: 5,
+            ),
             Visibility(
               child: ElevatedButton(
                   onPressed: () {
-                    registerController.firstNameController = firstController;
-                    registerController.lastNameController = lastController;
+                    registerController.firstNameController = firstNameController;
+                    registerController.lastNameController = lastNameController;
                     registerController.phoneController = phoneController;
                     registerController.passwordController = passwordController;
-
                     registerController.registerUser(context);
                   },
                   child: Text("Register")),
               visible: registerButtonVisible,
             ),
-            Visibility(
-              child: Text('Click "Login" button if you have account'),
-              visible: registerButtonVisible,
-            ),
             SizedBox(
-              height: 10,
+              height: 5,
             ),
-            Visibility(
-              child: ElevatedButton(
-                  onPressed: () {
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: const Text("Already have an account?"),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                ),
+                GestureDetector(
+                  onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => LoginWithPhone()));
                   },
-                  child: Text("Login")),
-              visible: loginButtonVisible,
-            ),
+                  child: Container(
+                    child: const Text(
+                      " Sign in",
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
@@ -179,19 +260,38 @@ class _RegisU extends State<RegisU> {
   }
 
   void loginWithPhone() async {
+    //auth.setSettings(appVerificationDisabledForTesting: true);
     auth.verifyPhoneNumber(
       phoneNumber: countryCode + phoneController.text,
+      // verificationCompleted: (PhoneAuthCredential credential) async {
+      //   await auth.signInWithCredential(credential).then((value) {
+      //   });
+      // },
+
       verificationCompleted: (PhoneAuthCredential credential) async {
-        await auth.signInWithCredential(credential).then((value) {
-          print("You are logged in successfully");
-          print("coutry code:" +
-              countryCode +
-              ", " +
-              "phone number:" +
-              phoneController.text);
-        });
+        // ANDROID ONLY!
+        // Sign the user in (or link) with the auto-generated credential
+        await auth.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          Fluttertoast.showToast(
+              msg: "The provided phone number is not valid",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
+        Fluttertoast.showToast(
+            msg: "Error",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
         print(e.message);
       },
       codeSent: (String verificationId, int? resendToken) {
@@ -224,8 +324,6 @@ class _RegisU extends State<RegisU> {
       textVisible = true;
       setState(() {});
 
-      //Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginWithPhone()));
-      print("You are logged in successfully");
       Fluttertoast.showToast(
           msg: "Phone otp successfully",
           toastLength: Toast.LENGTH_SHORT,

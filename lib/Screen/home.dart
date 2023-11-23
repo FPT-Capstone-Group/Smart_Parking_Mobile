@@ -2,29 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:parking_auto/widget/button_widget.dart';
 import 'package:parking_auto/widget/navigation_drawer_widget.dart';
 
-
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
   _Home_Page createState() => _Home_Page();
 }
 
-class _Home_Page extends State<HomePage>  {
+class _Home_Page extends State<HomePage> {
   // final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   // late Future<String?> token;
 
- @override
+  @override
   void initState() {
     super.initState();
-    // token = _prefs.then((SharedPreferences prefs) {
-    //   print(prefs.getString('token'));
-    //   return prefs.getString('token');
-      
-    // });
   }
-
-  
 
   static final String title = 'Home Page';
   @override
@@ -41,14 +32,12 @@ class _Home_Page extends State<HomePage>  {
             child: ButtonWidget(
               icon: Icons.open_in_new,
               text: 'Open Menu Bar',
-
               onClicked: () {
                 Scaffold.of(context).openDrawer();
                 // Scaffold.of(context).openEndDrawer();
               },
             ),
           ),
-          
         ),
       );
 }
