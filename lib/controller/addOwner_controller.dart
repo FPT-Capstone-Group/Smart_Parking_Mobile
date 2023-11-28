@@ -1,19 +1,30 @@
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:parking_auto/Screen/face_camera.dart';
 import 'package:parking_auto/Screen/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class RegistrationBike {
+class AddOwnerController extends GetxController{
+
+  callFaceCameraScreen(){
+    Get.to(() => FaceCameraImage(), arguments: [
+    {"type": 'addOwner'},
+    {"second": 'Second data'}]);
+  }
+
   TextEditingController faceImagePath = TextEditingController();
   TextEditingController plateNumberController = TextEditingController();
+  TextEditingController relationshipController = TextEditingController();
   var dropValue ;
   int? feeId;
   
   //String? imagePath;
   var token;
-  Future registrion(BuildContext context) async {
+  Future addOwner() async {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token');
@@ -27,22 +38,21 @@ class RegistrationBike {
     //String urlLocalhost = "http://192.168.1.3:3000/api/registrations/create";
 
     // wifi test localhost mobile real
-   // String urlLocalhost = "http://192.168.0.4:3000/api/registrations/create";
+    String urlLocalhost = "http://192.168.0.4:3000/api/registrations/addOnwer";
 
-    const url = "https://server.smartparking.site/api/registrations/create";
-
-    var request = new http.MultipartRequest("POST", Uri.parse(url));
+    var request = new http.MultipartRequest("POST", Uri.parse(urlLocalhost));
     request.headers['Authorization'] = 'Bearer $token';
     //request.headers['Content-Type'] ='multipart/form-data';
 
-    if(dropValue.toString() == "One Month"){
-        feeId=1;
-    }else{
-        feeId=1;
-    }
+    // if(dropValue.toString() == "One Month"){
+    //     feeId=1;
+    // }else{
+    //     feeId=1;
+    // }
     request.fields['feeId'] = feeId.toString();
     print('feeid: '+ feeId.toString());
     request.fields['plateNumber'] = plateNumberController.text;
+    request.fields['relationship'] = relationshipController.text;
     request.files.add(await http.MultipartFile.fromPath(
       'faceImage',
       imagePath.toString(),
@@ -56,28 +66,18 @@ class RegistrationBike {
       //final Map<String, dynamic> parsed = json.decode(res.body);
 
       prefs.remove('imagePath');
-      print("-------------------------------");
+      print("------------------addOwner-------------");
       if (res.statusCode == 200) {
         Fluttertoast.showToast(
-            msg: "Registration successfull",
+            msg: "AddOnwer successfull",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ));
+        Get.to(HomePage(),);
       } else {
-        Fluttertoast.showToast(
-            msg: "Registration fail",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
         print(response.statusCode);
       }
 

@@ -39,6 +39,7 @@ class Data {
   String? createdAt;
   String? updatedAt;
   int? userId;
+  int? amount;
 
   Data(
       {this.registrationId,
@@ -50,7 +51,8 @@ class Data {
       this.hasPayment,
       this.createdAt,
       this.updatedAt,
-      this.userId});
+      this.userId,
+      this.amount});
 
   Data.fromJson(Map<String, dynamic> json) {
     registrationId = json['registrationId'];
@@ -63,6 +65,8 @@ class Data {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     userId = json['userId'];
+    amount = json['amount'] ?? 30000;
+   // price = json['price'] ?? 30000;
   }
 
   Map<String, dynamic> toJson() {
@@ -77,6 +81,7 @@ class Data {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['userId'] = this.userId;
+    data['amount'] = this.amount;
     return data;
   }
 }

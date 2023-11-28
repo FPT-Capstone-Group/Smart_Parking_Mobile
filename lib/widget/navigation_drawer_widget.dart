@@ -1,10 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:parking_auto/Screen/bike_of_user.dart';
 import 'package:parking_auto/Screen/face_camera.dart';
-import 'package:parking_auto/Screen/logout.dart';
 import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
+import 'package:parking_auto/Screen/setting.dart';
 import 'package:parking_auto/controller/get_current_user.dart';
+import 'package:parking_auto/controller/login_controller.dart';
+import 'package:parking_auto/controller/logout_controller.dart';
 
 
 class NavigationDrawerWidget extends StatefulWidget {
@@ -14,27 +18,26 @@ class NavigationDrawerWidget extends StatefulWidget {
   _NavigationDrawerWidget createState() => _NavigationDrawerWidget();
 }
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
-  var firstNameCurrent ="aa";
-  var lastNameCurrent ="aa";
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadData();
-  // }
+  final logincontroller = Get.put(LoginController());
+  LogoutController logout = LogoutController();
+  //LoginController loginController = LoginController();
+  //var data = Get.arguments;
 
-  // _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     firstNameCurrent = prefs.getString('firstName');
-  //     if (firstNameCurrent == null) {
-  //       firstNameCurrent = ' ';
-  //     }
-  //     lastNameCurrent = prefs.getString('lastName');
-  //     if (lastNameCurrent == null) {
-  //       lastNameCurrent = ' ';
-  //     }
-  //   });
-  // }
+  LoginController loginController = Get.find();
+  
+  @override
+  void initState() {
+    super.initState();
+    checkNull();
+  }
+
+  checkNull()  {
+    setState(() {
+      if(loginController.fullName == null || loginController.fullName == ""){
+        loginController.fullName = " ";
+      }
+    });
+  }
 
 //class NavigationDrawerWidget extends StatelessWidget {
   // GetUserController getuser= GetUserController();
@@ -52,11 +55,11 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
           children: <Widget>[
             buildHeader(
              // urlImage: urlImage,
-              firstName: firstNameCurrent,
-              lastName: lastNameCurrent,
+              fullName: "Welcome " + loginController.fullName,
+              //lastName: lastNameCurrent,
               onClicked: () {
                  GetUserController get = GetUserController();
-                get.getUserData(context);
+                get.getUserData();
               },
             ),
             Container(
@@ -68,7 +71,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   Divider(color: Colors.white70),
                   const SizedBox(height: 24),
                   buildMenuItem(
-                    text: 'Profile  ',
+                    text: 'Profile',
                     icon: Icons.people,
                     onClicked: () => selectedItem(context, 0),
                   ),
@@ -92,9 +95,15 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
+                    text: 'List Bike',
+                    icon: Icons.list,
+                    onClicked: () => selectedItem(context, 4),
+                  ),
+                  const SizedBox(height: 16),
+                  buildMenuItem(
                     text: 'Payment',
                     icon: Icons.payment,
-                    onClicked: () => selectedItem(context, 4),
+                    onClicked: () => selectedItem(context, 5),
                   ),
                   const SizedBox(height: 24),
                   Divider(color: Colors.white70),
@@ -102,13 +111,13 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   buildMenuItem(
                     text: 'Notifications',
                     icon: Icons.notifications_outlined,
-                    onClicked: () => selectedItem(context, 5),
+                    onClicked: () => selectedItem(context, 6),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Logout',
-                    icon: Icons.logout,
-                    onClicked: () => selectedItem(context, 6),
+                    text: 'Settings',
+                    icon: Icons.settings,
+                    onClicked: () => selectedItem(context, 7),
                     
                   ),
                 ],
@@ -121,8 +130,8 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   }
 
   Widget buildHeader({
-    required String firstName,
-    required String lastName,
+    required String fullName,
+    //required String lastName,
     // required String email,
     required VoidCallback onClicked,
   }) =>
@@ -138,14 +147,14 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    firstName,
+                    fullName,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    lastName,
-                    style: TextStyle(fontSize: 14, color: Colors.white),
-                  ),
+                  // const SizedBox(height: 4),
+                  // Text(
+                  //   lastName,
+                  //   style: TextStyle(fontSize: 14, color: Colors.white),
+                  // ),
                 ],
               ),
               Spacer(),
@@ -180,52 +189,53 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
 
     switch (index) {
       case 0:
-      // Navigator.of(context).push(MaterialPageRoute(
-      //     builder: (context) => MyproFile(),
-      //   ));
-        // Navigator.of(context).push(MaterialPageRoute(
-        //   builder: (context) => MyproFile(),
-        // ));
+      
+        // Get.to(MyproFile());
+        GetUserController get = GetUserController();
+                get.getUserData();
+        break;
+      case 1:
+       Get.to(FaceCameraImage());
         // Navigator.of(context).push(MaterialPageRoute(
         //   builder: (context) => FaceCameraImage(),
         // ));
-        GetUserController get = GetUserController();
-                get.getUserData(context);
-        break;
-      case 1:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => FaceCameraImage(),
-        ));
         break;
       case 2:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => RegistrationHistory(),
-        ));
+      Get.to(RegistrationHistory());
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => RegistrationHistory(),
+        // ));
         break;
       case 3:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => RegistrationHistory(),
-        ));
+       Get.to(RegistrationHistory());
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => RegistrationHistory(),
+        // ));
         break;
       case 4:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => RegistrationHistory(),
-        ));
+       Get.to(BikeOfUser());
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => BikeOfUser(),
+        // ));
         break;
       case 5:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => NotificationPage(),
-        ));
+      Get.to(BikeOfUser());
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => NotificationPage(),
+        // ));
         break;
       case 6:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Logout(),
-        ));
+      Get.to(NotificationPage());
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => Logout(),
+        // ));
         break;
       case 7:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Logout(),
-        ));
+          //logout.logout(context);
+        Get.to(SettingsPage());
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => Logout(),
+        // ));
         break;
     }
   }

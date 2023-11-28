@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:parking_auto/Screen/home.dart';
 
 class RegistrationDetail extends StatelessWidget  {
@@ -21,7 +20,7 @@ class _RegistrationDetail extends StatefulWidget {
 class _HomeState extends State<_RegistrationDetail> {
   
 
-  XFile? image;
+  // XFile? image;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
