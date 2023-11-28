@@ -39,7 +39,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   @override
   void initState() {
     super.initState();
-    getUser.getUserData(context);
+    getUser.getUserData();
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -82,7 +82,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
               onPressed: () {
-                getUser.getUserData(context);
+                getUser.getUserData();
               },
               child: const Text('Getdata'),
             ),

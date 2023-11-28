@@ -1,31 +1,31 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:parking_auto/Screen/registrationdetail.dart';
+import 'package:parking_auto/Screen/bike_history.dart';
 import 'package:parking_auto/controller/get_registraion_controller.dart';
 import 'package:parking_auto/model/registration_respone_model.dart';
 
-class RegistrationHistory extends StatelessWidget {
-  static const routeNamed = '/registrationHistoryScreen';
-  const RegistrationHistory({super.key});
+class BikeOfUser extends StatelessWidget {
+  const BikeOfUser({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Registration History'),
+          title: const Text('Bike'),
         ),
-        body: const MyStatefulWidget());
+        body: const _BikeOfUser());
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
+class _BikeOfUser extends StatefulWidget {
+  const _BikeOfUser({super.key});
 
   @override
-  State<MyStatefulWidget> createState() => _RegistrationHistory();
+  State<_BikeOfUser> createState() => _BikeOfUsers();
 }
 
-class _RegistrationHistory extends State<MyStatefulWidget> {
-  late AnimationController controller;
+class _BikeOfUsers extends State<_BikeOfUser> {
   GetRegistraionController getData = GetRegistraionController();
   List<Data>? listData;
 
@@ -39,8 +39,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     final list = listData;
     if (list == null) {
-
-     return Container(
+      return Container(
         color: Colors.grey[300],
         child: const Center(child: CircularProgressIndicator()),
       );
@@ -53,7 +52,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
             onTap: () async {
               final needReload = await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => RegistrationDetail(item),
+                  builder: (context) => BikeDetail(item),
                 ),
               );
               if (needReload == true) {
@@ -72,16 +71,16 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "ID: ${item.registrationId}",
+                    "Bike: ${item.registrationId}",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "Status: ${item.registrationStatus}",
+                    "CheckIn: ${item.registrationStatus}",
                   ),
                   Text(
-                    "PlateNumber: ${item.plateNumber}",
+                    "CheckOut: ${item.plateNumber}",
                   ),
                 ],
               ),

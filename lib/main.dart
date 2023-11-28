@@ -1,10 +1,21 @@
+
 import 'package:face_camera/face_camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:parking_auto/Screen/home.dart';
 import 'package:parking_auto/Screen/login.dart';
-import 'package:parking_auto/Screen/otp_phone.dart';
+import 'package:parking_auto/Screen/profile.dart';
+import 'package:parking_auto/Screen/register_account.dart';
+import 'package:parking_auto/Screen/registration_hitory.dart';
+import 'package:parking_auto/Screen/setting.dart';
+// import 'package:parking_auto/Screen/my_profile.dart';
+// import 'package:parking_auto/Screen/register_account.dart';
+// import 'package:parking_auto/Screen/registration_hitory.dart';
+
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
 
    // firebase option parkingauto (gmail:hekimta@gmail.com)
@@ -39,9 +50,9 @@ Future<void> main() async {
   );
   // await Firebase.initializeApp();
   FaceCamera.initialize();
-  runApp(MyApp());
+  runApp(GetMaterialApp(home: MyApp()));
+  //runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -50,57 +61,43 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: RegisterUser(),
       //home: HomePage(),
-      //home: RegistrationHistory(),
-      home: 
-      LoginWithPhone(),
-      //home: LoginWithPhone(),
+       home:LoginWithPhone(),
     );
   }
 }
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
+class MainScreen extends StatelessWidget {
+   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Select Option"),
-      ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => OtpPhone()));
-                },
-                child: Text("Login with google")),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => OtpPhone()));
-                },
-                child: Text("Login with facebook")),
-
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => OtpPhone()));
-                },
-                child: Text("Login with Phone")),
-
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => OtpPhone()));
-                },
-                child: Text("Login with Twitter"))
-          ],
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: LoginWithPhone.routeNamed,
+      getPages: [
+        // GetPage(
+        //   name: MyproFile.routeNamed,
+        //   page: () => MyproFile(),
+        // ),
+        GetPage(
+          name: RegisterAccountScreen.routeNamed,
+          page: () => RegisterAccountScreen(),
         ),
-      ),
+        GetPage(
+          name: ProFile.routeNamed,
+          page: () => ProFile(),
+        ),
+        GetPage(
+          name: HomePage.routeNamed,
+          page: () => HomePage(),
+        ),
+        GetPage(
+          name: RegistrationHistory.routeNamed,
+          page: () => RegistrationHistory(),
+        ),
+        GetPage(
+          name: SettingsPage.routeNamed,
+          page: () => SettingsPage(),
+        ),
+      ],
     );
   }
 }

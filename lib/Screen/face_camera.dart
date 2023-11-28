@@ -3,19 +3,19 @@ import 'dart:io';
 import 'package:face_camera/face_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:parking_auto/Screen/registration.dart';
+import 'package:get/get.dart';
+import 'package:parking_auto/Screen/create_registration.dart';
 import 'package:parking_auto/controller/registration_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class FaceCameraImage extends StatefulWidget {
   const FaceCameraImage({Key? key}) : super(key: key);
-
   @override
   _FaceCameraTest createState() => _FaceCameraTest();
 }
 
 class _FaceCameraTest extends State<FaceCameraImage> {
+  dynamic argumentData = Get.arguments;
   RegistrationBike registrationBike = RegistrationBike();
   File? _capturedImage;
   var imgPath;
@@ -30,7 +30,7 @@ class _FaceCameraTest extends State<FaceCameraImage> {
             if (_capturedImage != null) {
               return Center(
                 child: Column(
-                 // alignment: Alignment.bottomCenter,
+                  // alignment: Alignment.bottomCenter,
                   children: [
                     Image.file(
                       _capturedImage!,
@@ -45,47 +45,56 @@ class _FaceCameraTest extends State<FaceCameraImage> {
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w700),
                         )),
-                           ElevatedButton(
+                    ElevatedButton(
                         onPressed: () {
-                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Registration(),
-                          ));
+
+                            
+                            if(argumentData[0]['type'] == "addOwner"){
+                               Get.to(() => Registration(), arguments: [
+                                {"type": 'addOwner'},
+                              ]);
+                            }else{
+                              Get.to(() => Registration(), arguments: [
+                                {"type": 'registration'},
+                              ]);
+                            }
+
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //   builder: (context) => Registration(),
+                          // ));
                         },
                         child: const Text(
                           'Next',
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                              fontSize: 14,),
+                            fontSize: 14,
+                          ),
                         ))
-                        
                   ],
                 ),
               );
-              
             }
             return SmartFaceCamera(
                 autoCapture: true,
                 defaultCameraLens: CameraLens.front,
                 onCapture: (File? image) async {
-                 
                   setState(() => _capturedImage = image);
-                  imgPath= image!.path;
+                  imgPath = image!.path;
                   //registrationBike.imagePath = imgPath;
-                   Fluttertoast.showToast(
+                  Fluttertoast.showToast(
                       msg: "capture sucessfully",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,  
+                      backgroundColor: Colors.red,
                       textColor: Colors.white,
-                      fontSize: 12.0
-                  );
+                      fontSize: 12.0);
                   //save image path
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.remove('imagePath');
-                    prefs.setString('imagePath', imgPath);
-                    print(imgPath);
-                 
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove('imagePath');
+                  prefs.setString('imagePath', imgPath);
+                  print(imgPath);
                 },
                 onFaceDetected: (Face? face) {
                   //Do something
@@ -99,10 +108,7 @@ class _FaceCameraTest extends State<FaceCameraImage> {
                   }
                   return const SizedBox.shrink();
                 });
-                
-          }
-          )
-          ),
+          })),
     );
   }
 

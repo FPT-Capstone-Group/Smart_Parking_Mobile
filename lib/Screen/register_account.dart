@@ -1,22 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:parking_auto/Screen/login.dart';
 import 'package:parking_auto/controller/register_controller.dart';
 
-class RegisU extends StatefulWidget {
-  const RegisU({Key? key}) : super(key: key);
+class RegisterAccountScreen extends StatefulWidget {
+  static const routeNamed = '/registerAccountScreen';
+  const RegisterAccountScreen({Key? key}) : super(key: key);
 
   @override
   _RegisU createState() => _RegisU();
 }
 
-class _RegisU extends State<RegisU> {
+class _RegisU extends State<RegisterAccountScreen> {
+  final registerForm = GlobalKey<FormState>();
+  final login = Get.put(LoginWithPhone());
   var countryCode = "+84";
   //TextEditingController phoneController = TextEditingController(text: "+84867698543");
   TextEditingController phoneController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
+  //TextEditingController lastNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   TextEditingController otpController = TextEditingController();
@@ -46,8 +50,9 @@ class _RegisU extends State<RegisU> {
       appBar: AppBar(
         title: Text("Register"),
       ),
-      body: Container(
-        margin: EdgeInsets.all(10),
+      body: Form(
+      key: registerForm,
+        //margin: EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -80,12 +85,12 @@ class _RegisU extends State<RegisU> {
             ),
             Visibility(
               child: TextFormField(
-                controller: firstNameController,
+                controller: fullNameController,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(),
-                  labelText: 'FirstName',
-                  hintText: 'Enter your firstName',
+                  labelText: 'FullName',
+                  hintText: 'Enter your FullName',
                 ),
                 keyboardType: TextInputType.text,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -101,28 +106,7 @@ class _RegisU extends State<RegisU> {
             SizedBox(
               height: 10,
             ),
-            Visibility(
-              child: TextFormField(
-                controller: lastNameController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(),
-                  labelText: 'LastName',
-                  hintText: 'Enter your lastName',
-                ),
-                keyboardType: TextInputType.text,
-                validator: (lastNameController) {
-                  if (lastNameController == null || lastNameController.isEmpty) {
-                    return 'Can\'t be empty';
-                  }
-                  return null;
-                },
-              ),
-              visible: lastNameVisible,
-            ),
-            SizedBox(
-              height: 10,
-            ),
+           
             Visibility(
               child: TextFormField(
                 keyboardType: TextInputType.text,
@@ -185,7 +169,10 @@ class _RegisU extends State<RegisU> {
             Visibility(
               child: ElevatedButton(
                   onPressed: () {
-                    loginWithPhone();
+                     if (registerForm.currentState!.validate()) {
+                        loginWithPhone();
+                      }
+                    //loginWithPhone();
                   },
                   child: Text("send Otp")),
               visible: sendOtpButtonVisible,
@@ -218,11 +205,11 @@ class _RegisU extends State<RegisU> {
             Visibility(
               child: ElevatedButton(
                   onPressed: () {
-                    registerController.firstNameController = firstNameController;
-                    registerController.lastNameController = lastNameController;
+                    registerController.fullNameController = fullNameController;
                     registerController.phoneController = phoneController;
                     registerController.passwordController = passwordController;
-                    registerController.registerUser(context);
+                    
+                    registerController.registerUser();
                   },
                   child: Text("Register")),
               visible: registerButtonVisible,
