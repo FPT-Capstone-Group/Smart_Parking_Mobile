@@ -5,6 +5,7 @@ import 'package:parking_auto/controller/addOwner_controller.dart';
 import 'package:parking_auto/controller/registration_controller.dart';
 
 const List<String> list = <String>['One Month', 'One Year'];
+const List<String> gender = <String>['Male', 'Female'];
 
 class Registration extends StatelessWidget {
   //final String urlImage;
@@ -25,36 +26,28 @@ class _Registration extends StatefulWidget {
 class _HomeState extends State<_Registration> {
   final registrationForm = GlobalKey<FormState>();
   final addOnwerController = Get.put(AddOwnerController());
-  dynamic argumentData = Get.arguments;
-  TextEditingController fullNameController = TextEditingController();
+
   TextEditingController plateNumberController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController manufactureController = TextEditingController();
   TextEditingController modelBikeController = TextEditingController();
   TextEditingController relationshipController = TextEditingController();
+  TextEditingController registrationNumberController = TextEditingController();
+
   bool relationship = false;
-  String dropdownValue = list.first;
+  String dropdownFee = list.first;
+  String dropdownGender = gender.first;
 
-  RegistrationBike registrationBike = RegistrationBike();
-
-  @override
-  void initState() {
-    super.initState();
-    if (argumentData[0]['type'] == "addOwner") {
-      relationship = true;
-    } else {
-
-    }
-  }
+  RegistrationController registration = RegistrationController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: Text("Registration"), backgroundColor: Colors.redAccent),
-        body:  Form(
-        key: registrationForm,
-           // padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-           // alignment: Alignment.topCenter,
+        body: Form(
+            key: registrationForm,
+            // padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+            // alignment: Alignment.topCenter,
             child: SingleChildScrollView(
                 child: Column(
               children: [
@@ -65,12 +58,12 @@ class _HomeState extends State<_Registration> {
                   textAlign: TextAlign.left,
                 ),
                 TextFormField(
-                  controller: fullNameController,
+                  controller: registrationNumberController,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
-                    labelText: 'Full Name',
-                    hintText: 'Enter your full name',
+                    labelText: "Driver's license",
+                    hintText: "Enter your Driver's license",
                   ),
                   keyboardType: TextInputType.text,
                   validator: (fullNameController) {
@@ -105,12 +98,12 @@ class _HomeState extends State<_Registration> {
                 const SizedBox(height: 10),
                 //Divider(color: Colors.white70),
                 TextFormField(
-                  controller: descriptionController,
+                  controller: manufactureController,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
-                    labelText: 'Description',
-                    hintText: 'Enter description',
+                    labelText: 'Manufacture',
+                    hintText: 'Enter manufacture',
                   ),
                   keyboardType: TextInputType.text,
                   validator: (descriptionController) {
@@ -127,8 +120,8 @@ class _HomeState extends State<_Registration> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
-                    labelText: 'Model bike',
-                    hintText: 'Enter model bike',
+                    labelText: 'Model',
+                    hintText: 'Enter model ',
                   ),
                   keyboardType: TextInputType.text,
                   validator: (modelBikeController) {
@@ -141,30 +134,10 @@ class _HomeState extends State<_Registration> {
                 ),
                 const SizedBox(height: 10),
 
-                Visibility(
-                  child: TextFormField(
-                    controller: relationshipController,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(),
-                      labelText: 'Otp',
-                      hintText: 'Enter your otp number',
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (otpController) {
-                      if (otpController == null || otpController.isEmpty) {
-                        return 'Can\'t be empty';
-                      }
-                      return null;
-                    },
-                  ),
-                  visible: relationship,
-                ),
-
                 //Divider(color: Colors.white70),
                 //---------dropdownButton value------
                 DropdownButton<String>(
-                  value: dropdownValue,
+                  value: dropdownFee,
                   icon: const Icon(Icons.arrow_downward),
                   elevation: 16,
                   style: const TextStyle(color: Colors.deepPurple),
@@ -175,7 +148,7 @@ class _HomeState extends State<_Registration> {
                   onChanged: (String? value) {
                     // This is called when the user selects an item.
                     setState(() {
-                      dropdownValue = value!;
+                      dropdownFee = value!;
                     });
                   },
                   items: list.map<DropdownMenuItem<String>>((String value) {
@@ -186,36 +159,78 @@ class _HomeState extends State<_Registration> {
                   }).toList(),
                 ),
                 //---------dropdownButton value------
+                DropdownButton<String>(
+                  value: dropdownGender,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      dropdownGender = value!;
+                    });
+                  },
+                  items: gender.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                //---------dropdownButton value------
                 const SizedBox(height: 10),
                 ElevatedButton(
                     onPressed: () {
-                      if (argumentData[0]['type'] == "addOwner") {
-                        addOnwerController.dropValue = dropdownValue;
-                        addOnwerController.plateNumberController = plateNumberController;
+                      registration.dropFee                        = dropdownFee;
+                      registration.dropGender                     = dropdownGender;
+                      registration.plateNumberController          = plateNumberController;
+                      registration.manufactureController          = manufactureController;
+                      registration.modelBikeController            = modelBikeController;
+                      registration.registrationNumberController    =registrationNumberController;
 
-                        addOnwerController.addOwner();
-                      } else {
-                        registrationBike.dropValue = dropdownValue;
-                        registrationBike.plateNumberController = plateNumberController;
-
-                        registrationBike.registrion(context);
-                      }
-                      // registrationBike.dropValue = dropdownValue;
-                      // registrationBike.plateNumberController = plateNumberController;
-
-                      // registrationBike.registrion(context);
+                      registration.create(context);
                     },
-                    child: Text("Submit")),
+                    child: const SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Submit",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20),
+                      )
+                      ),
+                      style: ElevatedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      primary: Colors.white,
+                      onPrimary: Colors.blue,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+              
+                    ),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => HomePage()));
                     },
-                    child: Text("Home")),
+                     child: const SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Home",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20),
+                      )
+                      ),
+                      style: ElevatedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      primary: Colors.white,
+                      onPrimary: Colors.blue,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+              ),
               ],
-            )
-            )
-            )
-            );
+            ))));
   }
 }

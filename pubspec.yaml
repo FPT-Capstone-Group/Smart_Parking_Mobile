@@ -43,11 +43,6 @@ dependencies:
   fluttertoast: ^8.0.8
 
   shared_preferences: ^2.2.2
-  # image_picker_widget: ^2.4.1
-
-
-  # flutter_3d_choice_chip: ^0.1.4
-
 
   # image_picker: ^1.0.4
   camera: ^0.10.5+5
@@ -63,6 +58,7 @@ dependencies:
   momo_vn:
     git: https://github.com/minhvn/momo.vn.git
   profile: ^0.0.1
+  flutter_image_compress: ^2.1.0
 
 dev_dependencies:
   flutter_test:

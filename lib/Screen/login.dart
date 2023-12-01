@@ -4,7 +4,6 @@ import 'package:parking_auto/Screen/register_account.dart';
 import 'package:parking_auto/controller/login_controller.dart';
 import 'package:parking_auto/controller/register_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 class LoginWithPhone extends StatefulWidget {
   static const routeNamed = '/loginScreen';
   //const LoginWithPhone({Key? key}) : super(key: key);
@@ -14,12 +13,14 @@ class LoginWithPhone extends StatefulWidget {
 }
 
 class _LoginWithPhoneState extends State<LoginWithPhone> {
+ // dynamic argumentData = Get.arguments;
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final logincontroller = Get.put(LoginController());
   final registerController = Get.put(RegisterController());
-  String? phoneCurrent;
+  String? phoneRegisterCurrent;
+  String? phoneCurrentSavedShared;
   //var fullName;
   @override
   void initState() {
@@ -30,19 +31,11 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
   _loadPhoneCurrent() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      phoneCurrent = registerController.phoneController.text;
-      if (phoneCurrent == null || phoneCurrent =='') {
-        phoneCurrent = prefs.getString("phoneCurrent"); 
+      phoneCurrentSavedShared = prefs.getString("phoneCurrent"); 
+      if(phoneCurrentSavedShared == null){
+        phoneCurrentSavedShared = "";
       }
-      if (phoneCurrent == null) {
-        phoneCurrent = '';
-      }
-      logincontroller.phoneNumberController.text = phoneCurrent.toString();
-      logincontroller.passwordController.text = "";
-      // fullName = prefs.getString("fullName"); 
-      // if(fullName == null){
-      //   fullName = " ";
-      // }
+       phoneNumberController.text = phoneCurrentSavedShared.toString();
     });
   }
 
@@ -53,7 +46,10 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+  
+      
       appBar: AppBar(
+        
         title: Text("Login"),
       ),
      
@@ -62,6 +58,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
       child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
         children: [
+           
          // Text("Hello " + fullName.toString(),),
           TextFormField(
               keyboardType: TextInputType.number,
@@ -87,7 +84,6 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
             SizedBox(
               height: 10,
             ),
-
 
           TextFormField(
             keyboardType: TextInputType.text,
@@ -130,14 +126,26 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 if (_formKey.currentState!.validate()) {
                   logincontroller.phoneNumberController = phoneNumberController;
                   logincontroller.passwordController = passwordController;
-                 print("phone login controller");
-                print(phoneNumberController.text);
+            
                   logincontroller.loginUser();
-                 //Get.to(RegisterAccountScreen()); 
                 }
               },
-              child: const Text('Submit'),
+              child: const SizedBox(
+          width: double.infinity,
+          child: Text(
+            "Sign in ",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+          )
+          ),
+      style: ElevatedButton.styleFrom(
+        shape: const StadiumBorder(),
+        primary: Colors.white,
+        onPrimary: Colors.blue,
+        padding: const EdgeInsets.symmetric(vertical: 16),
+      ),
             ),
+            
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -161,6 +169,8 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 )
               ],
             ),
+
+           
         ],
       ),
       
@@ -168,6 +178,14 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
     
 
 
+    );
+  }
+  Widget _icon() {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.white, width: 2),
+          shape: BoxShape.circle),
+      child: const Icon(Icons.person, color: Colors.white, size: 50),
     );
   }
 }

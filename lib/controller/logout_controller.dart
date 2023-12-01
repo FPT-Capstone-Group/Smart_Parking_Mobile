@@ -8,8 +8,8 @@ class LogoutController extends GetxController {
   logout() async {
    
     SharedPreferences prefs = await SharedPreferences.getInstance();
-     prefs.remove('token');
-    prefs.remove('imagePath');
+      prefs.remove('token');
+      prefs.remove('imagePath');
 
    Get.to(LoginWithPhone());
     

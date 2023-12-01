@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:parking_auto/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentController {
@@ -16,7 +17,7 @@ class PaymentController {
 
       //wifi localhost test real mobile
       //String url = "http://192.168.0.4:3000/api/payments/submit";
-      String url = "http://10.233.1.65:3000/api/payments/submit";
+      String url = "${Constants.host}/api/payments";
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token').toString();

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/bike_of_user.dart';
-import 'package:parking_auto/Screen/face_camera.dart';
-import 'package:parking_auto/Screen/my_profile.dart';
+import 'package:parking_auto/Screen/face_camera_registration.dart';
 import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
+import 'package:parking_auto/Screen/user_profile.dart';
 import 'package:parking_auto/widget/navigation_drawer_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,9 +78,7 @@ class _Home_Page extends State<HomePage> {
                                 height: 10.0,
                               ),
                              TextButton(onPressed: () {
-                               Get.to(() => FaceCameraImage(), arguments: [
-                                {"type": 'registration'},
-                              ]);
+                               Get.to(() => FaceCameraRegistration(), );
                                     // Get.to(FaceCameraImage());
                                   }, child: Text(
                                     "Registration",
@@ -210,7 +208,9 @@ class _Home_Page extends State<HomePage> {
                                     height: 5.0,
                                   ),
                                   TextButton(onPressed: () {
-                                     Get.to(MyProFile());
+                                  //  GetUController getUser = GetUController();
+                                  //   getUser.getU();
+                                   Get.to(GetUPage());
                                   }, child: Text(
                                     "Profile",
                                     style: TextStyle(

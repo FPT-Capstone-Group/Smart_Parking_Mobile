@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:parking_auto/model/registration_respone_model.dart';
+import 'package:get/get.dart';
+import 'package:parking_auto/Screen/face_camera_registrationOwner.dart';
+import 'package:parking_auto/model/listBike_model.dart';
 
 class BikeDetail extends StatefulWidget {
   const BikeDetail(this.item, {super.key});
@@ -38,7 +40,7 @@ class _BikeDetail extends State<BikeDetail> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text('Bike history log'),
+          title: Text('Bike detail'),
           centerTitle: true,
           backgroundColor: Colors.green,
         ),
@@ -50,22 +52,45 @@ class _BikeDetail extends State<BikeDetail> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "ID: ${widget.item.registrationId}",
+                  "ID: ${widget.item.bikeId}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  "Status: ${widget.item.registrationStatus}",
+                  "Status: ${widget.item.status}",
                 ),
                 Text(
                   "PlateNumber: ${widget.item.plateNumber}",
                 ),
                 Text(
-                  "Price: ${widget.item.amount}" + "vnd",
+                  "model: ${widget.item.model}",
+                ),
+                Text(
+                  "manufacture: ${widget.item.manufacture}",
                 ),
                 const SizedBox(height: 16),
-            
+                ElevatedButton(
+              onPressed: () {
+                // AddOwnerController add = AddOwnerController();
+                //   add.addOwner();
+                Get.to(FaceCameraImageOwner());
+              },
+              child: const SizedBox(
+          width: double.infinity,
+          child: Text(
+            "Add Owner ",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+          )
+          ),
+      style: ElevatedButton.styleFrom(
+        shape: const StadiumBorder(),
+        primary: Colors.white,
+        onPrimary: Colors.blue,
+        padding: const EdgeInsets.symmetric(vertical: 16),
+      ),
+            ),
               ],
             ),
           ),

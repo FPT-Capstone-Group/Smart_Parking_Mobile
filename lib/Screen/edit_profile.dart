@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/controller/editProfile_controller.dart';
 import 'package:parking_auto/controller/login_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProFile extends StatefulWidget  {
    const EditProFile({super.key});
-   static const routeNamed = '/editProileScreen';
+   static const routeNamed = '/editProfileScreen';
   @override
   _EditProFile createState() => _EditProFile();
 }
@@ -13,16 +14,42 @@ class EditProFile extends StatefulWidget  {
 class _EditProFile extends State<EditProFile> {
   final editProfileKey = GlobalKey<FormState>();
   LoginController loginController = Get.find();
+  final getUser = Get.put(LoginController());
   EditProfileController editProfileController = EditProfileController();
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  String? fullNameCurrentSavedShared;
+  String? phoneCurrentSavedShared;
+ @override
+  void initState() {
+    super.initState();
+    _loadPhoneCurrent();
+  }
+
+  _loadPhoneCurrent() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      var 
+      phoneCurrentSavedShared = prefs.getString("phoneCurrent"); 
+      if(phoneCurrentSavedShared == null){
+        phoneCurrentSavedShared = "";
+      }
+       phoneNumberController.text = phoneCurrentSavedShared.toString();
+    
+    fullNameCurrentSavedShared = prefs.getString("fullName"); 
+      if(fullNameCurrentSavedShared == null){
+        fullNameCurrentSavedShared = "";
+      }
+       fullNameController.text = fullNameCurrentSavedShared.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    fullNameController.text = loginController.fullName;
-    phoneNumberController.text = loginController.phoneNumber;
+    // fullNameController.text = loginController.fullName;
+    // phoneNumberController.text = loginController.phoneNumber;
 
     // editProfileController.fullName.text = logincontroller.phoneNumberController.toString();
     // editProfileController.phoneNumberController.text = logincontroller.fullName.toString();
@@ -34,6 +61,9 @@ class _EditProFile extends State<EditProFile> {
       key: editProfileKey,
        // margin: EdgeInsets.all(20),
         child: ListView(children: [ 
+          const SizedBox(
+            height: 30,
+          ),
           TextFormField(
                 controller: fullNameController,
                 decoration: InputDecoration(
@@ -81,22 +111,35 @@ class _EditProFile extends State<EditProFile> {
           const SizedBox(
             height: 10,
           ),
+         
           ElevatedButton(
+            style: raisedButtonStyle,
             onPressed: () {
               editProfileController.fullNameController = fullNameController;
               editProfileController.phoneNumberController = phoneNumberController;
-             print("fullname");
-              print(fullNameController);
+
              editProfileController.updateUser();
             },
-            child: Text('update data'),
+            child: Text('Update data'),
           ),
           const SizedBox(
             height: 10,
           ),
-        ])
-        ,
+        ]
+        ),
+        
+        
       ),
     );
   }
+  final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+    maximumSize: Size(88, 36),
+  onPrimary: Colors.black87,
+  primary: Colors.grey[300],
+  minimumSize: Size(88, 36),
+  //padding: EdgeInsets.symmetric(horizontal: 16),
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(22)),
+  ),
+);
 }

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:face_camera/face_camera.dart';
@@ -8,15 +9,15 @@ import 'package:parking_auto/Screen/create_registration.dart';
 import 'package:parking_auto/controller/registration_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FaceCameraImage extends StatefulWidget {
-  const FaceCameraImage({Key? key}) : super(key: key);
+class FaceCameraRegistration extends StatefulWidget {
+  const FaceCameraRegistration({Key? key}) : super(key: key);
   @override
-  _FaceCameraTest createState() => _FaceCameraTest();
+  _FaceCamera createState() => _FaceCamera();
 }
 
-class _FaceCameraTest extends State<FaceCameraImage> {
+class _FaceCamera extends State<FaceCameraRegistration> {
   dynamic argumentData = Get.arguments;
-  RegistrationBike registrationBike = RegistrationBike();
+  RegistrationController registrationBike = RegistrationController();
   File? _capturedImage;
   var imgPath;
   @override
@@ -47,21 +48,10 @@ class _FaceCameraTest extends State<FaceCameraImage> {
                         )),
                     ElevatedButton(
                         onPressed: () {
-
-                            
-                            if(argumentData[0]['type'] == "addOwner"){
-                               Get.to(() => Registration(), arguments: [
-                                {"type": 'addOwner'},
-                              ]);
-                            }else{
-                              Get.to(() => Registration(), arguments: [
-                                {"type": 'registration'},
-                              ]);
-                            }
-
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //   builder: (context) => Registration(),
-                          // ));
+                           
+                              Get.to(() => Registration(), );
+                 
+                      
                         },
                         child: const Text(
                           'Next',
@@ -94,7 +84,25 @@ class _FaceCameraTest extends State<FaceCameraImage> {
                       await SharedPreferences.getInstance();
                   prefs.remove('imagePath');
                   prefs.setString('imagePath', imgPath);
+                  
                   print(imgPath);
+
+                    Future<String> imto64(File image) async{
+                      List<int> imgByte = await image.readAsBytes();
+                      String base64 = base64Encode(imgByte);
+                      print(base64);
+
+                      return base64;
+                    }
+                    
+                    imto64(image);
+                    print("-------------------");
+
+                  //   _write(String text) async {
+                  //   final Directory directory = await getApplicationDocumentsDirectory();
+                  //   final File file = File('${directory.path}/my_file.txt');
+                  //   await file.writeAsString(text);
+                  // }            
                 },
                 onFaceDetected: (Face? face) {
                   //Do something
@@ -111,6 +119,7 @@ class _FaceCameraTest extends State<FaceCameraImage> {
           })),
     );
   }
+     
 
   Widget _message(String msg) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 55, vertical: 15),
@@ -119,4 +128,6 @@ class _FaceCameraTest extends State<FaceCameraImage> {
             style: const TextStyle(
                 fontSize: 14, height: 1.5, fontWeight: FontWeight.w400)),
       );
+      
 }
+    

@@ -1,9 +1,9 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:parking_auto/Screen/bike_history.dart';
-import 'package:parking_auto/controller/get_registraion_controller.dart';
-import 'package:parking_auto/model/registration_respone_model.dart';
+import 'package:parking_auto/Screen/bike_detail.dart';
+import 'package:parking_auto/controller/get_list_bike_controller.dart';
+import 'package:parking_auto/model/listBike_model.dart';
 
 class BikeOfUser extends StatelessWidget {
   const BikeOfUser({super.key});
@@ -12,7 +12,7 @@ class BikeOfUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Bike'),
+          title: const Text('List bike'),
         ),
         body: const _BikeOfUser());
   }
@@ -26,7 +26,7 @@ class _BikeOfUser extends StatefulWidget {
 }
 
 class _BikeOfUsers extends State<_BikeOfUser> {
-  GetRegistraionController getData = GetRegistraionController();
+  GetListBikeController getBikes = GetListBikeController();
   List<Data>? listData;
 
   @override
@@ -71,16 +71,16 @@ class _BikeOfUsers extends State<_BikeOfUser> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Bike: ${item.registrationId}",
+                    "Bike: ${item.bikeId}",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "CheckIn: ${item.registrationStatus}",
+                    "plateNumber: ${item.plateNumber}",
                   ),
                   Text(
-                    "CheckOut: ${item.plateNumber}",
+                    "status: ${item.status}",
                   ),
                 ],
               ),
@@ -95,7 +95,7 @@ class _BikeOfUsers extends State<_BikeOfUser> {
     listData = null;
     if (mounted) setState(() {});
     try {
-      final value = await getData.fetchData();
+      final value = await getBikes.getListBikeData();
       listData = value;
     } catch (e) {
       listData = [];
