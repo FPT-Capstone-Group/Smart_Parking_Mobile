@@ -27,7 +27,7 @@ class __MyproFile extends State<ProFile> {
   Widget build(BuildContext context) {  
     final user = ModalRoute.of(context)!.settings.arguments as User;
     fullNameController.text = user.fullName.toString();
-    phoneNumberController.text = user.phoneNumber.toString();
+    phoneNumberController.text = user.username.toString();
     userId = user.userId!.toInt();
     //setState(() {});
     return Scaffold(

@@ -1,9 +1,8 @@
 
+import 'package:face_camera/face_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/bike_of_user.dart';
-import 'package:parking_auto/Screen/face_camera.dart';
-import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
 import 'package:parking_auto/controller/get_current_user.dart';
@@ -99,25 +98,21 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                     icon: Icons.list,
                     onClicked: () => selectedItem(context, 4),
                   ),
-                  const SizedBox(height: 16),
-                  buildMenuItem(
-                    text: 'Payment',
-                    icon: Icons.payment,
-                    onClicked: () => selectedItem(context, 5),
-                  ),
+                  // const SizedBox(height: 16),
+                  // buildMenuItem(
+                  //   text: 'Payment',
+                  //   icon: Icons.payment,
+                  //   onClicked: () => selectedItem(context, 5),
+                  // ),
                   const SizedBox(height: 24),
                   Divider(color: Colors.white70),
                   const SizedBox(height: 16),
-                  buildMenuItem(
-                    text: 'Notifications',
-                    icon: Icons.notifications_outlined,
-                    onClicked: () => selectedItem(context, 6),
-                  ),
+                
                   const SizedBox(height: 16),
                   buildMenuItem(
                     text: 'Settings',
                     icon: Icons.settings,
-                    onClicked: () => selectedItem(context, 7),
+                    onClicked: () => selectedItem(context, 5),
                     
                   ),
                 ],
@@ -195,7 +190,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                 get.getUserData();
         break;
       case 1:
-       Get.to(FaceCameraImage());
+       Get.to(FaceCamera());
         // Navigator.of(context).push(MaterialPageRoute(
         //   builder: (context) => FaceCameraImage(),
         // ));
@@ -219,18 +214,18 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
         // ));
         break;
       case 5:
-      Get.to(BikeOfUser());
-        // Navigator.of(context).push(MaterialPageRoute(
-        //   builder: (context) => NotificationPage(),
-        // ));
-        break;
-      case 6:
-      Get.to(NotificationPage());
-        // Navigator.of(context).push(MaterialPageRoute(
-        //   builder: (context) => Logout(),
-        // ));
-        break;
-      case 7:
+      // Get.to(BikeOfUser());
+      //   // Navigator.of(context).push(MaterialPageRoute(
+      //   //   builder: (context) => NotificationPage(),
+      //   // ));
+      //   break;
+      // case 6:
+      // Get.to(NotificationPage());
+      //   // Navigator.of(context).push(MaterialPageRoute(
+      //   //   builder: (context) => Logout(),
+      //   // ));
+      //   break;
+      case 5:
           //logout.logout(context);
         Get.to(SettingsPage());
         // Navigator.of(context).push(MaterialPageRoute(

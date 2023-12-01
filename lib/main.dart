@@ -9,6 +9,7 @@ import 'package:parking_auto/Screen/profile.dart';
 import 'package:parking_auto/Screen/register_account.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
+import 'package:parking_auto/Screen/user_profile.dart';
 // import 'package:parking_auto/Screen/my_profile.dart';
 // import 'package:parking_auto/Screen/register_account.dart';
 // import 'package:parking_auto/Screen/registration_hitory.dart';
@@ -50,18 +51,19 @@ Future<void> main() async {
   );
   // await Firebase.initializeApp();
   FaceCamera.initialize();
-  runApp(GetMaterialApp(home: MyApp()));
+  runApp(GetMaterialApp(    debugShowCheckedModeBanner: false,
+    home: MyApp()));
   //runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp(debugShowCheckedModeBanner: false,
       title: 'Login',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      //home: HomePage(),
+    //home: FaceCameraImageOwner(),
        home:LoginWithPhone(),
     );
   }
@@ -96,6 +98,10 @@ class MainScreen extends StatelessWidget {
         GetPage(
           name: SettingsPage.routeNamed,
           page: () => SettingsPage(),
+        ),
+         GetPage(
+          name: GetUPage.routeNamed,
+          page: () => GetUPage(),
         ),
       ],
     );

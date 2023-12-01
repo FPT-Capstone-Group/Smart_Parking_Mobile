@@ -27,6 +27,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
   late MomoVn _momoPay;
   late PaymentResponse _momoPaymentResult;
   //late String _paymentStatus;
+  bool paymentButton=true;
   bool _isLoading = false;
 
   late BuildContext _context;
@@ -55,9 +56,18 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
 
   @override
   Widget build(BuildContext context) {
+    var status;
+    status = widget.item.registrationStatus.toString();
+    if(status != "pending"){
+        paymentButton = false;
+         setState(() {});
+    }
+   
     _context = context;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar( title: Text('Registration detail'),
+          centerTitle: true,
+          backgroundColor: Colors.green,),
       body: Stack(
         children: [
           Padding(
@@ -65,40 +75,115 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+               Visibility(
+              child:  Text(
                   "ID: ${widget.item.registrationId}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
+               ),
+              visible: false,
+            ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Text(
                   "Status: ${widget.item.registrationStatus}",
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Text(
-                  "PlateNumber: ${widget.item.plateNumber}",
+                  "Approuved By: ${widget.item.approvedBy}",
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "PlateNumber: ${widget.item.plateNumber}", style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Text(
                   "Price: ${widget.item.amount}" + " vnd",
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.red,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                const SizedBox(height: 16),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      final price = widget.item.amount ?? 0;
+                const SizedBox(height: 50),
+                // Center(
+                //   child: ElevatedButton(
+                //     onPressed: () {
+                //       final price = widget.item.amount ?? 0;
+                //       _payment(
+                //         amount: price,
+                //         fee: 0,
+                //         description: "Smart - Parking",
+                //         username: "SmartParking",
+                //       );
+                //     },
+                //     child: const SizedBox(
+                //         width: double.infinity,
+                //         child: Text(
+                //           "Payment ",
+                //           textAlign: TextAlign.center,
+                //           style: TextStyle(fontSize: 20),
+                //         )),
+                //     style: ElevatedButton.styleFrom(
+                //       shape: const StadiumBorder(),
+                //       primary: Colors.white,
+                //       onPrimary: Colors.blue,
+                //       padding: const EdgeInsets.symmetric(vertical: 16),
+                //     ),
+                //   ),
+
+                    
+
+                //),
+                 Visibility(
+              child: ElevatedButton(
+                onPressed: () {
+                  
+                  final price = widget.item.amount ?? 0;
                       _payment(
                         amount: price,
                         fee: 0,
                         description: "Smart - Parking",
                         username: "SmartParking",
                       );
-                    },
-                    child: Text("Payment"),
-                  ),
-                )
+                  //loginWithPhone();
+                },
+                child: const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Payment ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    )),
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  primary: Colors.white,
+                  onPrimary: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+              visible: paymentButton,
+            ),
               ],
-
-             
-
             ),
           ),
           if (_isLoading)
@@ -149,7 +234,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
   }
 
   void _setState() async {
-   // _paymentStatus = 'Đã chuyển thanh toán';
+    // _paymentStatus = 'Đã chuyển thanh toán';
     if (_momoPaymentResult.isSuccess == true) {
       final rs = await getData.submitPaymentMomo(
         amount: widget.item.amount ?? 0,

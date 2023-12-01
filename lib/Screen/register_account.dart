@@ -39,7 +39,7 @@ class _RegisU extends State<RegisterAccountScreen> {
   bool loginButtonVisible = true;
   bool textVisible = false;
   bool sendOtpAgainButtonVisible = false;
-
+  bool phoneEdit = false;
   bool showpassword = false;
 
   String verificationID = "";
@@ -51,12 +51,13 @@ class _RegisU extends State<RegisterAccountScreen> {
         title: Text("Register"),
       ),
       body: Form(
-      key: registerForm,
+        key: registerForm,
         //margin: EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
+              readOnly: phoneEdit,
               controller: phoneController,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(),
@@ -95,7 +96,8 @@ class _RegisU extends State<RegisterAccountScreen> {
                 keyboardType: TextInputType.text,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (firstNameController) {
-                  if (firstNameController == null || firstNameController.isEmpty) {
+                  if (firstNameController == null ||
+                      firstNameController.isEmpty) {
                     return 'Can\'t be empty';
                   }
                   return null;
@@ -106,14 +108,14 @@ class _RegisU extends State<RegisterAccountScreen> {
             SizedBox(
               height: 10,
             ),
-           
             Visibility(
               child: TextFormField(
                 keyboardType: TextInputType.text,
                 controller: passwordController,
                 obscureText: !showpassword, //This will obscure text dynamically
                 validator: (passwordController) {
-                  if (passwordController == null || passwordController.isEmpty) {
+                  if (passwordController == null ||
+                      passwordController.isEmpty) {
                     return 'Can\'t be empty';
                   }
                   return null;
@@ -168,13 +170,26 @@ class _RegisU extends State<RegisterAccountScreen> {
             ),
             Visibility(
               child: ElevatedButton(
-                  onPressed: () {
-                     if (registerForm.currentState!.validate()) {
-                        loginWithPhone();
-                      }
-                    //loginWithPhone();
-                  },
-                  child: Text("send Otp")),
+                onPressed: () {
+                  if (registerForm.currentState!.validate()) {
+                    loginWithPhone();
+                  }
+                  //loginWithPhone();
+                },
+                child: const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Send otp ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    )),
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  primary: Colors.white,
+                  onPrimary: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
               visible: sendOtpButtonVisible,
             ),
             SizedBox(
@@ -182,10 +197,23 @@ class _RegisU extends State<RegisterAccountScreen> {
             ),
             Visibility(
               child: ElevatedButton(
-                  onPressed: () {
-                    loginWithPhone();
-                  },
-                  child: Text("Send Otp Again")),
+                onPressed: () {
+                  loginWithPhone();
+                },
+                child: const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Send otp again ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    )),
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  primary: Colors.white,
+                  onPrimary: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
               visible: sendOtpAgainButtonVisible,
             ),
             SizedBox(
@@ -193,10 +221,25 @@ class _RegisU extends State<RegisterAccountScreen> {
             ),
             Visibility(
               child: ElevatedButton(
-                  onPressed: () {
-                    verifyOTP();
-                  },
-                  child: Text("Verify")),
+                onPressed: () {
+                  verifyOTP();
+                },
+                child: const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Verify ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    )
+                    ),
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  primary: Colors.white,
+                  onPrimary: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                //  child: Text("Verify")
+              ),
               visible: verifyButtonVisible,
             ),
             SizedBox(
@@ -204,14 +247,31 @@ class _RegisU extends State<RegisterAccountScreen> {
             ),
             Visibility(
               child: ElevatedButton(
-                  onPressed: () {
+                onPressed: () {
+                  if (registerForm.currentState!.validate()) {
                     registerController.fullNameController = fullNameController;
                     registerController.phoneController = phoneController;
                     registerController.passwordController = passwordController;
-                    
+
                     registerController.registerUser();
-                  },
-                  child: Text("Register")),
+                    //Get.to(RegisterAccountScreen());
+                  }
+                },
+                child: const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Register ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    )),
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  primary: Colors.white,
+                  onPrimary: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                //child: Text("Register")
+              ),
               visible: registerButtonVisible,
             ),
             SizedBox(
@@ -309,6 +369,7 @@ class _RegisU extends State<RegisterAccountScreen> {
       registerButtonVisible = true;
       loginButtonVisible = true;
       textVisible = true;
+      phoneEdit = true;
       setState(() {});
 
       Fluttertoast.showToast(
