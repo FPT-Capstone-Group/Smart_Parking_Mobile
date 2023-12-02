@@ -32,6 +32,7 @@ class _LoginWithPhoneState extends State<OtpPhone> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Otp Phone Number"),
+         centerTitle: true,
       ),
       body: Container(
         margin: EdgeInsets.all(10),

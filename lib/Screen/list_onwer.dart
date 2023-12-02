@@ -1,33 +1,32 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:parking_auto/Screen/bike_detail.dart';
-import 'package:parking_auto/controller/get_list_bike_controller.dart';
-import 'package:parking_auto/model/listBike_model.dart';
+import 'package:parking_auto/Screen/registration_detail.dart';
+import 'package:parking_auto/controller/get_registraion_controller.dart';
+import 'package:parking_auto/model/registration_respone_model.dart';
 
-class BikeOfUser extends StatelessWidget {
-  const BikeOfUser({super.key});
+class ListOnwerScreen extends StatelessWidget {
+  static const routeNamed = '/listOnwerScreen';
+  const ListOnwerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('List bike'),
-           centerTitle: true,
+          title: const Text('List Onwer'), centerTitle: true,
         ),
-        body: const _BikeOfUser());
+        body: const _ListOnwerScreen());
   }
 }
 
-class _BikeOfUser extends StatefulWidget {
-  const _BikeOfUser({super.key});
+class _ListOnwerScreen extends StatefulWidget {
+  const _ListOnwerScreen({super.key});
 
   @override
-  State<_BikeOfUser> createState() => _BikeOfUsers();
+  State<_ListOnwerScreen> createState() => __ListOnwerScreen();
 }
 
-class _BikeOfUsers extends State<_BikeOfUser> {
-  GetListBikeController getBikes = GetListBikeController();
+class __ListOnwerScreen extends State<_ListOnwerScreen> {
+  late AnimationController controller;
+  GetRegistraionController getData = GetRegistraionController();
   List<Data>? listData;
 
   @override
@@ -40,7 +39,8 @@ class _BikeOfUsers extends State<_BikeOfUser> {
   Widget build(BuildContext context) {
     final list = listData;
     if (list == null) {
-      return Container(
+
+     return Container(
         color: Colors.grey[300],
         child: const Center(child: CircularProgressIndicator()),
       );
@@ -53,7 +53,7 @@ class _BikeOfUsers extends State<_BikeOfUser> {
             onTap: () async {
               final needReload = await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => BikeDetail(item),
+                  builder: (context) => RegistrationDetail(item),
                 ),
               );
               if (needReload == true) {
@@ -71,23 +71,17 @@ class _BikeOfUsers extends State<_BikeOfUser> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Text(
-                  //   "Bike: ${item.bikeId}",
-                  //   style: const TextStyle(
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
-                   Text(
-                    "Ordinal number: " + index.toString(),
+                  Text(
+                    "ID: ${item.registrationId}",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "Status: ${item.registrationStatus}",
                   ),
                   Text(
                     "PlateNumber: ${item.plateNumber}",
-                  ),
-                   Text(
-                    "Time create : ${item.createdAt}",
-                  ),
-                  Text(
-                    "Status: ${item.status}",
                   ),
                 ],
               ),
@@ -102,7 +96,7 @@ class _BikeOfUsers extends State<_BikeOfUser> {
     listData = null;
     if (mounted) setState(() {});
     try {
-      final value = await getBikes.getListBikeData();
+      final value = await getData.fetchData();
       listData = value;
     } catch (e) {
       listData = [];

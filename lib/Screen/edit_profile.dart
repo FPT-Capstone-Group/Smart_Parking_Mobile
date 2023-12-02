@@ -4,14 +4,14 @@ import 'package:parking_auto/controller/editProfile_controller.dart';
 import 'package:parking_auto/controller/login_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class EditProFile extends StatefulWidget  {
-   const EditProFile({super.key});
-   static const routeNamed = '/editProfileScreen';
+class EditProFileScreen extends StatefulWidget {
+  const EditProFileScreen({super.key});
+  static const routeNamed = '/editProfileScreen';
   @override
   _EditProFile createState() => _EditProFile();
 }
 
-class _EditProFile extends State<EditProFile> {
+class _EditProFile extends State<EditProFileScreen> {
   final editProfileKey = GlobalKey<FormState>();
   LoginController loginController = Get.find();
   final getUser = Get.put(LoginController());
@@ -21,7 +21,8 @@ class _EditProFile extends State<EditProFile> {
   TextEditingController phoneNumberController = TextEditingController();
   String? fullNameCurrentSavedShared;
   String? phoneCurrentSavedShared;
- @override
+  bool phoneEdit = true;
+  @override
   void initState() {
     super.initState();
     _loadPhoneCurrent();
@@ -30,116 +31,108 @@ class _EditProFile extends State<EditProFile> {
   _loadPhoneCurrent() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      var 
-      phoneCurrentSavedShared = prefs.getString("phoneCurrent"); 
-      if(phoneCurrentSavedShared == null){
+      var phoneCurrentSavedShared = prefs.getString("phoneCurrent");
+      if (phoneCurrentSavedShared == null) {
         phoneCurrentSavedShared = "";
       }
-       phoneNumberController.text = phoneCurrentSavedShared.toString();
-    
-    fullNameCurrentSavedShared = prefs.getString("fullName"); 
-      if(fullNameCurrentSavedShared == null){
+      phoneNumberController.text = phoneCurrentSavedShared.toString();
+
+      fullNameCurrentSavedShared = prefs.getString("fullName");
+      if (fullNameCurrentSavedShared == null) {
         fullNameCurrentSavedShared = "";
       }
-       fullNameController.text = fullNameCurrentSavedShared.toString();
+      fullNameController.text = fullNameCurrentSavedShared.toString();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
-    // fullNameController.text = loginController.fullName;
-    // phoneNumberController.text = loginController.phoneNumber;
-
-    // editProfileController.fullName.text = logincontroller.phoneNumberController.toString();
-    // editProfileController.phoneNumberController.text = logincontroller.fullName.toString();
-
     return Scaffold(
-       appBar: AppBar(title: Text("Edit Profile"), 
+      appBar: AppBar(
+        title: Text("Edit Profile"),
+        centerTitle: true,
       ),
       body: Form(
-      key: editProfileKey,
-       // margin: EdgeInsets.all(20),
-        child: ListView(children: [ 
+        key: editProfileKey,
+        // margin: EdgeInsets.all(20),
+        child: ListView(children: [
           const SizedBox(
             height: 30,
           ),
           TextFormField(
-                controller: fullNameController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(),
-                  labelText: 'Full Name',
-                  hintText: 'Enter your fullName',
-                ),
-                keyboardType: TextInputType.text,
-                validator: (firstNameController) {
-                  if (firstNameController == null || firstNameController.isEmpty) {
-                    return 'Can\'t be empty';
-                  }
-                  return null;
-                },
-              ),
+            controller: fullNameController,
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(),
+              labelText: 'Full Name',
+              hintText: 'Enter your fullName',
+            ),
+            keyboardType: TextInputType.text,
+            validator: (firstNameController) {
+              if (firstNameController == null || firstNameController.isEmpty) {
+                return 'Can\'t be empty';
+              }
+              return null;
+            },
+          ),
           const SizedBox(
             height: 10,
           ),
-       
           const SizedBox(
             height: 10,
           ),
           TextFormField(
-                controller: phoneNumberController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(),
-                  labelText: 'Phone number',
-                  //hintText: 'Enter your phone',
-                ),
-                keyboardType: TextInputType.number,
-                validator: (phoneController) {
-                String pattern = r'(^(?:[0])?[0-9]{10,12}$)';
-                RegExp regExp = new RegExp(pattern);
-                if (phoneController == null || phoneController.isEmpty) {
-                  return 'Can\'t be empty';
-                }
-                if (!regExp.hasMatch(phoneController)) {
-                  return 'Phone number must be number and length 10 to 12';
-                }
-                return null;
-              },
-              ),
+            readOnly: phoneEdit,
+            controller: phoneNumberController,
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(),
+              labelText: 'Phone number',
+              //hintText: 'Enter your phone',
+            ),
+            keyboardType: TextInputType.number,
+            validator: (phoneController) {
+              String pattern = r'(^(?:[0])?[0-9]{10,12}$)';
+              RegExp regExp = new RegExp(pattern);
+              if (phoneController == null || phoneController.isEmpty) {
+                return 'Can\'t be empty';
+              }
+              if (!regExp.hasMatch(phoneController)) {
+                return 'Phone number must be number and length 10 to 12';
+              }
+              return null;
+            },
+          ),
           const SizedBox(
             height: 10,
           ),
-         
           ElevatedButton(
             style: raisedButtonStyle,
             onPressed: () {
               editProfileController.fullNameController = fullNameController;
-              editProfileController.phoneNumberController = phoneNumberController;
+              editProfileController.phoneNumberController =
+                  phoneNumberController;
 
-             editProfileController.updateUser();
+              editProfileController.updateUser();
             },
             child: Text('Update data'),
           ),
           const SizedBox(
             height: 10,
           ),
-        ]
-        ),
-        
-        
+        ]),
       ),
     );
   }
+
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
     maximumSize: Size(88, 36),
-  onPrimary: Colors.black87,
-  primary: Colors.grey[300],
-  minimumSize: Size(88, 36),
-  //padding: EdgeInsets.symmetric(horizontal: 16),
-  shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(22)),
-  ),
-);
+    onPrimary: Colors.black87,
+    primary: Colors.grey[300],
+    minimumSize: Size(88, 36),
+    //padding: EdgeInsets.symmetric(horizontal: 16),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(22)),
+    ),
+  );
 }

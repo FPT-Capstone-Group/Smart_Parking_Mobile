@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:parking_auto/constants.dart';
-import 'package:parking_auto/model/user.dart';
+import 'package:parking_auto/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetUController extends GetxController {
@@ -23,11 +23,11 @@ class GetUController extends GetxController {
       });
 
       if (response.statusCode == 200) {
-        print("uer-profile-");
+  
         final Map<String, dynamic> parsed = json.decode(response.body);
         final data = Data.fromJson(parsed['data']);
         user = data.user!;
-        print(user!.fullName.toString());
+       // print(user!.fullName.toString());
 
       //  Get.to(GetUPage());
       } else if (response.statusCode == 401) {

@@ -19,9 +19,7 @@ class LoginController extends GetxController {
 
   Future loginUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //const url = 'https://smart-parking-server-dev.azurewebsites.net/api/auth/local';
     const url = "${Constants.host}/pub/login";
-    //const url = "https://file.hungtuan.me/pub/login";
 
     try {
       Map<String, String> headers = {"Content-type": "application/json"};

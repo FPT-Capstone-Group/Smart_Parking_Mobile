@@ -5,7 +5,7 @@ import 'package:parking_auto/Screen/face_camera_registration.dart';
 import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
-import 'package:parking_auto/Screen/user_profile.dart';
+import 'package:parking_auto/controller/get_current_user.dart';
 import 'package:parking_auto/widget/navigation_drawer_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,7 +36,7 @@ class _Home_Page extends State<HomePage> {
           drawer: NavigationDrawerWidget(),
         // endDrawer: NavigationDrawerWidget(),
         appBar: AppBar(
-          title: Text(_Home_Page.title),
+          title: Text(_Home_Page.title), centerTitle: true,
         ),
 
           body: SingleChildScrollView(
@@ -78,8 +78,9 @@ class _Home_Page extends State<HomePage> {
                                 height: 10.0,
                               ),
                              TextButton(onPressed: () {
+                             // Get.to(Registration());
                                Get.to(() => FaceCameraRegistration(), );
-                                    // Get.to(FaceCameraImage());
+                                   
                                   }, child: Text(
                                     "Registration",
                                     style: TextStyle(
@@ -208,9 +209,9 @@ class _Home_Page extends State<HomePage> {
                                     height: 5.0,
                                   ),
                                   TextButton(onPressed: () {
-                                  //  GetUController getUser = GetUController();
-                                  //   getUser.getU();
-                                   Get.to(GetUPage());
+                                   GetUserController getUser = GetUserController();
+                                    getUser.getUserData();
+                                   //Get.to(GetUPage());
                                   }, child: Text(
                                     "Profile",
                                     style: TextStyle(

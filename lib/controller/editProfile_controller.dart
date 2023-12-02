@@ -14,19 +14,11 @@ class EditProfileController extends GetxController{
 
   Future updateUser() async {
     try {
-      //String url = "${Constants.host}/api/payments/submit";
-      String url = "${Constants.host}/api/users/update";
-      //const url = 'http://localhost:3000/pub/login';
 
-      //wifi localhost test real mobile
-      //String url = "http://192.168.0.4:3000/api/payments/submit";
-     
-      
+      String url = "${Constants.host}/api/users/update";
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token').toString();
-
-      print("token:" + token);
       Map<String, String> headers = {
         "Content-type": "application/json",
         'Authorization': 'Bearer $token',

@@ -35,8 +35,12 @@ class Data {
   String? expiredDate;
   String? faceImage;
   String? plateNumber;
-  bool? hasPayment;
   String? createdAt;
+  bool? hasPayment;
+  String? model;
+  String? registrationNumber;
+  String? manufacture;
+  String? gender;
   String? updatedAt;
   int? userId;
   int? amount;
@@ -51,6 +55,10 @@ class Data {
       this.hasPayment,
       this.createdAt,
       this.updatedAt,
+      this.model,
+      this.registrationNumber,
+      this.manufacture,
+      this.gender,
       this.userId,
       this.amount});
 
@@ -64,6 +72,10 @@ class Data {
     hasPayment = json['hasPayment'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    model = json['model'];
+    registrationNumber = json['registrationNumber'];
+    manufacture = json['manufacture'];
+    gender = json['gender'];
     userId = json['userId'];
     amount = json['amount'] ?? 30000;
    // price = json['price'] ?? 30000;
@@ -80,6 +92,10 @@ class Data {
     data['hasPayment'] = this.hasPayment;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['model'] = this.model;
+    data['registrationNumber'] = this.registrationNumber;
+    data['manufacture'] = this.manufacture;
+    data['gender'] = this.gender;
     data['userId'] = this.userId;
     data['amount'] = this.amount;
     return data;

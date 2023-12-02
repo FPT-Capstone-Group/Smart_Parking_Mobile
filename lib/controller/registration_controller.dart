@@ -40,6 +40,9 @@ class RegistrationController {
     } else {
       feeId = 1;
     }
+
+    print("drop gender :" + dropGender);
+    print("drop gender to string :" + dropGender.toString());
     if (dropGender.toString() == "Male") {
       gender = "Male";
     } else {
@@ -56,7 +59,7 @@ class RegistrationController {
     request.fields['manufacture'] = manufactureController.text;
     request.fields['model'] = modelBikeController.text;
     request.fields['registrationNumber'] = registrationNumberController.text;
-    request.fields['gender'] = gender.toString();
+    request.fields['gender'] = gender;
     try {
       var response = await request.send();
       var res = await http.Response.fromStream(response);
@@ -85,7 +88,6 @@ class RegistrationController {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-        print(response.statusCode);
       } else {
         Fluttertoast.showToast(
             msg: "Registration fail",

@@ -93,7 +93,7 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
-                  onPressed: () => Get.to(() => const EditProFile()),
+                  onPressed: () => Get.to(() => const EditProFileScreen()),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrange, side: BorderSide.none, shape: const StadiumBorder()),
                   child: const Text("Edit", style: TextStyle(color: Color.fromARGB(255, 118, 255, 64))),

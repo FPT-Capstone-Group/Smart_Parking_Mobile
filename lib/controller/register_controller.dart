@@ -30,13 +30,11 @@ class RegisterController extends GetxController {
             "username": phoneController.text,
             "password": passwordController.text,
           }));
-      print("register page");
-      if (response.statusCode == 200) {
-        // var registerArr = json.decode(response.body);
+  
 
-        //save phone login current
-       username = phoneController;
-        final keyPhoneCurrent = 'phoneCurrent';
+      if (response.statusCode == 200) {
+       username = phoneController.text;
+        final keyPhoneCurrent = "phoneCurrent";
         final valuePhoneCurrent = username;
         prefs.setString(keyPhoneCurrent, valuePhoneCurrent);
 
@@ -60,7 +58,7 @@ class RegisterController extends GetxController {
             fontSize: 16.0);
       } else {
         Fluttertoast.showToast(
-            msg: "User already exists with same username",
+            msg: "Error",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,

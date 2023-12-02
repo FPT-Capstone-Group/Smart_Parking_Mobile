@@ -4,6 +4,7 @@ import 'package:parking_auto/Screen/register_account.dart';
 import 'package:parking_auto/controller/login_controller.dart';
 import 'package:parking_auto/controller/register_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class LoginWithPhone extends StatefulWidget {
   static const routeNamed = '/loginScreen';
   //const LoginWithPhone({Key? key}) : super(key: key);
@@ -13,14 +14,14 @@ class LoginWithPhone extends StatefulWidget {
 }
 
 class _LoginWithPhoneState extends State<LoginWithPhone> {
- // dynamic argumentData = Get.arguments;
+  // dynamic argumentData = Get.arguments;
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final logincontroller = Get.put(LoginController());
   final registerController = Get.put(RegisterController());
-  String? phoneRegisterCurrent;
-  String? phoneCurrentSavedShared;
+  var phoneRegisterCurrent;
+  var phoneCurrentSavedShared;
   //var fullName;
   @override
   void initState() {
@@ -31,36 +32,31 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
   _loadPhoneCurrent() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      phoneCurrentSavedShared = prefs.getString("phoneCurrent"); 
-      if(phoneCurrentSavedShared == null){
+      phoneCurrentSavedShared = prefs.getString("phoneCurrent");
+      if (phoneCurrentSavedShared == null) {
         phoneCurrentSavedShared = "";
       }
-       phoneNumberController.text = phoneCurrentSavedShared.toString();
+      phoneNumberController.text = phoneCurrentSavedShared.toString();
     });
   }
 
   TextEditingController otpController = TextEditingController();
 
   bool passwordVisibility = false;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  
-      
       appBar: AppBar(
-        
         title: Text("Login"),
+        centerTitle: true,
       ),
-     
       body: Form(
-      key: _formKey,
-      child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-           
-         // Text("Hello " + fullName.toString(),),
-          TextFormField(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextFormField(
               keyboardType: TextInputType.number,
               controller: phoneNumberController,
               decoration: InputDecoration(
@@ -85,10 +81,11 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
               height: 10,
             ),
 
-          TextFormField(
-            keyboardType: TextInputType.text,
+            TextFormField(
+              keyboardType: TextInputType.text,
               controller: passwordController,
-              obscureText:!passwordVisibility, //This will obscure text dynamically
+              obscureText:
+                  !passwordVisibility, //This will obscure text dynamically
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(),
@@ -111,48 +108,47 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                   },
                 ),
               ),
-            validator: (passwordController) {
-              if (passwordController == null || passwordController.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: ElevatedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState!.validate()) {
-                  logincontroller.phoneNumberController = phoneNumberController;
-                  logincontroller.passwordController = passwordController;
-            
-                  logincontroller.loginUser();
+              validator: (passwordController) {
+                if (passwordController == null || passwordController.isEmpty) {
+                  return 'Please enter some text';
                 }
+                return null;
               },
-              child: const SizedBox(
-          width: double.infinity,
-          child: Text(
-            "Sign in ",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
-          )
-          ),
-      style: ElevatedButton.styleFrom(
-        shape: const StadiumBorder(),
-        primary: Colors.white,
-        onPrimary: Colors.blue,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-      ),
             ),
-            
-          ),
-          Row(
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Validate returns true if the form is valid, or false otherwise.
+                  if (_formKey.currentState!.validate()) {
+                    logincontroller.phoneNumberController =
+                        phoneNumberController;
+                    logincontroller.passwordController = passwordController;
+
+                    logincontroller.loginUser();
+                  }
+                },
+                child: const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Sign in ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    )),
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  primary: Colors.white,
+                  onPrimary: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   child: const Text("Already have no account?"),
-                 // padding: const EdgeInsets.symmetric(vertical: 8),
+                  // padding: const EdgeInsets.symmetric(vertical: 8),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -169,17 +165,12 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 )
               ],
             ),
-
-           
-        ],
+          ],
+        ),
       ),
-      
-    ),
-    
-
-
     );
   }
+
   Widget _icon() {
     return Container(
       decoration: BoxDecoration(
