@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parking_auto/Screen/registrationdetail.dart';
+import 'package:parking_auto/Screen/registration_detail.dart';
 import 'package:parking_auto/controller/get_registraion_controller.dart';
 import 'package:parking_auto/model/registration_respone_model.dart';
 
@@ -12,6 +12,7 @@ class RegistrationHistory extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Registration History'),
+           centerTitle: true,
         ),
         body: const MyStatefulWidget());
   }
@@ -73,6 +74,12 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                 children: [
                   Text(
                     "ID: ${item.registrationId}",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                   Text(
+                    "Create to : ${item.createdAt}",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),

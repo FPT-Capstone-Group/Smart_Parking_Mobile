@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/home.dart';
 import 'package:parking_auto/Screen/login.dart';
-import 'package:parking_auto/Screen/profile.dart';
+import 'package:parking_auto/Screen/profilePage.dart';
 import 'package:parking_auto/Screen/register_account.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
 import 'package:parking_auto/Screen/user_profile.dart';
-// import 'package:parking_auto/Screen/my_profile.dart';
-// import 'package:parking_auto/Screen/register_account.dart';
-// import 'package:parking_auto/Screen/registration_hitory.dart';
+
 
 
 Future<void> main() async {
@@ -53,7 +51,7 @@ Future<void> main() async {
   FaceCamera.initialize();
   runApp(GetMaterialApp(    debugShowCheckedModeBanner: false,
     home: MyApp()));
-  //runApp(MyApp());
+
 }
 class MyApp extends StatelessWidget {
   @override
@@ -63,7 +61,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-    //home: FaceCameraImageOwner(),
        home:LoginWithPhone(),
     );
   }
@@ -75,17 +72,13 @@ class MainScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: LoginWithPhone.routeNamed,
       getPages: [
-        // GetPage(
-        //   name: MyproFile.routeNamed,
-        //   page: () => MyproFile(),
-        // ),
         GetPage(
           name: RegisterAccountScreen.routeNamed,
           page: () => RegisterAccountScreen(),
         ),
         GetPage(
-          name: ProFile.routeNamed,
-          page: () => ProFile(),
+          name: ProfilePage.routeNamed,
+          page: () => ProfilePage(),
         ),
         GetPage(
           name: HomePage.routeNamed,

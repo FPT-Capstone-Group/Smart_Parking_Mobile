@@ -59,6 +59,7 @@ dependencies:
     git: https://github.com/minhvn/momo.vn.git
   profile: ^0.0.1
   flutter_image_compress: ^2.1.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

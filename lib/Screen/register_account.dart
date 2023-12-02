@@ -7,7 +7,7 @@ import 'package:parking_auto/controller/register_controller.dart';
 
 class RegisterAccountScreen extends StatefulWidget {
   static const routeNamed = '/registerAccountScreen';
-  const RegisterAccountScreen({Key? key}) : super(key: key);
+  //const RegisterAccountScreen({Key? key}) : super(key: key);
 
   @override
   _RegisU createState() => _RegisU();
@@ -49,6 +49,7 @@ class _RegisU extends State<RegisterAccountScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Register"),
+         centerTitle: true,
       ),
       body: Form(
         key: registerForm,

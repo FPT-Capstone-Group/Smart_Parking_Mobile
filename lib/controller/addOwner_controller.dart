@@ -22,7 +22,7 @@ class AddOwnerController extends GetxController{
     try {
 
       String url = "${Constants.host}/api/owners/create/";
-      //const url = "https://server.smartparking.site/api/owners/create";
+      print("drop gender: "+ dropGender);
       if (dropGender == "Male") {
            gender = "Male";
         } else {
@@ -33,7 +33,6 @@ class AddOwnerController extends GetxController{
          "Content-type": "application/json",
         'Authorization': 'Bearer $token',
       };
-      print("token here" + token);
       var response = await http.post(Uri.parse(url),
           headers: headers,
           body: jsonEncode({
@@ -41,16 +40,13 @@ class AddOwnerController extends GetxController{
             "plateNumber": plateNumberController.text,
             "ownerFaceImage": imageBase64,
             "relationship": relationshipController.text,
-            "gender": "Male",
-    
+            "gender": gender,
           }));
-
       final Map<String, dynamic> parsed = json.decode(response.body);
 
         //final data = Data.fromJson(parsed);
         var code =  parsed['code'];
-       
-        
+      
       if ( code.toString() == "201") {
       
         Fluttertoast.showToast(
@@ -61,9 +57,17 @@ class AddOwnerController extends GetxController{
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
+            
             Get.to(HomePage());
       } else {
-        print("AddOwner fail!");
+        Fluttertoast.showToast(
+            msg: "AddOwner fail",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     } catch (e) {
       print(e);

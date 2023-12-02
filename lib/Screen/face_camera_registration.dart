@@ -22,10 +22,10 @@ class _FaceCamera extends State<FaceCameraRegistration> {
   var imgPath;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
+      
           appBar: AppBar(
-            title: const Text('Face Image'),
+            title: const Text('Face Image'), centerTitle: true,
           ),
           body: Builder(builder: (context) {
             if (_capturedImage != null) {
@@ -116,7 +116,7 @@ class _FaceCamera extends State<FaceCameraRegistration> {
                   }
                   return const SizedBox.shrink();
                 });
-          })),
+          })
     );
   }
      

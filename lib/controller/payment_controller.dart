@@ -12,11 +12,6 @@ class PaymentController {
     required int registrationId,
   }) async {
     try {
-      //String url = "${Constants.host}/api/payments/submit";
-      //String url = "http://localhost:3000/api/payments/submit";
-
-      //wifi localhost test real mobile
-      //String url = "http://192.168.0.4:3000/api/payments/submit";
       String url = "${Constants.host}/api/payments";
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -32,9 +27,8 @@ class PaymentController {
             "paymentMethod": "Momo",
             "registrationId": registrationId,
           }));
-      print('StatusCode ${response.statusCode}: $url');
       if (response.statusCode == 200) {
-        print("--------payment success-----------------------");
+       
         Fluttertoast.showToast(
             msg: "Payment success",
             toastLength: Toast.LENGTH_SHORT,

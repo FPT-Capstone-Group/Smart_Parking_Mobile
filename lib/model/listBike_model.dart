@@ -76,6 +76,7 @@ class Data {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['cardId'] = this.cardId;
+  
     return data;
   }
 }
