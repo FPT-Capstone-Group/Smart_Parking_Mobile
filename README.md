@@ -9,5 +9,6 @@
         open terminal: flutter run 
         
 
-        ![image](https://github.com/FPT-Capstone-Group/Smart_Parking_Mobile/assets/44957768/19fbecfa-fc25-4ffc-9070-c94f2eb3144e)
+        ![image](https://github.com/FPT-Capstone-Group/Smart_Parking_Mobile/assets/44957768/f4bb142e-90b1-44f6-8c5f-46c2389ab706)
+
 
