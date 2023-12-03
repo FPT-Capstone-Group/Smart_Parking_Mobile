@@ -6,8 +6,8 @@
         - Setup momo test app: https://developers.momo.vn/v3/vi/docs/payment/onboarding/test-instructions/
 
  Start project:
-        open terminal:
-        flutter run 
+        -open terminal:
+                  flutter run 
         
 
 
