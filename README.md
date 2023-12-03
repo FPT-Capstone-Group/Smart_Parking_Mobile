@@ -1,16 +1,9 @@
 # parking_auto
 
-A new Flutter project.
+ Momo app test pyment:
+        - Download app momo test: https://developers.momo.vn/v3/vi/download/
+        - Setup momo test app: https://developers.momo.vn/v3/vi/docs/payment/onboarding/test-instructions/
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ Start project:
+        open terminal: flutter run 
+        ![image](https://github.com/FPT-Capstone-Group/Smart_Parking_Mobile/assets/44957768/130a3341-dcb4-4023-9bd8-bdf50e85b3dc)
