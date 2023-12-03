@@ -17,6 +17,8 @@
         
                   flutter run 
         
+Download apk and run android: 
 
+          https://drive.google.com/file/d/19nJQszgVUVHSe5qamO-LgMX_MDVDBfY2/view?usp=sharing
 
 
