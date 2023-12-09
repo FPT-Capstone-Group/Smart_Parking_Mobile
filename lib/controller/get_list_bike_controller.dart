@@ -15,7 +15,7 @@ class GetListBikeController {
       'Authorization': 'Bearer $token',
     });
     if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body)['data'] as List;
+      final jsonResponse = json.decode(response.body)['data']['bikes'] as List;
       final x = jsonResponse.map((data) => Data.fromJson(data)).toList();
       return x;
     } else {

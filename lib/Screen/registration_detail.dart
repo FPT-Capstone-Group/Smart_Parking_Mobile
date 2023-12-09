@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:momo_vn/momo_vn.dart';
+import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/controller/payment_controller.dart';
 import 'package:parking_auto/model/registration_respone_model.dart';
 
@@ -27,8 +29,9 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
   late MomoVn _momoPay;
   late PaymentResponse _momoPaymentResult;
   //late String _paymentStatus;
-  bool paymentButton=true;
+  bool paymentButton=false;
   bool _isLoading = false;
+  bool cancelButton = false;
 
   late BuildContext _context;
 
@@ -56,10 +59,14 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
 
   @override
   Widget build(BuildContext context) {
-    var hasPayment;
-    hasPayment = widget.item.hasPayment.toString();
-    if(hasPayment != "false"){
-        paymentButton = false;
+    var registrationStatus;
+    registrationStatus = widget.item.registrationStatus.toString();
+    if(registrationStatus == "Verified" || registrationStatus == "Expired"  ){
+        paymentButton = true;
+         setState(() {});
+    }
+    if(registrationStatus == "Created" || registrationStatus == "Verify"  ){
+        cancelButton = true;
          setState(() {});
     }
    
@@ -97,16 +104,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  "HasPayment: ${widget.item.hasPayment}",
-                  style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+               
                 Text(
                   "Approuved By: ${widget.item.approvedBy}",
                   style: const TextStyle(
@@ -175,6 +173,26 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                   ),
                 ),
                 const SizedBox(height: 50),
+                 Visibility(
+              child: ElevatedButton(
+                onPressed: () {
+                },
+                child: const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Cancel ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    )),
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  primary: Colors.white,
+                  onPrimary: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+              visible: cancelButton,
+            ),
               
                  Visibility(
               child: ElevatedButton(
@@ -235,7 +253,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
       merchantCode: 'MOMOV2U120231123',
       partnerCode: 'MOMOV2U120231123',
       amount: amount,
-      orderId: getRandomString(10),
+      orderId: widget.item.registrationId.toString(),
       fee: fee,
       description: description,
       username: username,
@@ -267,6 +285,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
 
       if (rs == true) {
         Navigator.pop(_context, true);
+        Get.to(RegistrationHistory());
       }
 
       // _paymentStatus += "\nTình trạng: Thành công.";

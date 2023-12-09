@@ -80,10 +80,8 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                   ),
                    Text(
                     "Create to : ${item.createdAt}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
                     ),
-                  ),
+                  
                   Text(
                     "Status: ${item.registrationStatus}",
                   ),

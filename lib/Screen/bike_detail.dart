@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/face_camera_registration_owner.dart';
 import 'package:parking_auto/Screen/list_onwer.dart';
+import 'package:parking_auto/Screen/parking_history.dart';
+import 'package:parking_auto/controller/get_list_owner_controller.dart';
 import 'package:parking_auto/model/listBike_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BikeDetail extends StatefulWidget {
   const BikeDetail(this.item, {super.key});
@@ -16,7 +19,9 @@ class BikeDetail extends StatefulWidget {
 class _BikeDetail extends State<BikeDetail> {
   //late String _paymentStatus;
   bool _isLoading = false;
+  GetListOwnerController getListOwner = GetListOwnerController();
 
+  var plateNumber;
   @override
   void initState() {
     super.initState();
@@ -24,6 +29,7 @@ class _BikeDetail extends State<BikeDetail> {
 
   Future<void> initPlatformState() async {
     if (!mounted) return;
+
     setState(() {});
   }
 
@@ -96,12 +102,33 @@ class _BikeDetail extends State<BikeDetail> {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    Get.to(ListOnwerScreen());
+                   setPlateNumber();
+                    Get.to(ListOwner());
                   },
                   child: const SizedBox(
                       width: double.infinity,
                       child: Text(
                         "List Owner ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20),
+                      )),
+                  style: ElevatedButton.styleFrom(
+                    shape: const StadiumBorder(),
+                    primary: Colors.white,
+                    onPrimary: Colors.blue,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                ),
+                 const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                   setPlateNumber();
+                    Get.to(ParkingHistory());
+                  },
+                  child: const SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "View Parking History",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 20),
                       )),
@@ -127,5 +154,10 @@ class _BikeDetail extends State<BikeDetail> {
 
   void _setState() async {
     setState(() => _isLoading = false);
+  }
+  void setPlateNumber() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("plateNumber", widget.item.plateNumber.toString());
+    print("plate: " + widget.item.plateNumber.toString());
   }
 }

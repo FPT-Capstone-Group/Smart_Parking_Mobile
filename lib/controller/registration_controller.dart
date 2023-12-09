@@ -41,8 +41,6 @@ class RegistrationController {
       feeId = 1;
     }
 
-    print("drop gender :" + dropGender);
-    print("drop gender to string :" + dropGender.toString());
     if (dropGender.toString() == "Male") {
       gender = "Male";
     } else {
@@ -69,7 +67,7 @@ class RegistrationController {
       prefs.remove('imagePath');
       if (res.statusCode == 200) {
         Fluttertoast.showToast(
-            msg: "Registration successfull",
+            msg: "Registration successful",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -100,7 +98,6 @@ class RegistrationController {
         print(response.statusCode);
       }
 
-      //SpellRoot spellRoot=spellRootFromJson(respString);
     } catch (e, s) {
       print("ERRR 200 responsecode");
       print("$e __ $s");
