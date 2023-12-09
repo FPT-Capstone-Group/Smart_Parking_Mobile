@@ -71,13 +71,13 @@ class _RegisU extends State<RegisterAccountScreen> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               // The validator receives the text that the user has entered.
               validator: (phoneController) {
-                String pattern = r'(^(?:[0])?[0-9]{10,12}$)';
+                String pattern = r'(^(?:[0])?[0-9]{10,11}$)';
                 RegExp regExp = new RegExp(pattern);
                 if (phoneController == null || phoneController.isEmpty) {
                   return 'Can\'t be empty';
                 }
                 if (!regExp.hasMatch(phoneController)) {
-                  return 'Phone number must be number and length 10 to 12';
+                  return 'Phone number must be number and length 10 to 11';
                 }
                 return null;
               },
@@ -111,7 +111,7 @@ class _RegisU extends State<RegisterAccountScreen> {
             ),
             Visibility(
               child: TextFormField(
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 controller: passwordController,
                 obscureText: !showpassword, //This will obscure text dynamically
                 validator: (passwordController) {

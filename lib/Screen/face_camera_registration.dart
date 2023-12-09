@@ -85,24 +85,19 @@ class _FaceCamera extends State<FaceCameraRegistration> {
                   prefs.remove('imagePath');
                   prefs.setString('imagePath', imgPath);
                   
-                  print(imgPath);
+                // print(imgPath);
 
                     Future<String> imto64(File image) async{
                       List<int> imgByte = await image.readAsBytes();
                       String base64 = base64Encode(imgByte);
-                      print(base64);
+                     // print(base64);
 
                       return base64;
                     }
                     
                     imto64(image);
-                    print("-------------------");
-
-                  //   _write(String text) async {
-                  //   final Directory directory = await getApplicationDocumentsDirectory();
-                  //   final File file = File('${directory.path}/my_file.txt');
-                  //   await file.writeAsString(text);
-                  // }            
+                  
+   
                 },
                 onFaceDetected: (Face? face) {
                   //Do something

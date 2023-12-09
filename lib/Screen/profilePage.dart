@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parking_auto/Screen/change_password.dart';
 import 'package:parking_auto/Screen/edit_profile.dart';
 import 'package:parking_auto/controller/get_current_user.dart';
 
@@ -92,6 +93,16 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrange, side: BorderSide.none, shape: const StadiumBorder()),
                   child: const Text("Edit", style: TextStyle(color: Color.fromARGB(255, 118, 255, 64))),
+                ),
+              ),
+              const SizedBox(height: 5),
+               SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () => Get.to(() => const ChangePassword()),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepOrange, side: BorderSide.none, shape: const StadiumBorder()),
+                  child: const Text("Change Password", style: TextStyle(color: Color.fromARGB(255, 118, 255, 64))),
                 ),
               ),
               const SizedBox(height: 30),

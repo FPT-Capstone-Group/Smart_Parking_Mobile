@@ -24,7 +24,6 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   var fullName;
   LoginController loginController = Get.find();
   
-  
  @override
   void initState() {
     super.initState();

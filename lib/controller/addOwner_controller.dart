@@ -50,7 +50,7 @@ class AddOwnerController extends GetxController{
       if ( code.toString() == "201") {
       
         Fluttertoast.showToast(
-            msg: "AddOwner success",
+            msg: "Add owner success",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -61,7 +61,7 @@ class AddOwnerController extends GetxController{
             Get.to(HomePage());
       } else {
         Fluttertoast.showToast(
-            msg: "AddOwner fail",
+            msg: "Add owner fail",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,

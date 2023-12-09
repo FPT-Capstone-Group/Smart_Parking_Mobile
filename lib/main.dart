@@ -10,6 +10,9 @@ import 'package:parking_auto/Screen/register_account.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
 import 'package:parking_auto/Screen/user_profile.dart';
+import 'package:parking_auto/controller/check_login_controller.dart';
+import 'package:parking_auto/controller/firebaseApi_controller.dart';
+
 
 
 
@@ -18,13 +21,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
    // firebase option parkingauto (gmail:hekimta@gmail.com)
-  const firebaseOptions = FirebaseOptions(
-    appId: '1:551718773591:android:24033e9e023cc944bf9412',
-    apiKey: 'AIzaSyDNW6v89hiVt603ROCUeD6GUybhMBX2yjU',
-    projectId: 'parkingauto-78411',
-    messagingSenderId: '551718773591',
-    authDomain: 'parkingauto-78411.firebaseapp.com',
-  );
+  // const firebaseOptions = FirebaseOptions(
+  //   appId: '1:551718773591:android:24033e9e023cc944bf9412',
+  //   apiKey: 'AIzaSyDNW6v89hiVt603ROCUeD6GUybhMBX2yjU',
+  //   projectId: 'parkingauto-78411',
+  //   messagingSenderId: '551718773591',
+  //   authDomain: 'parkingauto-78411.firebaseapp.com',
+  // );
 
   //firebase option smart-parking (gmail:hekimta@gmail.com)
   // const firebaseOptions = FirebaseOptions(
@@ -35,25 +38,34 @@ Future<void> main() async {
   //   authDomain: 'smart-parking-5fd71.firebaseapp.com',
   // );
 
-  // firebase option FlutterApp (gmail:hekimta@gmail.com)
-  // const firebaseOptions = FirebaseOptions(
-  //   appId: '1:227756988291:android:1d5994daf1ad04216988b6',
-  //   apiKey: 'AIzaSyBpEjaXOCmL44SqegshN1pyiDXV6Tfyanw',
-  //   projectId: 'flutterapp-c26b5',
-  //   messagingSenderId: '227756988291',
-  //   authDomain: 'flutterapp-c26b5.firebaseapp.com',
-  // );
 
+
+  //firebase option FlutterApp (gmail:hekimta@gmail.com)
+  const firebaseOptions = FirebaseOptions(
+    appId: '1:227756988291:android:1d5994daf1ad04216988b6',
+    apiKey: 'AIzaSyBpEjaXOCmL44SqegshN1pyiDXV6Tfyanw',
+    projectId: 'flutterapp-c26b5',
+    messagingSenderId: '227756988291',
+    authDomain: 'flutterapp-c26b5.firebaseapp.com',
+  );
+  
   await Firebase.initializeApp(
     options: firebaseOptions
   );
-  // await Firebase.initializeApp();
+  
+  
+   await Firebase.initializeApp();
+   FirebaseApi().initNoti();
+
   FaceCamera.initialize();
+  CheckLogin().checkLogin();
+  
   runApp(GetMaterialApp(    debugShowCheckedModeBanner: false,
     home: MyApp()));
 
 }
 class MyApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(debugShowCheckedModeBanner: false,
@@ -61,11 +73,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-       home:LoginWithPhone(),
+       home: LoginWithPhone(),
     );
   }
 }
 class MainScreen extends StatelessWidget {
+  
    @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:parking_auto/Screen/registration_detail.dart';
-import 'package:parking_auto/controller/get_registraion_controller.dart';
-import 'package:parking_auto/model/registration_respone_model.dart';
+import 'package:parking_auto/controller/get_list_owner_controller.dart';
+import 'package:parking_auto/model/listOwner_model.dart';
 
-class ListOnwerScreen extends StatelessWidget {
-  static const routeNamed = '/listOnwerScreen';
-  const ListOnwerScreen({super.key});
+class ListOwner extends StatelessWidget {
+  static const routeNamed = '/listOwnerScreen';
+  const ListOwner({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('List Onwer'), centerTitle: true,
+          title: const Text('List owner'),
+           centerTitle: true,
         ),
-        body: const _ListOnwerScreen());
+        body: const MyStatefulWidget());
   }
 }
 
-class _ListOnwerScreen extends StatefulWidget {
-  const _ListOnwerScreen({super.key});
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({super.key});
 
   @override
-  State<_ListOnwerScreen> createState() => __ListOnwerScreen();
+  State<MyStatefulWidget> createState() => _RegistrationHistory();
 }
 
-class __ListOnwerScreen extends State<_ListOnwerScreen> {
+class _RegistrationHistory extends State<MyStatefulWidget> {
   late AnimationController controller;
-  GetRegistraionController getData = GetRegistraionController();
+  GetListOwnerController getData = GetListOwnerController();
   List<Data>? listData;
 
   @override
@@ -50,17 +50,17 @@ class __ListOnwerScreen extends State<_ListOnwerScreen> {
         itemBuilder: (context, index) {
           final item = list[index];
           return InkWell(
-            onTap: () async {
-              final needReload = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => RegistrationDetail(item),
-                ),
-              );
-              if (needReload == true) {
-                // Reload data
-                fetchData();
-              }
-            },
+            // onTap: () async {
+            //   final needReload = await Navigator.of(context).push(
+            //     MaterialPageRoute(
+            //       builder: (context) => RegistrationDetail(item),
+            //     ),
+            //   );
+            //   if (needReload == true) {
+            //     // Reload data
+            //     fetchData();
+            //   }
+            // },
             child: Container(
               padding: const EdgeInsets.all(8),
               margin: const EdgeInsets.all(8),
@@ -72,17 +72,21 @@ class __ListOnwerScreen extends State<_ListOnwerScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "ID: ${item.registrationId}",
+                    "OwnerId: ${item.bikeId}",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "Status: ${item.registrationStatus}",
-                  ),
-                  Text(
-                    "PlateNumber: ${item.plateNumber}",
-                  ),
+                   Text(
+                    "Full Name : ${item.fullName}",
+                    ),
+                  
+                  // Text(
+                  //   "Status: ${item.registrationStatus}",
+                  // ),
+                  // Text(
+                  //   "PlateNumber: ${item.plateNumber}",
+                  // ),
                 ],
               ),
             ),

@@ -15,12 +15,16 @@ class LoginController extends GetxController {
   var phoneCurrent;
   var phoneNumber;
   var fullName;
+  var deviceFireBasetoken;
   //User? user;
 
   Future loginUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     const url = "${Constants.host}/pub/login";
-
+    deviceFireBasetoken = prefs.getString("deviceFireBasetoken");
+        if(deviceFireBasetoken == null){
+          deviceFireBasetoken= "";
+        }
     try {
       Map<String, String> headers = {"Content-type": "application/json"};
       var response = await http.post(Uri.parse(url),
@@ -28,9 +32,12 @@ class LoginController extends GetxController {
           body: jsonEncode({
             "username": phoneNumberController.text,
             "password": passwordController.text,
+            "firebaseToken": deviceFireBasetoken,
           }));
-
+          print("device : " + deviceFireBasetoken);
+     
       if (response.statusCode == 200) {
+  
         var loginArr = json.decode(response.body);
 
       //  phoneNumber = loginArr['data']['user']['username'];
@@ -40,13 +47,13 @@ class LoginController extends GetxController {
         prefs.remove('token');
         prefs.setString('token', loginArr['data']['token']);
     
-
         //save fullName
         fullName = loginArr['data']['user']['fullName'];
         prefs.remove('fullName');
         final keyFullName = 'fullName';
         final fullnameValue = fullName;
         prefs.setString(keyFullName, fullnameValue);
+    
 
         //save phone login current
         phoneCurrent = loginArr['data']['user']['username'];
@@ -55,7 +62,7 @@ class LoginController extends GetxController {
         prefs.setString(keyPhoneCurrent, valuePhoneCurrent);
 
         Fluttertoast.showToast(
-            msg: "You are login successfully",
+            msg: "You are login successfully.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -63,12 +70,10 @@ class LoginController extends GetxController {
             textColor: Colors.white,
             fontSize: 16.0);
 
-        Get.to(
-          HomePage(),
-        );
+        Get.to( HomePage(),);
       } else if (response.statusCode == 404) {
         Fluttertoast.showToast(
-            msg: "Not found",
+            msg: "Not found.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -77,7 +82,7 @@ class LoginController extends GetxController {
             fontSize: 16.0);
       } else if (response.statusCode == 500) {
         Fluttertoast.showToast(
-            msg: "Incorrect username Id/Password",
+            msg: "Incorrect username Id/Password.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,

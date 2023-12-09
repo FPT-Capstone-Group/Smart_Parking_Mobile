@@ -23,7 +23,7 @@ class PaymentController {
       var response = await http.post(Uri.parse(url),
           headers: headers,
           body: jsonEncode({
-           // "amount": amount,
+            "amount": amount,
             "paymentMethod": "Momo",
             "registrationId": registrationId,
           }));

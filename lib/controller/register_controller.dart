@@ -14,6 +14,8 @@ class RegisterController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController age = TextEditingController();
+  TextEditingController address = TextEditingController();
   var username;
   Future registerUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -29,17 +31,19 @@ class RegisterController extends GetxController {
             "fullName": fullNameController.text,
             "username": phoneController.text,
             "password": passwordController.text,
+            "age": age.text,
+            "address": age.text,
           }));
   
 
       if (response.statusCode == 200) {
        username = phoneController.text;
-        final keyPhoneCurrent = "phoneCurrent";
+        final keyPhoneCurrentRegister = "phoneCurrentRegister";
         final valuePhoneCurrent = username;
-        prefs.setString(keyPhoneCurrent, valuePhoneCurrent);
+        prefs.setString(keyPhoneCurrentRegister, valuePhoneCurrent);
 
         Fluttertoast.showToast(
-            msg: "You are register in successfully",
+            msg: "You are register in successfully.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -49,22 +53,24 @@ class RegisterController extends GetxController {
         Get.to(LoginWithPhone(), );
       } else if (response.statusCode == 400) {
         Fluttertoast.showToast(
-            msg: "User already exists with same phoneNumber",
+            msg: "Not found.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-      } else {
+      } else if (response.statusCode == 500){
         Fluttertoast.showToast(
-            msg: "Error",
+            msg: "User already exists with same username.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
+      }else{
+
       }
     } catch (e) {
       print(e);

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/register_account.dart';
+import 'package:parking_auto/Screen/create_account.dart';
 import 'package:parking_auto/controller/login_controller.dart';
 import 'package:parking_auto/controller/register_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginWithPhone extends StatefulWidget {
   static const routeNamed = '/loginScreen';
-  //const LoginWithPhone({Key? key}) : super(key: key);
+  const LoginWithPhone({super.key});
 
   @override
   _LoginWithPhoneState createState() => _LoginWithPhoneState();
@@ -21,8 +21,10 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
   final logincontroller = Get.put(LoginController());
   final registerController = Get.put(RegisterController());
   var phoneRegisterCurrent;
+  var phoneCurrent;
   var phoneCurrentSavedShared;
   //var fullName;
+  bool showpassword = false;
   @override
   void initState() {
     super.initState();
@@ -33,10 +35,21 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       phoneCurrentSavedShared = prefs.getString("phoneCurrent");
-      if (phoneCurrentSavedShared == null) {
-        phoneCurrentSavedShared = "";
+
+      phoneRegisterCurrent = prefs.getString("phoneCurrentRegister");
+
+      if (phoneCurrentSavedShared == null && phoneRegisterCurrent == null) {
+        phoneNumberController.text = "";
       }
-      phoneNumberController.text = phoneCurrentSavedShared.toString();
+      if (phoneCurrentSavedShared == null && phoneRegisterCurrent != null) {
+        phoneNumberController.text = phoneRegisterCurrent.toString();
+      }
+      if (phoneCurrentSavedShared != null && phoneRegisterCurrent == null) {
+        phoneNumberController.text = phoneCurrentSavedShared.toString();
+      }
+      if (phoneCurrentSavedShared != null && phoneRegisterCurrent != null) {
+        phoneNumberController.text = phoneRegisterCurrent.toString();
+      }
     });
   }
 
@@ -66,13 +79,16 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 hintText: 'Enter your phone',
               ),
               validator: (phoneController) {
-                String pattern = r'(^(?:[0])?[0-9]{10,11}$)';
-                RegExp regExp = new RegExp(pattern);
+               
+               String pattern = r'^0[0-9]{9,10}$';
+              
+                RegExp regExp = RegExp(pattern);
+
                 if (phoneController == null || phoneController.isEmpty) {
                   return 'Can\'t be empty';
                 }
                 if (!regExp.hasMatch(phoneController)) {
-                  return 'Phone number must be number and length 10 to 11';
+                  return 'Phone number must be number and length 9 to 10 and format 0*********';
                 }
                 return null;
               },
@@ -80,6 +96,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
             SizedBox(
               height: 10,
             ),
+            
 
             TextFormField(
               keyboardType: TextInputType.text,
@@ -115,6 +132,19 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 return null;
               },
             ),
+            GestureDetector(
+                  onTap: () {
+                    Get.to(CreateAccount());
+                  },
+                  child: Container(
+                    child: const Text(
+                      "Forgot password",
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                  ),
+                ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: ElevatedButton(
@@ -152,7 +182,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(RegisterAccountScreen());
+                    Get.to(CreateAccount());
                   },
                   child: Container(
                     child: const Text(
@@ -171,12 +201,5 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
     );
   }
 
-  Widget _icon() {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 2),
-          shape: BoxShape.circle),
-      child: const Icon(Icons.person, color: Colors.white, size: 50),
-    );
-  }
+  
 }

@@ -19,9 +19,10 @@ class GetRegistraionController {
       'Authorization': 'Bearer $token',
     });
     if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body)['data'] as List;
+      final jsonResponse = json.decode(response.body)['data']['registrations'] as List;
       // print(jsonResponse);
       final x = jsonResponse.map((data) => Data.fromJson(data)).toList();
+     
       return x;
     } else {
       print("else != 200");
