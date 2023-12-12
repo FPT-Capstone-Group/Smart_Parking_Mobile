@@ -19,7 +19,7 @@ class RegistrationController {
   var dropFee;
   var dropGender;
   var gender;
-  int? feeId;
+  var feeName;
 
   //String? imagePath;
   var token;
@@ -36,9 +36,9 @@ class RegistrationController {
     //request.headers['Content-Type'] ='multipart/form-data';
 
     if (dropFee.toString() == "One Month") {
-      feeId = 1;
+      feeName = "resident";
     } else {
-      feeId = 1;
+      feeName = "resident";
     }
 
     if (dropGender.toString() == "Male") {
@@ -53,10 +53,10 @@ class RegistrationController {
       contentType: new MediaType('image', 'jpg'),
     ));
     request.fields['plateNumber'] = plateNumberController.text;
-    request.fields['feeId'] = feeId.toString();
+    request.fields['feeName'] = feeName.toString();
     request.fields['manufacture'] = manufactureController.text;
     request.fields['model'] = modelBikeController.text;
-    request.fields['registrationNumber'] = registrationNumberController.text;
+    request.fields['registrationNumber'] = registrationNumberController.text.toUpperCase();
     request.fields['gender'] = gender;
     try {
       var response = await request.send();

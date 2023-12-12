@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking_auto/Screen/owner_detail.dart';
 import 'package:parking_auto/controller/get_list_owner_controller.dart';
 import 'package:parking_auto/model/listOwner_model.dart';
 
@@ -10,21 +11,21 @@ class ListOwner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('List owner'),
+          title: const Text('List Owner'),
            centerTitle: true,
         ),
-        body: const MyStatefulWidget());
+        body: const _ListOwner());
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
+class _ListOwner extends StatefulWidget {
+  const _ListOwner({super.key});
 
   @override
-  State<MyStatefulWidget> createState() => _RegistrationHistory();
+  State<_ListOwner> createState() => __ListOwner();
 }
 
-class _RegistrationHistory extends State<MyStatefulWidget> {
+class __ListOwner extends State<_ListOwner> {
   late AnimationController controller;
   GetListOwnerController getData = GetListOwnerController();
   List<Data>? listData;
@@ -50,17 +51,17 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
         itemBuilder: (context, index) {
           final item = list[index];
           return InkWell(
-            // onTap: () async {
-            //   final needReload = await Navigator.of(context).push(
-            //     MaterialPageRoute(
-            //       builder: (context) => RegistrationDetail(item),
-            //     ),
-            //   );
-            //   if (needReload == true) {
-            //     // Reload data
-            //     fetchData();
-            //   }
-            // },
+            onTap: () async {
+              final needReload = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => OwnerDetail(item),
+                ),
+              );
+              if (needReload == true) {
+                // Reload data
+                fetchData();
+              }
+            },
             child: Container(
               padding: const EdgeInsets.all(8),
               margin: const EdgeInsets.all(8),
@@ -72,7 +73,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "OwnerId: ${item.bikeId}",
+                    "OwnerId: ${item.ownerId}",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -80,13 +81,6 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                    Text(
                     "Full Name : ${item.fullName}",
                     ),
-                  
-                  // Text(
-                  //   "Status: ${item.registrationStatus}",
-                  // ),
-                  // Text(
-                  //   "PlateNumber: ${item.plateNumber}",
-                  // ),
                 ],
               ),
             ),

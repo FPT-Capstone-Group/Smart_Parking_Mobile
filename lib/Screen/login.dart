@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/create_account.dart';
+import 'package:parking_auto/Screen/forgot_password.dart';
 import 'package:parking_auto/controller/login_controller.dart';
-import 'package:parking_auto/controller/register_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginWithPhone extends StatefulWidget {
@@ -19,7 +19,6 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final logincontroller = Get.put(LoginController());
-  final registerController = Get.put(RegisterController());
   var phoneRegisterCurrent;
   var phoneCurrent;
   var phoneCurrentSavedShared;
@@ -134,7 +133,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
             ),
             GestureDetector(
                   onTap: () {
-                    Get.to(CreateAccount());
+                    Get.to(ForgotPassword());
                   },
                   child: Container(
                     child: const Text(
@@ -156,6 +155,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                     logincontroller.passwordController = passwordController;
 
                     logincontroller.loginUser();
+                
                   }
                 },
                 child: const SizedBox(

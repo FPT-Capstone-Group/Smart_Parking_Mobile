@@ -12,12 +12,6 @@ class GetUserController extends GetxController {
   var phoneNumber;
   User? user;
   var isLoading = false.obs;
-  
-  // @override
-  // Future<void> onInit() async {
-  //   super.onInit();
-  //   getUserData();
-  // }
 
   Future getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -29,36 +23,26 @@ class GetUserController extends GetxController {
       });
 
       if (response.statusCode == 200) {
+        var result = jsonDecode(response.body);
 
-         var result = jsonDecode(response.body);
-
-          user = User.fromJson(result);
-         final Map<String, dynamic> parsed = json.decode(response.body);
+        user = User.fromJson(result);
+        final Map<String, dynamic> parsed = json.decode(response.body);
 
         final data = Data.fromJson(parsed['data']);
 
-        // Fluttertoast.showToast(
-        //     msg: "Get user successfully",
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.CENTER,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 16.0);
         fullName = data.user!.fullName.toString();
         phoneNumber = data.user!.username.toString();
-         user = data.user!;
+        user = data.user!;
 
-         
         prefs.remove('fullName');
         final keyFullName = 'fullName';
         final fullnameValue = fullName;
         prefs.setString(keyFullName, fullnameValue);
-      
-       Get.to(ProfilePage(),arguments: [
-    {"fullname": fullName},
-    {"phone": phoneNumber}
-]);
+
+        Get.to(ProfilePage(), arguments: [
+          {"fullname": fullName},
+          {"phone": phoneNumber}
+        ]);
       } else if (response.statusCode == 401) {
         print("Erro code 401: fail token: Invalid token signature");
       } else {
@@ -68,10 +52,8 @@ class GetUserController extends GetxController {
       }
     } catch (e) {
       print(e);
-    }finally {
+    } finally {
       isLoading(false);
     }
   }
-
-  
 }

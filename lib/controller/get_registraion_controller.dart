@@ -22,7 +22,7 @@ class GetRegistraionController {
       final jsonResponse = json.decode(response.body)['data']['registrations'] as List;
       // print(jsonResponse);
       final x = jsonResponse.map((data) => Data.fromJson(data)).toList();
-     
+     x.sort((a, b) => b.registrationId!.compareTo(a.registrationId!));
       return x;
     } else {
       print("else != 200");

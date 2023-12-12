@@ -11,20 +11,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginController extends GetxController {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  var token;
   var phoneCurrent;
   var phoneNumber;
   var fullName;
   var deviceFireBasetoken;
+  var token;
+  var loginSession;
   //User? user;
 
   Future loginUser() async {
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     const url = "${Constants.host}/pub/login";
     deviceFireBasetoken = prefs.getString("deviceFireBasetoken");
         if(deviceFireBasetoken == null){
           deviceFireBasetoken= "";
         }
+      
     try {
       Map<String, String> headers = {"Content-type": "application/json"};
       var response = await http.post(Uri.parse(url),
@@ -32,23 +35,23 @@ class LoginController extends GetxController {
           body: jsonEncode({
             "username": phoneNumberController.text,
             "password": passwordController.text,
-            "firebaseToken": deviceFireBasetoken,
+            "firebaseToken": "abc",
           }));
-          print("device : " + deviceFireBasetoken);
-     
-      if (response.statusCode == 200) {
-  
-        var loginArr = json.decode(response.body);
+         // print("device :  + $deviceFireBasetoken");
 
+      if (response.statusCode == 200) {
+        loginSession = "true";
+         prefs.setString('loginSession', loginSession);
+        var loginArr = json.decode(response.body);
       //  phoneNumber = loginArr['data']['user']['username'];
         token = loginArr['data']['token'];
-
         //save token
         prefs.remove('token');
-        prefs.setString('token', loginArr['data']['token']);
+        prefs.setString('token', token);
     
         //save fullName
         fullName = loginArr['data']['user']['fullName'];
+         //fullName = loginArr['data']['fullName'];
         prefs.remove('fullName');
         final keyFullName = 'fullName';
         final fullnameValue = fullName;
@@ -57,6 +60,7 @@ class LoginController extends GetxController {
 
         //save phone login current
         phoneCurrent = loginArr['data']['user']['username'];
+        //phoneCurrent = loginArr['data']['username'];
         final keyPhoneCurrent = 'phoneCurrent';
         final valuePhoneCurrent = phoneCurrent;
         prefs.setString(keyPhoneCurrent, valuePhoneCurrent);

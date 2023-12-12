@@ -5,31 +5,33 @@ import 'package:parking_auto/Screen/login.dart';
 import 'package:parking_auto/controller/create_account_controller.dart';
 import 'package:parking_auto/controller/sendOtp_controller.dart';
 
+const List<String> gender = <String>['Male', 'Female'];
 class CreateAccount extends StatefulWidget {
   static const routeNamed = '/createAccountScreen';
   const CreateAccount({super.key});
 
   @override
-  _RegisU createState() => _RegisU();
+  _CreateAccount createState() => _CreateAccount();
 }
 
-class _RegisU extends State<CreateAccount> {
+class _CreateAccount extends State<CreateAccount> {
   final registerForm = GlobalKey<FormState>();
   final login = Get.put(LoginWithPhone());
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   TextEditingController otpController = TextEditingController();
-
-  SendOtpController sendOtp = SendOtpController();
-  CreateAccountController createAccount = CreateAccountController();
-
-
+  String dropdownGender = gender.first;
   bool showpassword = false;
   bool otpVisibility = false;
   bool verify = false;
   bool submitButton = true;
+
+  SendOtpController sendOtp = SendOtpController();
+  CreateAccountController createAccount = CreateAccountController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,7 @@ class _RegisU extends State<CreateAccount> {
                   return 'Can\'t be empty';
                 }
                 if (!regExp.hasMatch(phoneController)) {
-                  return 'Phone number must be number and length 10 to 11 and format 0********';
+                  return 'Phone number must be number and length 10 to 11 and start by 0';
                 }
                 return null;
               },
@@ -90,8 +92,80 @@ class _RegisU extends State<CreateAccount> {
                 },
               ),
                const SizedBox(
+              height: 5,
+            ),
+             TextFormField(
+                controller: ageController,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                  labelText: 'Age',
+                  hintText: 'Enter your age',
+                ),
+                keyboardType: TextInputType.number,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (ageController) {
+                   String pattern = r'^[0-9]{1,2}$';
+                RegExp regExp = new RegExp(pattern);
+                  if (ageController == null ||
+                      ageController.isEmpty) {
+                    return 'Can\'t be empty';
+                  }
+                   if (!regExp.hasMatch(ageController)) {
+                  return 'Age must be number and length 1 to 2 character';
+                }
+                  return null;
+                },
+              ),
+               const SizedBox(
               height: 10,
             ),
+             TextFormField(
+                controller: addressController,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                  labelText: 'Address',
+                  hintText: 'Enter your address',
+                ),
+                keyboardType: TextInputType.text,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (firstNameController) {
+                  if (firstNameController == null ||
+                      firstNameController.isEmpty) {
+                    return 'Can\'t be empty';
+                  }
+                  return null;
+                },
+              ),
+               const SizedBox(
+              height: 5,
+            ),
+             DropdownButton<String>(
+              
+                  value: dropdownGender,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      dropdownGender = value!;
+                    });
+                  },
+                  items: gender.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                 const SizedBox(
+              height: 5,),
             TextFormField(
                 keyboardType: TextInputType.number,
                 controller: passwordController,
@@ -125,7 +199,7 @@ class _RegisU extends State<CreateAccount> {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
                Visibility(
               child: TextFormField(
@@ -146,8 +220,8 @@ class _RegisU extends State<CreateAccount> {
               ),
               visible: otpVisibility,
             ),
-             SizedBox(
-              height: 10,
+           const SizedBox(
+              height: 5,
             ),
            Visibility(
               child: ElevatedButton(
@@ -161,16 +235,15 @@ class _RegisU extends State<CreateAccount> {
                     
                   });
                   sendOtp.sendOtp();
-               //  sendOtp.sendOtp();
-                // otpVisibility= true;
+              
                 },
                 child: const SizedBox(
-                  height: 25,
+                  height: 20,
                     width: double.infinity,
                     child: Text(
                       "Send Otp",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 15),
                     )
                     ),
                 style: ElevatedButton.styleFrom(
@@ -189,11 +262,16 @@ class _RegisU extends State<CreateAccount> {
               child: ElevatedButton(
                 onPressed: () {
                     if (registerForm.currentState!.validate()) {
-                  createAccount.phoneController = phoneController;
-                  createAccount.fullNameController = fullNameController;
-                  createAccount.passwordController= passwordController;
-                  createAccount.otpController = otpController;
+
+                  createAccount.phoneController     = phoneController;
+                  createAccount.fullNameController  = fullNameController;
+                  createAccount.ageController       = ageController;
+                  createAccount.addressController   =addressController;
+                  createAccount.passwordController  = passwordController;
+                  createAccount.otpController       = otpController;
+                  createAccount.dropGender          = dropdownGender;
                   createAccount.createAccount();
+
                     }
                 },
                 child: const SizedBox(
@@ -201,7 +279,7 @@ class _RegisU extends State<CreateAccount> {
                     child: Text(
                       "Verify",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 15),
                     )),
                 style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),
@@ -213,32 +291,6 @@ class _RegisU extends State<CreateAccount> {
               visible: verify,
             ),
          
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: const Text("Already have an account?"),
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => LoginWithPhone()));
-                  },
-                  child: Container(
-                    child: const Text(
-                      " Sign in",
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                  ),
-                )
-              ],
-            )
           ],
         ),
       ),

@@ -32,7 +32,7 @@ class Data {
   //dynamic approvedBy;
   String? gender;
   String? relationship;
-  String? faceImage;
+  String? ownerFaceImage;
   String? plateNumber;
   String? createdAt;
   String? updatedAt;
@@ -43,7 +43,7 @@ class Data {
       this.fullName,
       this.gender,
       this.relationship,
-      this.faceImage,
+      this.ownerFaceImage,
       this.plateNumber,
       this.createdAt,
       this.updatedAt,
@@ -55,7 +55,7 @@ class Data {
     fullName = json['fullName'];
     gender = json['gender'];
     relationship = json['relationship'];
-    faceImage = json['faceImage'];
+    ownerFaceImage = json['ownerFaceImage'];
     plateNumber = json['plateNumber'];
 
     createdAt = json['createdAt'];
@@ -72,7 +72,7 @@ class Data {
     data['fullName'] = this.fullName;
     data['gender'] = this.gender;
     data['relationship'] = this.relationship;
-    data['faceImage'] = this.faceImage;
+    data['ownerFaceImage'] = this.ownerFaceImage;
     data['plateNumber'] = this.plateNumber;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;

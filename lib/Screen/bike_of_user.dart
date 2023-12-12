@@ -6,13 +6,14 @@ import 'package:parking_auto/controller/get_list_bike_controller.dart';
 import 'package:parking_auto/model/listBike_model.dart';
 
 class BikeOfUser extends StatelessWidget {
+  static const routeNamed = '/bikeOfUserScreen';
   const BikeOfUser({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('List bike'),
+          title: const Text('List Bike'),
            centerTitle: true,
         ),
         body: const _BikeOfUser());
@@ -71,15 +72,13 @@ class _BikeOfUsers extends State<_BikeOfUser> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Text(
-                  //   "Bike: ${item.bikeId}",
-                  //   style: const TextStyle(
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
-                   Text(
-                    "Ordinal number: " + index.toString(),
+                  Text(
+                    "Bike: ${item.bikeId}",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  
                   Text(
                     "PlateNumber: ${item.plateNumber}",
                   ),

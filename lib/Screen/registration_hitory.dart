@@ -3,6 +3,7 @@ import 'package:parking_auto/Screen/registration_detail.dart';
 import 'package:parking_auto/controller/get_registraion_controller.dart';
 import 'package:parking_auto/model/registration_respone_model.dart';
 
+
 class RegistrationHistory extends StatelessWidget {
   static const routeNamed = '/registrationHistoryScreen';
   const RegistrationHistory({super.key});
@@ -46,6 +47,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
         child: const Center(child: CircularProgressIndicator()),
       );
     } else {
+
       return ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {
@@ -108,4 +110,5 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
     }
     if (mounted) setState(() {});
   }
+  
 }

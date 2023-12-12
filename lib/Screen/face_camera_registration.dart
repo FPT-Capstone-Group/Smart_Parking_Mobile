@@ -48,10 +48,7 @@ class _FaceCamera extends State<FaceCameraRegistration> {
                         )),
                     ElevatedButton(
                         onPressed: () {
-                           
                               Get.to(() => Registration(), );
-                 
-                      
                         },
                         child: const Text(
                           'Next',

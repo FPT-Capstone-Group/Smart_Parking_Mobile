@@ -1,12 +1,15 @@
-import 'dart:math';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:momo_vn/momo_vn.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
+import 'package:parking_auto/controller/cancelRegistration_controller.dart';
 import 'package:parking_auto/controller/payment_controller.dart';
 import 'package:parking_auto/model/registration_respone_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationDetail extends StatefulWidget {
   const RegistrationDetail(this.item, {super.key});
@@ -18,13 +21,12 @@ class RegistrationDetail extends StatefulWidget {
 }
 
 class _RegistrationDetailState extends State<RegistrationDetail> {
+  CancelRegistrationController cancelRegistrationController = CancelRegistrationController();
   PaymentController getData = PaymentController();
 
-  static const _chars = '1234567890';
-  Random _rnd = Random();
-
-  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  
+  Uint8List base64Decode(String source) => base64.decode(source);
+  
 
   late MomoVn _momoPay;
   late PaymentResponse _momoPaymentResult;
@@ -61,11 +63,11 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
   Widget build(BuildContext context) {
     var registrationStatus;
     registrationStatus = widget.item.registrationStatus.toString();
-    if(registrationStatus == "Verified" || registrationStatus == "Expired"  ){
+    if(registrationStatus.toString().toUpperCase() == "Verified".toUpperCase() || registrationStatus.toString().toUpperCase() == "Expired".toString().toUpperCase()  ){
         paymentButton = true;
          setState(() {});
     }
-    if(registrationStatus == "Created" || registrationStatus == "Verify"  ){
+    if(registrationStatus.toString().toUpperCase() == "Created".toString().toUpperCase() || registrationStatus == "Verify".toString().toUpperCase()  ){
         cancelButton = true;
          setState(() {});
     }
@@ -82,100 +84,102 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               Visibility(
-              child:  Text(
-                  "ID: ${widget.item.registrationId}",
+                  Text(
+                  "RegistrationId: ${widget.item.registrationId}",
                   style: const TextStyle(
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                ),
-              visible: false,
-            ),
-                const SizedBox(
-                  height: 20,
-                ),
                 Text(
                   "Status: ${widget.item.registrationStatus}",
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 15,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                
                 Text(
                   "Approuved By: ${widget.item.approvedBy}",
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 15,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Text(
                   "PlateNumber: ${widget.item.plateNumber}", style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 15,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                  Text(
                   "Model:  ${widget.item.model}", style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 15,
                     fontWeight: FontWeight.normal,
                   ),
                   
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                  Text(
                   "Manufacture:  ${widget.item.manufacture}", style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 15,
                     fontWeight: FontWeight.normal,
                   ),
                   
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                  Text(
                   "Registration Number:  ${widget.item.registrationNumber}", style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 15,
                     fontWeight: FontWeight.normal,
                   ),
                   
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Text(
                   "Gender:  ${widget.item.gender}", style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 15,
                     fontWeight: FontWeight.normal,
                   ),
                   
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Text(
                   "Price: ${widget.item.amount}" + " vnd",
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 15,
                     color: Colors.red,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 50),
+               
+                const SizedBox(height: 5),
+                Center(child: Image.memory(base64Decode(widget.item.faceImage.toString()), width: 250, height: 250)
+                ),
+                const SizedBox(height: 5),  
+
                  Visibility(
               child: ElevatedButton(
                 onPressed: () {
+                  setPlateNumber();
+                    cancelRegistrationController.cancelRegistration();
                 },
                 child: const SizedBox(
                     width: double.infinity,
@@ -192,6 +196,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                 ),
               ),
               visible: cancelButton,
+              //visible: true,
             ),
               
                  Visibility(
@@ -222,6 +227,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                 ),
               ),
               visible: paymentButton,
+              //visible: true,
             ),
               ],
             ),
@@ -315,5 +321,11 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
       _momoPaymentResult = response;
       _setState();
     });
+  }
+  void setPlateNumber() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove("registrationId");
+    prefs.setString("registrationId", widget.item.registrationId.toString());
+    
   }
 }

@@ -35,20 +35,14 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController fullName = TextEditingController();
     dynamic data = Get.arguments;
-    //phoneNumber.text = data[0]['first'];
   GetUserController loginController = Get.find();
   @override
   Widget build(BuildContext context) {
     //var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: () {
-        },
-        icon: const Icon(Icons.personal_injury),
-        ),
-        title: Text("Profile", style: Theme.of(context).textTheme.headline4), centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.personal_injury))],
-      ),
+      appBar: AppBar( title: Text('Profile'),
+          centerTitle: true,
+          backgroundColor: Colors.green,),
       body: SingleChildScrollView(
         child: Container(
           //padding: const EdgeInsets.all(double),
@@ -109,8 +103,6 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
               const Divider(),
               const SizedBox(height: 10),
 
-              /// -- MENU
-            
             ],
           ),
         ),

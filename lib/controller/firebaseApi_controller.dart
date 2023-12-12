@@ -15,8 +15,6 @@ class FirebaseApi {
       
        prefs.remove('deviceFireBasetoken');
        prefs.setString('deviceFireBasetoken', fcmToken.toString());
-    
-      print("token:  $fcmToken");
 
       FirebaseMessaging.onBackgroundMessage(handleBackgroudMessaging);
     }

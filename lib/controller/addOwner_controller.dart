@@ -22,7 +22,7 @@ class AddOwnerController extends GetxController{
     try {
 
       String url = "${Constants.host}/api/owners/create/";
-      print("drop gender: "+ dropGender);
+
       if (dropGender == "Male") {
            gender = "Male";
         } else {

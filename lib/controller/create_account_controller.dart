@@ -15,13 +15,18 @@ class CreateAccountController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController otpController = TextEditingController();
-  TextEditingController age = TextEditingController();
-  TextEditingController address = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   var username;
+  var gender;
+  var dropGender;
   Future createAccount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //var phoneCurrent;
-    //const url ='https://smart-parking-server-dev.azurewebsites.net/api/auth/local/register';
+      if (dropGender == "Male") {
+           gender = "Male";
+        } else {
+          gender = "FeMale";
+        }
 
     const url = "${Constants.host}/pub/register";
     try {
@@ -34,6 +39,9 @@ class CreateAccountController extends GetxController {
             "password": passwordController.text,
             "otpToken": otpController.text,
              "firebaseToken": otpController.text,
+             "gender": gender,
+             "age": ageController.text,
+             "address": addressController.text
           }));
 
       if (response.statusCode == 200) {
