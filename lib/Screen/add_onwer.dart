@@ -6,7 +6,7 @@ import 'package:parking_auto/controller/addOwner_controller.dart';
 const List<String> gender = <String>['Male', 'Female'];
 
 class RegistrationOnwer extends StatelessWidget {
-  //final String urlImage;
+   static const routeNamed = '/registrationOwnerScreen';
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class __RegistrationOnwer extends State<_RegistrationOnwer> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Registration owner"),
+            title: Text("Registration Owner"),
              centerTitle: true,
             backgroundColor: Colors.redAccent),
         body: Form(

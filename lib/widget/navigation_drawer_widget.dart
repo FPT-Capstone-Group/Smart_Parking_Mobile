@@ -11,7 +11,6 @@ import 'package:parking_auto/controller/login_controller.dart';
 import 'package:parking_auto/controller/logout_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({Key? key}) : super(key: key);
 
@@ -21,7 +20,7 @@ class NavigationDrawerWidget extends StatefulWidget {
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   final logincontroller = Get.put(LoginController());
   LogoutController logout = LogoutController();
-  var fullName;
+  var fullName = "";
   LoginController loginController = Get.find();
   
  @override
@@ -33,8 +32,8 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   _setFullName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      fullName = prefs.getString("fullName"); 
-      if(fullName == null){
+      fullName = prefs.getString("fullName").toString();
+      if(fullName.toString() == false){
         fullName = "";
       }
     });
@@ -51,7 +50,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
           children: <Widget>[
             buildHeader(
     
-              fullName: "Hi " + fullName,
+              fullName: "Hi $fullName",
        
               onClicked: () {
                  GetUserController get = GetUserController();

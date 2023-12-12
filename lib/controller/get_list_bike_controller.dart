@@ -17,6 +17,7 @@ class GetListBikeController {
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body)['data']['bikes'] as List;
       final x = jsonResponse.map((data) => Data.fromJson(data)).toList();
+      x.sort((a, b) => b.bikeId!.compareTo(a.bikeId!));
       return x;
     } else {
       print("else != 200");

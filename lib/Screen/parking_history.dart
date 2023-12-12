@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking_auto/Screen/parking_history_detail.dart';
 import 'package:parking_auto/controller/parking_history.dart';
 import 'package:parking_auto/model/parking_session_model.dart';
 
@@ -32,6 +33,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
   void initState() {
     super.initState();
     fetchData();
+    print("data :");
   }
 
   @override
@@ -49,17 +51,17 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
         itemBuilder: (context, index) {
           final item = list[index];
           return InkWell(
-            // onTap: () async {
-            //   final needReload = await Navigator.of(context).push(
-            //     MaterialPageRoute(
-            //       builder: (context) => RegistrationDetail(item),
-            //     ),
-            //   );
-            //   if (needReload == true) {
-            //     // Reload data
-            //     fetchData();
-            //   }
-            // },
+            onTap: () async {
+              final needReload = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ParkingHistoryDetail(item),
+                ),
+              );
+              if (needReload == true) {
+                // Reload data
+                fetchData();
+              }
+            },
             child: Container(
               padding: const EdgeInsets.all(8),
               margin: const EdgeInsets.all(8),
@@ -71,24 +73,18 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Pleate Number: ${item.plateNumber}",
+                    "Parking Session Id: ${item.parkingSessionId}",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                    Text(
-                    "Check In Time : ${item.manufacture}",
+                    "Check In Time : ${item.checkinTime}",
                     ),
                     Text(
-                    "Check Out Time : ${item.manufacture}",
+                    "Check Out Time : ${item.checkoutTime}",
                     ),
-                  
-                  // Text(
-                  //   "Status: ${item.registrationStatus}",
-                  // ),
-                  // Text(
-                  //   "PlateNumber: ${item.plateNumber}",
-                  // ),
+
                 ],
               ),
             ),

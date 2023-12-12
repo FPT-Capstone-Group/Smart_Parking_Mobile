@@ -1,44 +1,20 @@
-
 import 'package:face_camera/face_camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parking_auto/Screen/add_onwer.dart';
+import 'package:parking_auto/Screen/bike_of_user.dart';
 import 'package:parking_auto/Screen/home.dart';
 import 'package:parking_auto/Screen/login.dart';
+import 'package:parking_auto/Screen/parking_history.dart';
 import 'package:parking_auto/Screen/profilePage.dart';
-import 'package:parking_auto/Screen/register_account.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
-import 'package:parking_auto/Screen/user_profile.dart';
-import 'package:parking_auto/controller/check_login_controller.dart';
 import 'package:parking_auto/controller/firebaseApi_controller.dart';
-
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-
-   // firebase option parkingauto (gmail:hekimta@gmail.com)
-  // const firebaseOptions = FirebaseOptions(
-  //   appId: '1:551718773591:android:24033e9e023cc944bf9412',
-  //   apiKey: 'AIzaSyDNW6v89hiVt603ROCUeD6GUybhMBX2yjU',
-  //   projectId: 'parkingauto-78411',
-  //   messagingSenderId: '551718773591',
-  //   authDomain: 'parkingauto-78411.firebaseapp.com',
-  // );
-
-  //firebase option smart-parking (gmail:hekimta@gmail.com)
-  // const firebaseOptions = FirebaseOptions(
-  //   appId: '1:601251091983:android:a7fd23a34760410193f57a',
-  //   apiKey: 'AIzaSyAZ1gYbNl6qwQHpAEV08ZvJakjXnonsO5o',
-  //   projectId: 'smart-parking-5fd71',
-  //   messagingSenderId: '601251091983',
-  //   authDomain: 'smart-parking-5fd71.firebaseapp.com',
-  // );
-
-
 
   //firebase option FlutterApp (gmail:hekimta@gmail.com)
   const firebaseOptions = FirebaseOptions(
@@ -48,47 +24,59 @@ Future<void> main() async {
     messagingSenderId: '227756988291',
     authDomain: 'flutterapp-c26b5.firebaseapp.com',
   );
-  
-  await Firebase.initializeApp(
-    options: firebaseOptions
-  );
-  
-  
-   await Firebase.initializeApp();
-   FirebaseApi().initNoti();
+
+  await Firebase.initializeApp(options: firebaseOptions);
+
+  await Firebase.initializeApp();
+  FirebaseApi().initNoti();
 
   FaceCamera.initialize();
-  CheckLogin().checkLogin();
-  
-  runApp(GetMaterialApp(    debugShowCheckedModeBanner: false,
-    home: MyApp()));
+  // CheckLogin().checkLogin();
 
+  runApp(GetMaterialApp(debugShowCheckedModeBanner: false, home: CheckLogin()));
 }
-class MyApp extends StatelessWidget {
-  
+class CheckLogin extends StatefulWidget {
+  const CheckLogin({super.key});
+  @override
+  State<CheckLogin> createState() => _CheckLogin();
+}
+class _CheckLogin extends State<CheckLogin> {
+   @override
+  void initState() {
+    super.initState();
+    checkLogin();
+  }
+   Future<void> checkLogin() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var loginSession = prefs.getString("loginSession");
+     print("loginsession : $loginSession");
+      if(loginSession == "true"){
+         Get.to(const HomePage());
+      }else{
+        Get.to(const LoginWithPhone());
+      }
+
+    }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Login',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-       home: LoginWithPhone(),
+      home: LoginWithPhone(),
     );
   }
 }
+
 class MainScreen extends StatelessWidget {
-  
-   @override
+  @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: LoginWithPhone.routeNamed,
       getPages: [
-        GetPage(
-          name: RegisterAccountScreen.routeNamed,
-          page: () => RegisterAccountScreen(),
-        ),
         GetPage(
           name: ProfilePage.routeNamed,
           page: () => ProfilePage(),
@@ -105,9 +93,17 @@ class MainScreen extends StatelessWidget {
           name: SettingsPage.routeNamed,
           page: () => SettingsPage(),
         ),
+        GetPage(
+          name: RegistrationOnwer.routeNamed,
+          page: () => RegistrationOnwer(),
+        ),
          GetPage(
-          name: GetUPage.routeNamed,
-          page: () => GetUPage(),
+          name: BikeOfUser.routeNamed,
+          page: () => BikeOfUser(),
+        ),
+         GetPage(
+          name: ParkingHistory.routeNamed,
+          page: () => ParkingHistory(),
         ),
       ],
     );

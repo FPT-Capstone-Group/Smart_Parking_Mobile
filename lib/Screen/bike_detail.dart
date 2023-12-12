@@ -42,7 +42,7 @@ class _BikeDetail extends State<BikeDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bike detail'),
+        title: Text('Bike Detail'),
         centerTitle: true,
         backgroundColor: Colors.green,
       ),
@@ -53,36 +53,49 @@ class _BikeDetail extends State<BikeDetail> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text(
-                //   "ID: ${widget.item.bikeId}",
-                //   style: const TextStyle(
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
+                  Visibility(
+              child:  Text(
+                  "Owner ID: ${widget.item.bikeId}",
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+               ),
+              visible: true,
+            ),
                 const SizedBox(height: 16),
                 Text(
-                  "Status: ${widget.item.status}",
+                  "Status: ${widget.item.status}", style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  "PlateNumber: ${widget.item.plateNumber}",
+                  "PlateNumber: ${widget.item.plateNumber}", style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  "Model: ${widget.item.model}",
+                  "Model: ${widget.item.model}", style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  "Manufacture: ${widget.item.manufacture}",
+                  "Manufacture: ${widget.item.manufacture}", style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
                  const SizedBox(height: 16),
-                // Text(
-                //   "Card Id: ${widget.item.cardId}",
-                // ),
-                // const SizedBox(height: 16),
+              
                 ElevatedButton(
                   onPressed: () {
-                    // Get.to(RegistrationOnwer());
+
                     Get.to(FaceCameraImageOwner());
                   },
                   child: const SizedBox(
@@ -157,7 +170,8 @@ class _BikeDetail extends State<BikeDetail> {
   }
   void setPlateNumber() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove("plateNumber");
     prefs.setString("plateNumber", widget.item.plateNumber.toString());
-    print("plate: " + widget.item.plateNumber.toString());
+    
   }
 }

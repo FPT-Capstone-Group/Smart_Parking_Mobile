@@ -9,11 +9,20 @@ import 'package:parking_auto/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfileController extends GetxController{
-  TextEditingController phoneNumberController = TextEditingController();
+ // TextEditingController phoneNumberController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
-
+  TextEditingController ageController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  var dropGender;
+  var gender;
   Future updateUser() async {
     try {
+      
+      if (dropGender == "Male") {
+           gender = "Male";
+        } else {
+          gender = "FeMale";
+        }
 
       String url = "${Constants.host}/api/users/update";
 
@@ -26,10 +35,11 @@ class EditProfileController extends GetxController{
       var response = await http.put(Uri.parse(url),
           headers: headers,
           body: jsonEncode({
-            "phoneNumber": phoneNumberController.text,
+            "gender": gender,
             "fullName": fullNameController.text,
+            "age": ageController.text,
+            "address": addressController.text,
           }));
-      print('StatusCode ${response.statusCode}: $url');
       if (response.statusCode == 200) {
        //fullName = loginArr['data']['user']['fullName'];
         prefs.remove('fullName');
