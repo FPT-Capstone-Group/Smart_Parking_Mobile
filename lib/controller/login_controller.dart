@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,6 +40,7 @@ class LoginController extends GetxController {
       // print("device :  + $deviceFireBasetoken");
 
       if (response.statusCode == 200) {
+   prefs.remove("phoneCurrentRegister");
         var loginArr = json.decode(response.body);
         roleUer = loginArr['data']['user']['role'];
         if (roleUer =='user') {
@@ -85,7 +86,7 @@ class LoginController extends GetxController {
               fontSize: 16.0);
 
           Get.to(
-            HomePage(),
+             HomeNavBar(),
           );
         } else {
           Fluttertoast.showToast(

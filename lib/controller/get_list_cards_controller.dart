@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:parking_auto/model/listCards_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,15 +20,17 @@ class GetListCardsController {
    
       //final uri = Uri.https('smart-parking-server-dev.azurewebsites.net', 'api/owners', queryParameters);
 
-       final uri = Uri.https('smart-parking-server-dev.azurewebsites.net', 'api/bikes/getAllCardsByBikeId', queryParameters);
+       String url = "${ApiEndpoint.paramHost}";
+
+       final uri = Uri.https(url, 'api/bikes/getAllCardsByBikeId', queryParameters);
        
       final response = await http.get(uri, headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
         HttpHeaders.contentTypeHeader: 'application/json',
       });
      
-        print("uri: $uri");
-        print(response.statusCode);
+       // print("uri: $uri");
+       // print(response.statusCode);
     if (response.statusCode == 200) {
       prefs.remove("plateNumber");
       final jsonResponse = json.decode(response.body)['data'] as List;

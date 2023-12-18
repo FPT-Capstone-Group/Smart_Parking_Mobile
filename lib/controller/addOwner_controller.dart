@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -58,7 +58,7 @@ class AddOwnerController extends GetxController{
             textColor: Colors.white,
             fontSize: 16.0);
             
-            Get.to(HomePage());
+            Get.to(HomeNavBar());
       } else {
         Fluttertoast.showToast(
             msg: "Add owner fail",
@@ -70,7 +70,7 @@ class AddOwnerController extends GetxController{
             fontSize: 16.0);
       }
     } catch (e) {
-      print(e);
+      //print(e);
     }
 
   }

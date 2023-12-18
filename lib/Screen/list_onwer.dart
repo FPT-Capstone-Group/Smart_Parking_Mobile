@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
 import 'package:parking_auto/Screen/owner_detail.dart';
 import 'package:parking_auto/controller/get_list_owner_controller.dart';
 import 'package:parking_auto/model/listOwner_model.dart';
@@ -17,15 +15,14 @@ class ListOwner extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-  title: Text('List Owner'),
-  leading: IconButton(
-    onPressed: () {
-      Get.to(HomePage());
-    },
-    icon: Icon(Icons.home),),
-    actions: [
-      Icon(Icons.list)
-    ],
+          title: const Text('List Owners'),
+          // leading: IconButton(
+          //   onPressed: () {
+          //     Get.to(const HomePage());
+          //   },
+          //   icon: const Icon(Icons.home),
+          // ),
+          // actions: [Icon(Icons.list)],
         ),
         body: const _ListOwner());
   }
@@ -39,7 +36,7 @@ class _ListOwner extends StatefulWidget {
 }
 
 class __ListOwner extends State<_ListOwner> {
-   Uint8List base64Decode(String source) => base64.decode(source);
+  Uint8List base64Decode(String source) => base64.decode(source);
   late AnimationController controller;
   GetListOwnerController getData = GetListOwnerController();
   List<Data>? listData;
@@ -54,15 +51,14 @@ class __ListOwner extends State<_ListOwner> {
   Widget build(BuildContext context) {
     final list = listData;
     if (list == null) {
-
       return Container(
         color: Colors.grey[300],
         child: const Center(child: CircularProgressIndicator()),
-        
       );
-    } else if(listData!.isEmpty) { 
-      return Center(child: Text("No data"));
-    } {
+    } else if (listData!.isEmpty) {
+      return const Center(child: Text("No owner found"));
+    }
+    {
       return ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {
@@ -103,10 +99,12 @@ class __ListOwner extends State<_ListOwner> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                        
-                          item.ownerFaceImage != null ?
-                          Image.memory(base64Decode(item.ownerFaceImage.toString()),
-                              width: 55, height: 55)  : CircleAvatar(
+                          item.ownerFaceImage != null
+                              ? Image.memory(
+                                  base64Decode(item.ownerFaceImage.toString()),
+                                  width: 55,
+                                  height: 55)
+                              : const CircleAvatar(
                                   radius: 40.0,
                                   backgroundColor: Colors.orange,
                                   child: Text("No image"),
@@ -121,14 +119,11 @@ class __ListOwner extends State<_ListOwner> {
                                 // Add some spacing between the top of the card and the title
                                 Container(height: 5),
                                 // Add a title widget
-                                Text(
-                                  "Full Name: ${item.fullName}"
-                                ),
-                                 Container(height: 5),
+                                Text("Full Name: ${item.fullName}"),
+                                Container(height: 5),
                                 // Add a title widget
                                 Text(
                                   "Relationship: ${item.relationship}",
-                                 
                                 ),
                                 // Add some spacing between the title and the subtitle
                                 Container(height: 10),

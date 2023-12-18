@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/get_list_cards_controller.dart';
 import 'package:parking_auto/model/listCards_model.dart';
 
@@ -16,15 +16,14 @@ class ListCard extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-  title: Text('ListCard'),
-  leading: IconButton(
-    onPressed: () {
-      Get.to(HomePage());
-    },
-    icon: Icon(Icons.home),),
-    actions: [
-      Icon(Icons.list)
-    ],
+          title: Text('List Cards'),
+          leading: IconButton(
+            onPressed: () {
+              Get.to(HomeNavBar());
+            },
+            icon: const Icon(Icons.home),
+          ),
+          actions: [Icon(Icons.list)],
         ),
         body: const _ListOwner());
   }
@@ -38,7 +37,7 @@ class _ListOwner extends StatefulWidget {
 }
 
 class __ListOwner extends State<_ListOwner> {
-   Uint8List base64Decode(String source) => base64.decode(source);
+  Uint8List base64Decode(String source) => base64.decode(source);
   late AnimationController controller;
   GetListCardsController getData = GetListCardsController();
   List<Cards>? listData;
@@ -54,24 +53,20 @@ class __ListOwner extends State<_ListOwner> {
   Widget build(BuildContext context) {
     final list = listData;
     if (list == null) {
-
       return Container(
         color: Colors.grey[300],
         child: const Center(child: CircularProgressIndicator()),
-        
       );
-    } 
-    else if(listData!.isEmpty) { 
-      return Center(child: Text("No data"));
-    } {
+    } else if (listData!.isEmpty) {
+      return const Center(child: Text("No card found"));
+    }
+    {
       return ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {
           final item = list[index];
           return InkWell(
-            onTap: () async {
-  
-            },
+            onTap: () async {},
             child: Container(
               padding: const EdgeInsets.all(8),
               margin: const EdgeInsets.all(8),
@@ -96,8 +91,6 @@ class __ListOwner extends State<_ListOwner> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                        
-
                           // Add some spacing between the image and the text
                           Container(width: 20),
                           // Add an expanded widget to take up the remaining horizontal space
@@ -108,14 +101,12 @@ class __ListOwner extends State<_ListOwner> {
                                 // Add some spacing between the top of the card and the title
                                 Container(height: 5),
                                 // Add a title widget
-                                Text(
-                                  "Card Id: ${item.cardId}"
-                                ),
-                                 Container(height: 5),
+                                Text("Card Id: ${item.cardId}"),
+                                Container(height: 5),
                                 // Add a title widget
                                 // Text(
                                 //   "Relationship: ${item.relationship}",
-                                 
+
                                 // ),
                                 // // Add some spacing between the title and the subtitle
                                 // Container(height: 10),

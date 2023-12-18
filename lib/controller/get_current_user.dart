@@ -34,7 +34,7 @@ class GetUserController extends GetxController {
         user = data.user!;
 
         prefs.remove('fullName');
-        final keyFullName = 'fullName';
+        const keyFullName = 'fullName';
         final fullnameValue = fullName;
         prefs.setString(keyFullName, fullnameValue);
 
@@ -43,14 +43,14 @@ class GetUserController extends GetxController {
         //   {"phone": phoneNumber}
         // ]);
       } else if (response.statusCode == 401) {
-        print("Erro code 401: fail token: Invalid token signature");
+       // print("Erro code 401: fail token: Invalid token signature");
       } else {
-        print('response status code not 200');
+      //  print('response status code not 200');
         throw jsonDecode(response.body)['meta']["message"] ??
             "Unknown Error Occured";
       }
     } catch (e) {
-      print(e);
+    //  print(e);
     } finally {
       isLoading(false);
     }

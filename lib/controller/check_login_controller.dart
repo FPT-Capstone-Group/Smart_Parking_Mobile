@@ -1,6 +1,6 @@
 
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckLogin {
@@ -8,9 +8,9 @@ class CheckLogin {
     Future<void> checkLogin() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       loginSession = prefs.getString("loginSession");
-     print("loginsession : $loginSession");
+    // print("loginsession : $loginSession");
       if(loginSession == "true"){
-         Get.to(const HomePage());
+         Get.to(HomeNavBar());
       }
 
     }

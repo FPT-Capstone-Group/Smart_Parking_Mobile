@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/addOwner_controller.dart';
 
 const List<String> gender = <String>['Male', 'Female'];
 
 class RegistrationOnwer extends StatefulWidget {
-   static const routeNamed = '/registrationOwnerScreen';
+  static const routeNamed = '/registrationOwnerScreen';
   @override
   _RegistrationOnwer createState() => _RegistrationOnwer();
 }
@@ -27,15 +27,16 @@ class _RegistrationOnwer extends State<RegistrationOnwer> {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
-  title: Text('Registration Owner'),
-  leading: IconButton(
-    onPressed: () {
-      Get.to(HomePage());
-    },
-    icon: Icon(Icons.home),),
-    // actions: [
-    //   Icon(Icons.create)
-    // ],
+            title: const Text('Registration Owner'),
+            leading: IconButton(
+              onPressed: () {
+                Get.to(HomeNavBar());
+              },
+              icon: const Icon(Icons.home),
+            ),
+            // actions: [
+            //   Icon(Icons.create)
+            // ],
             backgroundColor: Colors.redAccent),
         body: Form(
             key: registrationOwnerForm,
@@ -45,10 +46,10 @@ class _RegistrationOnwer extends State<RegistrationOnwer> {
                 child: Column(
               children: [
                 const SizedBox(height: 5),
-                Divider(color: Colors.white70),
+                const Divider(color: Colors.white70),
                 TextFormField(
                   controller: fullNameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
                     labelText: 'Full Name',
@@ -66,7 +67,7 @@ class _RegistrationOnwer extends State<RegistrationOnwer> {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: plateNumberController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
                     labelText: 'Plate number',
@@ -88,7 +89,7 @@ class _RegistrationOnwer extends State<RegistrationOnwer> {
                 //Divider(color: Colors.white70),
                 TextFormField(
                   controller: relationshipController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
                     labelText: 'Relationship',
@@ -131,21 +132,24 @@ class _RegistrationOnwer extends State<RegistrationOnwer> {
                 ElevatedButton(
                     onPressed: () {
                       if (registrationOwnerForm.currentState!.validate()) {
-                        addOnwerController.dropGender             =       dropdownGender;
-                        addOnwerController.fullNameController     =       fullNameController;
-                        addOnwerController.plateNumberController  =       plateNumberController;
-                        addOnwerController.relationshipController =       relationshipController;
+                        addOnwerController.dropGender = dropdownGender;
+                        addOnwerController.fullNameController =
+                            fullNameController;
+                        addOnwerController.plateNumberController =
+                            plateNumberController;
+                        addOnwerController.relationshipController =
+                            relationshipController;
 
                         addOnwerController.addOwner();
                       }
                     },
-                    child: Text("Submit")),
+                    child: const Text("Submit")),
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HomeNavBar()));
                     },
-                    child: Text("Home")),
+                    child: const Text("Home")),
               ],
             ))));
   }

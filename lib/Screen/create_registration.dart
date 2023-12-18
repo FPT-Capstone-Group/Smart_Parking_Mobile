@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/addOwner_controller.dart';
 import 'package:parking_auto/controller/registration_controller.dart';
 
@@ -8,11 +8,11 @@ import 'package:parking_auto/controller/registration_controller.dart';
 const List<String> gender = <String>['Male', 'Female'];
 
 class Registration extends StatefulWidget {
+  const Registration({super.key});
   //final String urlImage;
 
-
   @override
-  _Registration createState() => _Registration();
+  State<Registration> createState() => _Registration();
 }
 
 class _Registration extends State<Registration> {
@@ -35,16 +35,16 @@ class _Registration extends State<Registration> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           centerTitle: true,
-  title: Text('Registration'),
-  leading: IconButton(
-    onPressed: () {
-      Get.to(HomePage());
-    },
-    icon: Icon(Icons.home),),
-    actions: [
-      Icon(Icons.create)
-    ], backgroundColor: Colors.redAccent),
+            centerTitle: true,
+            title: const Text('Registration'),
+            leading: IconButton(
+              onPressed: () {
+                Get.to(HomeNavBar());
+              },
+              icon: const Icon(Icons.home),
+            ),
+            actions:const [Icon(Icons.create)],
+            backgroundColor: Colors.redAccent),
         body: Form(
             key: registrationForm,
             // padding: EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -53,14 +53,14 @@ class _Registration extends State<Registration> {
                 child: Column(
               children: [
                 const SizedBox(height: 5),
-                Divider(color: Colors.white70),
-                Text(
+                const Divider(color: Colors.white70),
+                const Text(
                   'User infor',
                   textAlign: TextAlign.left,
                 ),
                 TextFormField(
                   controller: registrationNumberController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
                     labelText: "Driver's license",
@@ -78,7 +78,7 @@ class _Registration extends State<Registration> {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: plateNumberController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
                     labelText: 'Plate number',
@@ -90,7 +90,7 @@ class _Registration extends State<Registration> {
                         plateNumberController.isEmpty) {
                       return 'Can\'t be empty';
                     }
-                    if (plateNumberController.length < 0) {
+                    if (plateNumberController.length < 2) {
                       return 'Too short';
                     }
                     return null;
@@ -100,7 +100,7 @@ class _Registration extends State<Registration> {
                 //Divider(color: Colors.white70),
                 TextFormField(
                   controller: manufactureController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
                     labelText: 'Manufacture',
@@ -118,7 +118,7 @@ class _Registration extends State<Registration> {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: modelBikeController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
                     labelText: 'Model',
@@ -135,31 +135,6 @@ class _Registration extends State<Registration> {
                 ),
                 const SizedBox(height: 10),
 
-                //Divider(color: Colors.white70),
-                //---------dropdownButton value------
-                // DropdownButton<String>(
-                //   value: dropdownFee,
-                //   icon: const Icon(Icons.arrow_downward),
-                //   elevation: 16,
-                //   style: const TextStyle(color: Colors.deepPurple),
-                //   underline: Container(
-                //     height: 2,
-                //     color: Colors.deepPurpleAccent,
-                //   ),
-                //   onChanged: (String? value) {
-                //     // This is called when the user selects an item.
-                //     setState(() {
-                //       dropdownFee = value!;
-                //     });
-                //   },
-                //   items: list.map<DropdownMenuItem<String>>((String value) {
-                //     return DropdownMenuItem<String>(
-                //       value: value,
-                //       child: Text(value),
-                //     );
-                //   }).toList(),
-                // ),
-                //---------dropdownButton value------
                 DropdownButton<String>(
                   value: dropdownGender,
                   icon: const Icon(Icons.arrow_downward),
@@ -185,33 +160,31 @@ class _Registration extends State<Registration> {
                 //---------dropdownButton value------
                 const SizedBox(height: 10),
                 ElevatedButton(
-                    onPressed: () {
-                     // registration.dropFee                        = dropdownFee;
-                      registration.dropGender                     = dropdownGender;
-                      registration.plateNumberController          = plateNumberController;
-                      registration.manufactureController          = manufactureController;
-                      registration.modelBikeController            = modelBikeController;
-                      registration.registrationNumberController    =registrationNumberController;
+                  onPressed: () {
+                    // registration.dropFee                        = dropdownFee;
+                    registration.dropGender = dropdownGender;
+                    registration.plateNumberController = plateNumberController;
+                    registration.manufactureController = manufactureController;
+                    registration.modelBikeController = modelBikeController;
+                    registration.registrationNumberController =
+                        registrationNumberController;
 
-                      registration.create(context);
-                    },
-                    child: const SizedBox(
+                    registration.create(context);
+                  },
+                  child: const SizedBox(
                       width: double.infinity,
                       child: Text(
                         "Submit",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 20),
-                      )
-                      ),
-                      style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                      primary: Colors.white,
-                      onPrimary: Colors.blue,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      )),
+                  style: ElevatedButton.styleFrom(
+                    shape: const StadiumBorder(),
+                    primary: Colors.white,
+                    onPrimary: Colors.blue,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-              
-                    ),
-              
+                ),
               ],
             ))));
   }

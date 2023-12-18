@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:parking_auto/Screen/registration_hitory.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateRegistrationController {
@@ -52,7 +53,7 @@ class UpdateRegistrationController {
     }
   }
 
-  Future deactive() async {
+  Future deactiveTempo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token').toString();
     var registrationId  = prefs.getString('registrationId').toString();
@@ -63,7 +64,7 @@ class UpdateRegistrationController {
       print("vao");
       //final uri = Uri.https('smart-parking-server-dev.azurewebsites.net', 'api/owners', queryParameters);
 
-       final uri = Uri.http('smart-parking-server-dev.azurewebsites.net}', 'api/registrations/deactive/', queryParameters);
+       final uri = Uri.http('smart-parking-server-dev.azurewebsites.net', 'api/registrations/deactive/', queryParameters);
         print("test");
         print("uri: $uri");
       final response = await http.get(uri, headers: {
@@ -106,8 +107,8 @@ class UpdateRegistrationController {
       final queryParameters = {
         'registrationId': registrationId,
       };
-      
-      final uri = Uri.https('smart-parking-server-dev.azurewebsites.net', '/api/registrations/cancel/:', queryParameters);
+      String url = "${ApiEndpoint.paramHost}";
+      final uri = Uri.https(url, '/api/registrations/cancel/:', queryParameters);
       final response = await http.put(uri, headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
         HttpHeaders.contentTypeHeader: 'application/json',

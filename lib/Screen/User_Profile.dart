@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/Upate_User.dart';
 import 'package:parking_auto/Screen/changePass.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/user_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -47,16 +47,16 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-  title: Text('Profile'),
+  title:const Text('Profile'),
   leading: IconButton(
     onPressed: () {
-      Get.to(HomePage());
+      Get.to(HomeNavBar());
     },
-    icon: Icon(Icons.home),
+    icon:const Icon(Icons.home),
   ),
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding:const EdgeInsets.all(20),
         child: postModel.loading?Center(
           child: Container(
           ),
@@ -105,9 +105,9 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
                 width: 200,
                 child: FloatingActionButton.extended(
                                 onPressed: () {
-                                  Get.to(UpdateUser());
+                                  Get.to(const UpdateUser());
                                 },
-                                icon: Icon(Icons.edit),
+                                icon:const Icon(Icons.edit),
                                 label: Text('Edit'),
                               ),
               ),
@@ -116,10 +116,10 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
                 width: 200,
                 child: FloatingActionButton.extended(
                                 onPressed: () {
-                                  Get.to(ChangePass());
+                                  Get.to(const ChangePass());
                                 },
-                                icon: Icon(Icons.change_circle_outlined),
-                                label: Text('Change Password'),
+                                icon:const Icon(Icons.change_circle_outlined),
+                                label:const Text('Change Password'),
                               ),
               ),
               // const SizedBox(height: 5),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:parking_auto/Screen/home.dart';
 import 'package:parking_auto/Screen/parking_history_detail.dart';
 import 'package:parking_auto/controller/parking_history.dart';
 import 'package:parking_auto/model/parking_session_model.dart';
@@ -17,39 +15,33 @@ class _DemoState extends State<Demo> {
   ParkingSessionController getData = ParkingSessionController();
   List<Data>? listData;
   bool textVisible = false;
-  String date = "Time: 7 days ago to time now";
-  String result = " ";
+  String date = "Time: latest week";
+
   DateTimeRange? selectedDateRange;
 
   @override
   void initState() {
-    
     super.initState();
     setDefaultDate();
     fetchData();
-  
   }
 
   @override
   Widget build(BuildContext context) {
     final list = listData;
-    if(list == null){
-      result = "Result: non data in time";
-    }else{
-      result = "Result: " + list.length.toString() + " records";
-    }
-   
+
     return Scaffold(
-        appBar: AppBar(centerTitle: true,
-  title: Text('Parking History'),
-  leading: IconButton(
-    onPressed: () {
-      Get.to(HomePage());
-    },
-    icon: Icon(Icons.home),),
-    actions: [
-      Icon(Icons.history)
-    ],),
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Parking History'),
+          // leading: IconButton(
+          //   onPressed: () {
+          //     Get.to(const HomePage());
+          //   },
+          //   icon: const Icon(Icons.home),
+          // ),
+          // actions: [Icon(Icons.history)],
+        ),
         body: Container(
             padding: EdgeInsets.all(15),
             child: Column(children: [
@@ -58,23 +50,13 @@ class _DemoState extends State<Demo> {
                   children: <Widget>[
                     Column(children: <Widget>[
                       Container(
-                        
                         alignment: Alignment.center,
                         //width: double.infinity,
                         width: 250,
                         height: 20,
                         color: Colors.grey[300],
-                        child:Text(date),
-          // Displays the date on the screen
-                      ),
- const SizedBox(height: 20),
-                      Container(
-                        alignment: Alignment.center,
-                        //width: double.infinity,
-                        width: 190,
-                        height: 20,
-                        color: Colors.grey[300],
-                        child:Text(result),
+                        child: Text(date),
+                        // Displays the date on the screen
                       ),
                       //Container(height: 10),
                       const Divider(
@@ -84,13 +66,11 @@ class _DemoState extends State<Demo> {
                       Container(
                         //alignment: Alignment.center,
                         child: FloatingActionButton.extended(
-                           
                             onPressed: () {
                               selectDateTimeRange();
                               textVisible = true;
-                           
                             },
-                            icon: Icon(Icons.date_range),
+                            icon: const Icon(Icons.date_range),
                             label: const Text("Select Range Date",
                                 style: TextStyle(color: Colors.white))),
                       ),
@@ -102,94 +82,11 @@ class _DemoState extends State<Demo> {
               const SizedBox(height: 20),
               const SizedBox(height: 20),
               Expanded(
-                  child : list == null ?
-                  Text("No date") :
-                    
-
-                  ListView.builder(
-                          itemCount: list.length,
-                          itemBuilder: (context, index) {
-                            final item = list[index];
-                            return InkWell(
-                              onTap: () async {
-                                final needReload =
-                                    await Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ParkingHistoryDetail(item),
-                                  ),
-                                );
-                                if (needReload == true) {
-                                  // Reload data
-                                  fetchData();
-                                }
-                              },
-                              child: Container(
-                                height: 100,
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20.0)),
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black.withAlpha(100),
-                                          blurRadius: 10.0),
-                                    ]),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0, vertical: 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                         
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            "In:  ${item.checkinTime}",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-
-                                          item.checkoutTime != "Invalid date" ?
-                                          Text(
-                                            "Out: ${item.checkoutTime}",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          ) : Text(
-                                            "Parking",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      ),
-                                      Image.asset(
-                                        "assets/logo.png",
-                                        height: double.infinity,
-                                        fit: BoxFit.fitWidth,
-          alignment: Alignment.topCenter,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      ) ,
+                  child: list == null
+                      ? CustomMessage(message: "No Parking")
+                      : list.isEmpty
+                          ? CustomMessage(message: "No Parking")
+                          : ListData(listData: listData)),
             ])));
   }
 
@@ -206,7 +103,6 @@ class _DemoState extends State<Demo> {
   }
 
   void selectDateTimeRange() async {
-   
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final selectedDateRange = await showDateRangePicker(
       context: context,
@@ -230,25 +126,21 @@ class _DemoState extends State<Demo> {
       },
     );
     if (selectedDateRange == null) {
-      final df = new DateFormat('yyyy-MM-dd');
+      // final df = new DateFormat('yyyy-MM-dd');
       DateTime.now();
-      var endDate = df.format(DateTime.now());
+      var endDate = DateTime.now();
       var dateStart = DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day - 7);
-      // print("------");
-      // print(DateTime.now());
-      // print(dateStart);
-      // print("-----");
       prefs.setString('dataStart', dateStart.toString());
       prefs.setString('dateEnd', endDate.toString());
-      date = "Time: 7 days ago to time now";
-    
+      date = "Time: latest week";
+
       setState(() {
         fetchData();
       });
       return;
     }
-    
+
     if (selectedDateRange.duration.inDays == 0) {
       date = "The max picked range day is 7 days";
 
@@ -256,19 +148,21 @@ class _DemoState extends State<Demo> {
       //print(df.format(selectedDateRange.start));
       String startDate = df.format(selectedDateRange.start);
 
-
-      var endDate = DateTime(selectedDateRange.start.year, selectedDateRange.start.month, selectedDateRange.start.day,selectedDateRange.start.hour,selectedDateRange.start.minute,selectedDateRange.start.microsecond + 86399);
-     // print(endDate);
+      var endDate = DateTime(
+          selectedDateRange.start.year,
+          selectedDateRange.start.month,
+          selectedDateRange.start.day,
+          selectedDateRange.start.hour,
+          selectedDateRange.start.minute,
+          selectedDateRange.start.microsecond + 86399);
+      // print(endDate);
       prefs.setString('dataStart', startDate.toString());
       prefs.setString('dateEnd', endDate.toString());
 
-      date = "Time: " +startDate;
-      result = "Result: on data in time";
+      date = "Time: " + startDate;
+
       setState(() {
         fetchData();
-         if(listData == null){
-          result = "Result: on data in time";
-        }
       });
       return;
     }
@@ -280,24 +174,25 @@ class _DemoState extends State<Demo> {
       //print(df.format(selectedDateRange.start));
       String startDate = df.format(selectedDateRange.start);
 
-
-      var endDate = DateTime(selectedDateRange.start.year, selectedDateRange.start.month, selectedDateRange.start.day,selectedDateRange.start.hour,selectedDateRange.start.minute,selectedDateRange.start.microsecond + 86399);
+      var endDate = DateTime(
+          selectedDateRange.start.year,
+          selectedDateRange.start.month,
+          selectedDateRange.start.day,
+          selectedDateRange.start.hour,
+          selectedDateRange.start.minute,
+          selectedDateRange.start.microsecond + 86399);
       //print(endDate);
       prefs.setString('dataStart', startDate.toString());
       prefs.setString('dateEnd', endDate.toString());
 
       date = "Time: " + startDate;
       date = "The max picked range day is 7 days";
-      result = "Result: 0 records";
+
       setState(() {
         fetchData();
-         if(listData == null){
-          result = "Result: no data in time";
-        }
       });
       return;
     }
-
 
     if (mounted) {
       final df = new DateFormat('yyyy-MM-dd');
@@ -310,17 +205,11 @@ class _DemoState extends State<Demo> {
       prefs.setString('dataStart', startDate);
       prefs.setString('dateEnd', endDate);
 
-      
-
-       
       setState(() {
         fetchData();
-        if(listData == null){
-          result = "Result: no data in time";
-        }
-        date = "Time: " +startDate + " to " + endDate;
-      });
 
+        date = "Time: " + startDate + " to " + endDate;
+      });
     }
     setState(() {
       this.selectedDateRange = selectedDateRange;
@@ -332,11 +221,105 @@ class _DemoState extends State<Demo> {
     //final df = new DateFormat('yyyy-MM-dd');
     //var endDate = df.format(DateTime.now());
     var endDate = DateTime.now();
-   // print(endDate);
+
     var dateStart = DateTime(
-    DateTime.now().year, DateTime.now().month, DateTime.now().day - 7,DateTime.now().hour,DateTime.now().minute,DateTime.now().microsecond );
+        DateTime.now().year, DateTime.now().month, DateTime.now().day - 7);
+
     prefs.setString('dataStart', dateStart.toString());
     prefs.setString('dateEnd', endDate.toString());
-    date = "Time: 7 day ago to time now";
+    date = "Time: latest week";
+  }
+}
+
+class CustomMessage extends StatelessWidget {
+  final String message;
+  const CustomMessage({super.key, required this.message});
+
+  Widget build(BuildContext context) {
+    return Center(child: Text("No Parking"));
+  }
+}
+
+class ListData extends StatelessWidget {
+  final List<Data>? listData;
+
+  const ListData({super.key, required this.listData});
+
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: listData!.length,
+      itemBuilder: (context, index) {
+        final item = listData![index];
+        return InkWell(
+          onTap: () async {
+            final needReload = await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ParkingHistoryDetail(item),
+              ),
+            );
+            if (needReload == true) {
+              // Reload data
+              // fetchData();
+            }
+          },
+          child: Container(
+            height: 100,
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withAlpha(100), blurRadius: 10.0),
+                ]),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "In:  ${item.checkinTime}",
+                        style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      item.checkoutTime != "Invalid date"
+                          ? Text(
+                              "Out: ${item.checkoutTime}",
+                              style: const TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          : const Text(
+                              "Parking",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            )
+                    ],
+                  ),
+                  Image.asset(
+                    "assets/logo.png",
+                    height: double.infinity,
+                    fit: BoxFit.fitWidth,
+                    alignment: Alignment.topCenter,
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
