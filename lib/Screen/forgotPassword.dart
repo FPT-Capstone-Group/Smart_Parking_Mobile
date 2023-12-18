@@ -1,22 +1,40 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/login.dart';
-import 'package:parking_auto/controller/forgotPassword.controller.dart';
 import 'package:parking_auto/controller/sendOtp_controller.dart';
+import 'package:parking_auto/controller/user_controller.dart';
+import 'package:provider/provider.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
-  static const routeNamed = '/forgotPasswordScreen';
-  //const RegisterAccountScreen({Key? key}) : super(key: key);
 
+class ForgotPass extends StatelessWidget {
+  const ForgotPass({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
   @override
-  _RegisU createState() => _RegisU();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => UserController(),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Reset Password',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: ForgotPassScreen()),
+    );
+  }
 }
 
-class _RegisU extends State<ForgotPassword> {
-  final registerForm = GlobalKey<FormState>();
-  final login = Get.put(LoginWithPhone());
+class ForgotPassScreen extends StatefulWidget {
+  const ForgotPassScreen({Key? key}) : super(key: key);
+
+  @override
+  _ProviderForgotPassScreenScreenState createState() => _ProviderForgotPassScreenScreenState();
+}
+
+class _ProviderForgotPassScreenScreenState extends State<ForgotPassScreen> {
+ final registerForm = GlobalKey<FormState>();
+  //final login = Get.put(LoginWithPhone());
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
@@ -24,21 +42,32 @@ class _RegisU extends State<ForgotPassword> {
   TextEditingController otpController = TextEditingController();
 
   SendOtpController sendOtp = SendOtpController();
-  ForgotPasswordController forgotPassword = ForgotPasswordController();
+  UserController userController = UserController();
 
 
   bool showpassword = false;
   bool otpVisibility = false;
   bool verify = false;
   bool submitButton = true;
+  @override
+  void initState() {
+    super.initState();
+    // final postModel = Provider.of<UserController>(context, listen: false);
+    // postModel.forgotPassword();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final userController = Provider.of<UserController>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Forgot password"),
-         centerTitle: true,
-      ),
+        title: Text("Reset Password"), leading: IconButton(
+    onPressed: () {
+      Get.to(LoginWithPhone());
+    },
+    icon: Icon(Icons.login),)
+    ),
       body: Form(
         key: registerForm,
         //margin: EdgeInsets.all(10),
@@ -141,7 +170,7 @@ class _RegisU extends State<ForgotPassword> {
                   setState(() {
                     
                   });
-               //  sendOtp.sendOtp();
+                 sendOtp.sendOtp();
                 // otpVisibility= true;
                 },
                 child: const SizedBox(
@@ -169,10 +198,10 @@ class _RegisU extends State<ForgotPassword> {
               child: ElevatedButton(
                 onPressed: () {
                     if (registerForm.currentState!.validate()) {
-                  forgotPassword.phoneController = phoneController;
-                  forgotPassword.passwordController= passwordController;
-                  forgotPassword.otpController = otpController;
-                  forgotPassword.forgotPassword();
+                  userController.phoneController = phoneController;
+                  userController.passwordController= passwordController;
+                  userController.otpController = otpController;
+                  userController.forgotPassword();
                     }
                 },
                 child: const SizedBox(
@@ -195,33 +224,10 @@ class _RegisU extends State<ForgotPassword> {
             SizedBox(
               height: 5,
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Container(
-            //       child: const Text("Already have an account?"),
-            //       padding: const EdgeInsets.symmetric(vertical: 8),
-            //     ),
-            //     GestureDetector(
-            //       onTap: () {
-            //         Navigator.of(context).push(MaterialPageRoute(
-            //             builder: (context) => LoginWithPhone()));
-            //       },
-            //       child: Container(
-            //         child: const Text(
-            //           " Sign in",
-            //           style: TextStyle(
-            //               color: Colors.blue, fontWeight: FontWeight.bold),
-            //         ),
-            //         padding: const EdgeInsets.symmetric(vertical: 8),
-            //       ),
-            //     )
-            //   ],
-            // )
+        
           ],
         ),
       ),
     );
   }
-  }
-
+}

@@ -1,7 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:parking_auto/Screen/bike_detail.dart';
+import 'package:parking_auto/Screen/home.dart';
 import 'package:parking_auto/controller/get_list_bike_controller.dart';
 import 'package:parking_auto/model/listBike_model.dart';
 
@@ -13,8 +15,16 @@ class BikeOfUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('List Bike'),
-           centerTitle: true,
+          centerTitle: true,
+  title: Text('List Bike'),
+  leading: IconButton(
+    onPressed: () {
+      Get.to(HomePage());
+    },
+    icon: Icon(Icons.home),),
+    actions: [
+      Icon(Icons.list_alt)
+    ],
         ),
         body: const _BikeOfUser());
   }
@@ -31,6 +41,8 @@ class _BikeOfUsers extends State<_BikeOfUser> {
   GetListBikeController getBikes = GetListBikeController();
   List<Data>? listData;
 
+  
+
   @override
   void initState() {
     super.initState();
@@ -45,7 +57,9 @@ class _BikeOfUsers extends State<_BikeOfUser> {
         color: Colors.grey[300],
         child: const Center(child: CircularProgressIndicator()),
       );
-    } else {
+    } else if(listData!.isEmpty) { 
+      return Center(child: Text("No data"));
+    } {
       return ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {
@@ -63,34 +77,80 @@ class _BikeOfUsers extends State<_BikeOfUser> {
               }
             },
             child: Container(
-              padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                border: Border.all(),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Bike: ${item.bikeId}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  
-                  Text(
-                    "PlateNumber: ${item.plateNumber}",
-                  ),
-                   Text(
-                    "Time create : ${item.createdAt}",
-                  ),
-                  Text(
-                    "Status: ${item.status}",
-                  ),
-                ],
-              ),
-            ),
+                                height: 100,
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20.0)),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withAlpha(100),
+                                          blurRadius: 10.0),
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          // Text(
+                                          //   "${item.checkinTime}",
+                                          //   style: const TextStyle(
+                                          //       fontSize: 14,
+                                          //       fontWeight: FontWeight.bold),
+                                          // ),
+                                          // Text(
+                                          //   "${item.checkoutTime}",
+                                          //   style: const TextStyle(
+                                          //       fontSize: 14,
+                                          //       fontWeight: FontWeight.bold),
+                                          // ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                           Text(
+                                            "Registration Number:  ${item.registrationNumber}",
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                          Text(
+                                            "Plate Number:  ${item.plateNumber}",
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                          Text(
+                                            "Status: ${item.status}",
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                           
+                                        ],
+                                      ),
+                                      // Image.asset(
+                                      //   "assets/logo.png",
+                                      //   height: double.infinity,
+                                        
+                                      // )
+                                    ],
+                                  ),
+
+                                  
+                                ),
+                                
+                              ),
           );
         },
       );

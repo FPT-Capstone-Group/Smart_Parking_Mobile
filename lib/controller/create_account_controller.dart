@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:parking_auto/Screen/login.dart';
-import 'package:parking_auto/constants.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateAccountController extends GetxController {
@@ -28,7 +28,7 @@ class CreateAccountController extends GetxController {
           gender = "FeMale";
         }
 
-    const url = "${Constants.host}/pub/register";
+    const url = "${ApiEndpoint.host}/pub/register";
     try {
       Map<String, String> headers = {"Content-type": "application/json"};
       var response = await http.post(Uri.parse(url),
@@ -39,9 +39,9 @@ class CreateAccountController extends GetxController {
             "password": passwordController.text,
             "otpToken": otpController.text,
              "firebaseToken": otpController.text,
-             "gender": gender,
-             "age": ageController.text,
-             "address": addressController.text
+            //  "gender": gender,
+            //  "age": ageController.text,
+            //  "address": addressController.text
           }));
 
       if (response.statusCode == 200) {
@@ -71,7 +71,7 @@ class CreateAccountController extends GetxController {
       } else if (response.statusCode == 500){
       
         Fluttertoast.showToast(
-            msg: "User already exists with same username.",
+            msg: "You are register in fail.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -79,7 +79,14 @@ class CreateAccountController extends GetxController {
             textColor: Colors.white,
             fontSize: 16.0);
       }else{
-
+          Fluttertoast.showToast(
+            msg: "Error!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     } catch (e) {
       print(e);

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:parking_auto/constants.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:parking_auto/model/getUser_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,7 +9,7 @@ class GetUserController {
   Future<List<Data>> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token').toString();
-    String url = "${Constants.host}/api/me";
+    String url = "${ApiEndpoint.host}/api/me";
 
     final response = await http.get(Uri.parse(url), headers: {
       'Authorization': 'Bearer $token',

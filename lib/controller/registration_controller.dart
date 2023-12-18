@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:parking_auto/Screen/home.dart';
-import 'package:parking_auto/constants.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationController {
@@ -16,7 +16,7 @@ class RegistrationController {
   TextEditingController relationshipController = TextEditingController();
   TextEditingController registrationNumberController = TextEditingController();
 
-  var dropFee;
+  //var dropFee;
   var dropGender;
   var gender;
   var feeName;
@@ -29,17 +29,17 @@ class RegistrationController {
 
     var imagePath = prefs.getString('imagePath').toString();
 
-    const url = "${Constants.host}/api/registrations/create";
+    const url = "${ApiEndpoint.host}/api/registrations/create";
 
     var request = new http.MultipartRequest("POST", Uri.parse(url));
     request.headers['Authorization'] = 'Bearer $token';
     //request.headers['Content-Type'] ='multipart/form-data';
 
-    if (dropFee.toString() == "One Month") {
-      feeName = "resident";
-    } else {
-      feeName = "resident";
-    }
+    // if (dropFee.toString() == "One Month") {
+    //   feeName = "resident";
+    // } else {
+    //   feeName = "resident";
+    // }
 
     if (dropGender.toString() == "Male") {
       gender = "Male";
@@ -53,7 +53,7 @@ class RegistrationController {
       contentType: new MediaType('image', 'jpg'),
     ));
     request.fields['plateNumber'] = plateNumberController.text;
-    request.fields['feeName'] = feeName.toString();
+    //request.fields['feeName'] = feeName.toString();
     request.fields['manufacture'] = manufactureController.text;
     request.fields['model'] = modelBikeController.text;
     request.fields['registrationNumber'] = registrationNumberController.text.toUpperCase();

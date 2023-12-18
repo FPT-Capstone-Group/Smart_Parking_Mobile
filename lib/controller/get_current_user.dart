@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:parking_auto/Screen/profilePage.dart';
-import 'package:parking_auto/constants.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:parking_auto/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +16,7 @@ class GetUserController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token').toString();
     try {
-      const url = '${Constants.host}/api/me';
+      const url = '${ApiEndpoint.host}/api/me';
       var response = await http.get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $token',
       });
@@ -39,10 +38,10 @@ class GetUserController extends GetxController {
         final fullnameValue = fullName;
         prefs.setString(keyFullName, fullnameValue);
 
-        Get.to(ProfilePage(), arguments: [
-          {"fullname": fullName},
-          {"phone": phoneNumber}
-        ]);
+        // Get.to(ProfilePage(), arguments: [
+        //   {"fullname": fullName},
+        //   {"phone": phoneNumber}
+        // ]);
       } else if (response.statusCode == 401) {
         print("Erro code 401: fail token: Invalid token signature");
       } else {

@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:parking_auto/Screen/home.dart';
-import 'package:parking_auto/constants.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddOwnerController extends GetxController{
@@ -21,7 +21,7 @@ class AddOwnerController extends GetxController{
     var imageBase64 = prefs.getString('imageBase64').toString();
     try {
 
-      String url = "${Constants.host}/api/owners/create/";
+      String url = "${ApiEndpoint.host}/api/owners/create";
 
       if (dropGender == "Male") {
            gender = "Male";

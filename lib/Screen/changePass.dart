@@ -1,31 +1,75 @@
-
 import 'package:flutter/material.dart';
-import 'package:parking_auto/controller/changePassword_controller.dart';
+import 'package:get/get.dart';
+import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/controller/sendOtp_controller.dart';
+import 'package:parking_auto/controller/user_controller.dart';
+import 'package:provider/provider.dart';
 
-class ChangePassword extends StatefulWidget {
-  const ChangePassword({super.key});
-  static const routeNamed = '/changePasswordScreen';
 
+class ChangePass extends StatelessWidget {
+  const ChangePass({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
   @override
-  _ChangePassword createState() => _ChangePassword();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => UserController(),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Change Password',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: ChangePassPassScreen()),
+    );
+  }
 }
 
-class _ChangePassword extends State<ChangePassword> {
-  final registerForm = GlobalKey<FormState>();
+class ChangePassPassScreen extends StatefulWidget {
+  const ChangePassPassScreen({Key? key}) : super(key: key);
 
-  TextEditingController oldPasswordController = TextEditingController();
+  @override
+  _ProviderChangePassPassScreenState createState() => _ProviderChangePassPassScreenState();
+}
+
+class _ProviderChangePassPassScreenState extends State<ChangePassPassScreen> {
+ final registerForm = GlobalKey<FormState>();
+  //final login = Get.put(LoginWithPhone());
+
+   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
   bool showOldPassword = false;
   bool showNewPassword = false;
 
-  ChangePasswordController changePassword = ChangePasswordController();
+  SendOtpController sendOtp = SendOtpController();
+  UserController userController = UserController();
+
+
+  bool showpassword = false;
+  bool otpVisibility = false;
+  bool verify = false;
+  bool submitButton = true;
+  @override
+  void initState() {
+    super.initState();
+    // final postModel = Provider.of<UserController>(context, listen: false);
+    // postModel.forgotPassword();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final userController = Provider.of<UserController>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Change Password"),
-         centerTitle: true,
+        centerTitle: true,
+  title: Text('Change Password'),
+  leading: IconButton(
+    onPressed: () {
+      Get.to(HomePage());
+    },
+    icon: Icon(Icons.home),),
+   
       ),
       body: Form(
         key: registerForm,
@@ -106,28 +150,18 @@ class _ChangePassword extends State<ChangePassword> {
                 height: 10,
               ),
               
-           ElevatedButton(
-                onPressed: () {
-                    if (registerForm.currentState!.validate()) {
-                  changePassword.oldPasswordController = oldPasswordController;
-                  changePassword.newPasswordController= newPasswordController;
-                  changePassword.changePassword();
+              FloatingActionButton.extended(
+                                onPressed: () {
+                                  if (registerForm.currentState!.validate()) {
+                  userController.oldPasswordController = oldPasswordController;
+                  userController.newPasswordController= newPasswordController;
+                  userController.changePassword();
                     }
-                },
-                child: const SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      "Submit",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20),
-                    )),
-                style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  primary: Colors.white,
-                  onPrimary: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                ),
-              ),
+                                },
+                                icon: Icon(Icons.send),
+                                label: Text('Submit'),
+                              ),
+          
             const SizedBox(
               height: 5,
             ),
@@ -137,5 +171,4 @@ class _ChangePassword extends State<ChangePassword> {
       ),
     );
   }
-  }
-
+}

@@ -94,76 +94,76 @@ class _CreateAccount extends State<CreateAccount> {
                const SizedBox(
               height: 5,
             ),
-             TextFormField(
-                controller: ageController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(),
-                  labelText: 'Age',
-                  hintText: 'Enter your age',
-                ),
-                keyboardType: TextInputType.number,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (ageController) {
-                   String pattern = r'^[0-9]{1,2}$';
-                RegExp regExp = new RegExp(pattern);
-                  if (ageController == null ||
-                      ageController.isEmpty) {
-                    return 'Can\'t be empty';
-                  }
-                   if (!regExp.hasMatch(ageController)) {
-                  return 'Age must be number and length 1 to 2 character';
-                }
-                  return null;
-                },
-              ),
-               const SizedBox(
-              height: 10,
-            ),
-             TextFormField(
-                controller: addressController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(),
-                  labelText: 'Address',
-                  hintText: 'Enter your address',
-                ),
-                keyboardType: TextInputType.text,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (firstNameController) {
-                  if (firstNameController == null ||
-                      firstNameController.isEmpty) {
-                    return 'Can\'t be empty';
-                  }
-                  return null;
-                },
-              ),
-               const SizedBox(
-              height: 5,
-            ),
-             DropdownButton<String>(
+            //  TextFormField(
+            //     controller: ageController,
+            //     decoration: InputDecoration(
+            //       enabledBorder: OutlineInputBorder(),
+            //       focusedBorder: OutlineInputBorder(),
+            //       labelText: 'Age',
+            //       hintText: 'Enter your age',
+            //     ),
+            //     keyboardType: TextInputType.number,
+            //     autovalidateMode: AutovalidateMode.onUserInteraction,
+            //     validator: (ageController) {
+            //        String pattern = r'^[0-9]{1,2}$';
+            //     RegExp regExp = new RegExp(pattern);
+            //       if (ageController == null ||
+            //           ageController.isEmpty) {
+            //         return 'Can\'t be empty';
+            //       }
+            //        if (!regExp.hasMatch(ageController)) {
+            //       return 'Age must be number and length 1 to 2 character';
+            //     }
+            //       return null;
+            //     },
+            //   ),
+            //    const SizedBox(
+            //   height: 10,
+            // ),
+            //  TextFormField(
+            //     controller: addressController,
+            //     decoration: InputDecoration(
+            //       enabledBorder: OutlineInputBorder(),
+            //       focusedBorder: OutlineInputBorder(),
+            //       labelText: 'Address',
+            //       hintText: 'Enter your address',
+            //     ),
+            //     keyboardType: TextInputType.text,
+            //     autovalidateMode: AutovalidateMode.onUserInteraction,
+            //     validator: (firstNameController) {
+            //       if (firstNameController == null ||
+            //           firstNameController.isEmpty) {
+            //         return 'Can\'t be empty';
+            //       }
+            //       return null;
+            //     },
+            //   ),
+            //    const SizedBox(
+            //   height: 5,
+            // ),
+            //  DropdownButton<String>(
               
-                  value: dropdownGender,
-                  icon: const Icon(Icons.arrow_downward),
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
-                  onChanged: (String? value) {
-                    // This is called when the user selects an item.
-                    setState(() {
-                      dropdownGender = value!;
-                    });
-                  },
-                  items: gender.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
+            //       value: dropdownGender,
+            //       icon: const Icon(Icons.arrow_downward),
+            //       elevation: 16,
+            //       style: const TextStyle(color: Colors.deepPurple),
+            //       underline: Container(
+            //         height: 2,
+            //         color: Colors.deepPurpleAccent,
+            //       ),
+            //       onChanged: (String? value) {
+            //         // This is called when the user selects an item.
+            //         setState(() {
+            //           dropdownGender = value!;
+            //         });
+            //       },
+            //       items: gender.map<DropdownMenuItem<String>>((String value) {
+            //         return DropdownMenuItem<String>(
+            //           value: value,
+            //           child: Text(value),
+            //         );
+            //       }).toList(),
+            //     ),
                  const SizedBox(
               height: 5,),
             TextFormField(

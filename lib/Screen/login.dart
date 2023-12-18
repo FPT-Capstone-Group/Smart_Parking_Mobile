@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/create_account.dart';
-import 'package:parking_auto/Screen/forgot_password.dart';
+import 'package:parking_auto/Screen/forgotPassword.dart';
 import 'package:parking_auto/controller/login_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -68,6 +68,29 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+             ClipOval(
+              child: Image.asset(
+                'assets/logo.png',
+                width: 120,
+                height: 120,
+                fit: BoxFit.cover,
+              ),
+            ),
+
+            // new Image.asset(
+            //   'assets/logo.png',
+            //   width: 100.0,
+            //   height: 100.0,
+            //   fit: BoxFit.cover
+            // ),
+
+                    SizedBox(
+              height: 50,
+            ),
+                   // const Divider(),
+                    SizedBox(
+              height: 30,
+            ),
             TextFormField(
               keyboardType: TextInputType.number,
               controller: phoneNumberController,
@@ -98,7 +121,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
             
 
             TextFormField(
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               controller: passwordController,
               obscureText:
                   !passwordVisibility, //This will obscure text dynamically
@@ -132,8 +155,9 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
               },
             ),
             GestureDetector(
+
                   onTap: () {
-                    Get.to(ForgotPassword());
+                    Get.to(ForgotPass());
                   },
                   child: Container(
                     child: const Text(
@@ -146,10 +170,9 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Validate returns true if the form is valid, or false otherwise.
-                  if (_formKey.currentState!.validate()) {
+              child:  FloatingActionButton.extended(
+                                onPressed: () {
+                                 if (_formKey.currentState!.validate()) {
                     logincontroller.phoneNumberController =
                         phoneNumberController;
                     logincontroller.passwordController = passwordController;
@@ -157,21 +180,10 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                     logincontroller.loginUser();
                 
                   }
-                },
-                child: const SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      "Sign in ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20),
-                    )),
-                style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  primary: Colors.white,
-                  onPrimary: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                ),
-              ),
+                                },
+                                icon: Icon(Icons.login),
+                                label: Text('Login'),
+                              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
