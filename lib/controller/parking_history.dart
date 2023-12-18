@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:parking_auto/model/parking_session_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,8 +26,11 @@ class ParkingSessionController extends GetxController{
         'dateEnd' : dateEnd,
       };
       //final uri = Uri.http('${ApiEmdpoint.paramHost}', 'api/owners', queryParameters);
+
       //final uri = Uri.http('localhost:3000', '/api/registrations/cancel', queryParameters);
-      final uri = Uri.https('smart-parking-server-dev.azurewebsites.net', '/api/sessions/', queryParameters);
+      String url = "${ApiEndpoint.paramHost}";
+
+      final uri = Uri.https(url, '/api/sessions/', queryParameters);
       final response = await http.get(uri, headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
         HttpHeaders.contentTypeHeader: 'application/json',

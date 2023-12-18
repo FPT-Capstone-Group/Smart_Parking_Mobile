@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/get_notifications_controller.dart';
 import 'package:parking_auto/model/list_notification_model.dart';
 
@@ -15,23 +15,14 @@ class NotificationPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-  title: Text('Notification'),
+  title:const Text('Notifications'),
   leading: IconButton(
     onPressed: () {
-      Get.to(HomePage());
+      Get.to(HomeNavBar());
     },
-    icon: Icon(Icons.home),
+    icon:const Icon(Icons.home),
   ),
-  // actions: [
-  //   IconButton(
-  //     onPressed: () {},
-  //     icon: Icon(Icons.call),
-  //   ),
-  //   IconButton(
-  //     onPressed: () {},
-  //     icon: Icon(Icons.more_vert),
-  //   ),
-  // ],
+
         ),
         body: const _NotificationPage());
   }
@@ -64,30 +55,20 @@ class __NotificationPage extends State<_NotificationPage> {
         child: const Center(child: CircularProgressIndicator()),
       );
     } else if(listData!.isEmpty) { 
-      return Center(child: Text("No data"));
+      return const Center(child: Text("No data"));
     }
       return ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {
           final item = list[index];
           return InkWell(
-            // onTap: () async {
-            //   final needReload = await Navigator.of(context).push(
-            //     MaterialPageRoute(
-            //       builder: (context) => BikeDetail(item),
-            //     ),
-            //   );
-            //   if (needReload == true) {
-            //     // Reload data
-            //     fetchData();
-            //   }
-            // },
+
             child: Container(
                                 height: 100,
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
                                 decoration: BoxDecoration(
-                                    borderRadius:
+                                    borderRadius: const
                                         BorderRadius.all(Radius.circular(20.0)),
                                     color: Colors.white,
                                     boxShadow: [
@@ -107,7 +88,7 @@ class __NotificationPage extends State<_NotificationPage> {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                          
-                                          SizedBox(
+                                        const  SizedBox(
                                             height: 20,
                                           ),
                                           //  Text(
@@ -132,7 +113,7 @@ class __NotificationPage extends State<_NotificationPage> {
                                                 fontWeight: FontWeight.normal),
                                           ),
                                            Text(
-                                            "CreatedAt: ${item.createdAt}",
+                                            "Created: ${item.createdAt}",
                                             style: const TextStyle(
                                                 fontSize: 10,
                                                 color: Colors.black,

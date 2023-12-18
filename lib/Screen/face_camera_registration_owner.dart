@@ -12,7 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class FaceCameraImageOwner extends StatefulWidget {
   const FaceCameraImageOwner({Key? key}) : super(key: key);
   @override
-  _FaceCamera createState() => _FaceCamera();
+   @override
+  State<FaceCameraImageOwner> createState() => _FaceCamera();
 }
 
 class _FaceCamera extends State<FaceCameraImageOwner> {
@@ -20,12 +21,13 @@ class _FaceCamera extends State<FaceCameraImageOwner> {
   RegistrationController registrationBike = RegistrationController();
   File? _capturedImage;
 
-  var imgPath;
+  dynamic imgPath;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Face Image'), centerTitle: true,
+          title: const Text('Face Image'),
+          centerTitle: true,
         ),
         body: Builder(builder: (context) {
           if (_capturedImage != null) {
@@ -39,24 +41,21 @@ class _FaceCamera extends State<FaceCameraImageOwner> {
                     width: 150,
                     fit: BoxFit.fitWidth,
                   ),
-
                   FloatingActionButton.extended(
-                                onPressed: () {
-                                 setState(() => _capturedImage = null);
-                                },
-                                //icon: Icon(Icons.next_plan),
-                                label: Text('Capture Again'),
-                              ),
-
-                        const SizedBox(width: 8),
-                      FloatingActionButton.extended(
-                                onPressed: () {
-                                  Get.to(RegistrationOnwer());
-                                },
-                               // icon: Icon(Icons.next_plan),
-                                label: Text('Next'),
-                              ),
-             
+                    onPressed: () {
+                      setState(() => _capturedImage = null);
+                    },
+                    //icon: Icon(Icons.next_plan),
+                    label: const Text('Capture Again'),
+                  ),
+                  const SizedBox(width: 8),
+                  FloatingActionButton.extended(
+                    onPressed: () {
+                      Get.to(RegistrationOnwer());
+                    },
+                    // icon: Icon(Icons.next_plan),
+                    label: const Text('Next'),
+                  ),
                 ],
               ),
             );

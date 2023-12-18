@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/payment_controller.dart';
 import 'package:parking_auto/model/parking_session_model.dart';
 
@@ -26,15 +26,14 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-  title: Text('Parking History Detail'),
-  leading: IconButton(
-    onPressed: () {
-      Get.to(HomePage());
-    },
-    icon: Icon(Icons.home),),
-    actions: [
-      Icon(Icons.details)
-    ],
+        title: Text('Parking History Detail'),
+        leading: IconButton(
+          onPressed: () {
+            Get.to(HomeNavBar());
+          },
+          icon: const Icon(Icons.home),
+        ),
+        actions: [Icon(Icons.details)],
         backgroundColor: Colors.green,
       ),
       body: Row(
@@ -61,10 +60,13 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
                       ),
                     ),
                     // const Divider(),
-                     Container(height: 10),
-                    const Divider(color: Colors.green, height: 20,),
-                        
-                    Padding(
+                    Container(height: 10),
+                    const Divider(
+                      color: Colors.green,
+                      height: 20,
+                    ),
+
+                    const Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 8),
                       child: Text(
                         "Time:",
@@ -73,8 +75,9 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
                       ),
                     ),
                     //const Divider(),
-                   Padding(
-                      padding: EdgeInsets.only(left: 16, right: 16, top: 8),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 16, right: 16, top: 8),
                       child: Text(
                         "${widget.item.checkinTime}",
                         maxLines: 2,
@@ -92,16 +95,17 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
                     ),
                     //const Divider(),
                     Padding(
-                       padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(30.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          widget.item.checkinFaceImage != null ?
-                          Image.memory(
-                              base64Decode(
-                                  widget.item.checkinFaceImage.toString()),
-                              width: 100,
-                              height: 100) : CircleAvatar(
+                          widget.item.checkinFaceImage != null
+                              ? Image.memory(
+                                  base64Decode(
+                                      widget.item.checkinFaceImage.toString()),
+                                  width: 100,
+                                  height: 100)
+                              : const CircleAvatar(
                                   radius: 40.0,
                                   backgroundColor: Colors.orange,
                                   child: Text("No image"),
@@ -118,18 +122,20 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                   // const Divider(),
+                    // const Divider(),
                     Padding(
-                       padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(30.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          widget.item.checkinPlateNumberImage != null ?
-                          Image.memory(
-                              base64Decode(widget.item.checkinPlateNumberImage
-                                  .toString()),
-                              width: 100,
-                              height: 100) : CircleAvatar(
+                          widget.item.checkinPlateNumberImage != null
+                              ? Image.memory(
+                                  base64Decode(widget
+                                      .item.checkinPlateNumberImage
+                                      .toString()),
+                                  width: 100,
+                                  height: 100)
+                              : const CircleAvatar(
                                   radius: 40.0,
                                   backgroundColor: Colors.orange,
                                   child: Text("No image"),
@@ -152,7 +158,7 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
               ),
               child: InkWell(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
-               // onTap: () {},
+                // onTap: () {},
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -164,10 +170,13 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                     Container(height: 10),
-                    const Divider(color: Colors.green,height: 20,),
-                       
-                    Padding(
+                    Container(height: 10),
+                    const Divider(
+                      color: Colors.green,
+                      height: 20,
+                    ),
+
+                    const Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 8),
                       child: Text(
                         "Time:",
@@ -175,8 +184,8 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                   // const Divider(),
-                   Padding(
+                    // const Divider(),
+                    Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 8),
                       child: Text(
                         "${widget.item.checkoutTime}",
@@ -185,7 +194,7 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
                       ),
                     ),
                     const Divider(),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 8),
                       child: Text(
                         "Face Image:",
@@ -199,17 +208,17 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          widget.item.checkoutFaceImage !=  null ?
-                          Image.memory(
-                              base64Decode(
-                                  widget.item.checkoutFaceImage.toString()),
-                              width: 100,
-                              height: 100) : CircleAvatar(
+                          widget.item.checkoutFaceImage != null
+                              ? Image.memory(
+                                  base64Decode(
+                                      widget.item.checkoutFaceImage.toString()),
+                                  width: 100,
+                                  height: 100)
+                              : const CircleAvatar(
                                   radius: 40.0,
                                   backgroundColor: Colors.orange,
                                   child: Text("No image"),
                                 ),
-                        
                         ],
                       ),
                     ),
@@ -228,13 +237,14 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          widget.item.checkoutPlateNumberImage != null ?
-
-                          Image.memory(
-                              base64Decode(widget.item.checkoutPlateNumberImage
-                                  .toString()),
-                              width: 100,
-                              height: 100) : CircleAvatar(
+                          widget.item.checkoutPlateNumberImage != null
+                              ? Image.memory(
+                                  base64Decode(widget
+                                      .item.checkoutPlateNumberImage
+                                      .toString()),
+                                  width: 100,
+                                  height: 100)
+                              : const CircleAvatar(
                                   radius: 40.0,
                                   backgroundColor: Colors.orange,
                                   child: Text("No image"),

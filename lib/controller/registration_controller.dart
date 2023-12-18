@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -75,7 +75,7 @@ class RegistrationController {
             textColor: Colors.white,
             fontSize: 16.0);
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) => HomeNavBar(),
         ));
       } else if (res.statusCode == 404) {
         Fluttertoast.showToast(

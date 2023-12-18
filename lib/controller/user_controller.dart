@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:parking_auto/Screen/Upate_User.dart';
 import 'package:parking_auto/Screen/User_Profile.dart';
 import 'package:parking_auto/Screen/login.dart';
 import 'package:parking_auto/apiEndpoint.dart';
@@ -110,7 +109,7 @@ class UserController extends ChangeNotifier {
       if (response.statusCode == 200) {
         //fullName = loginArr['data']['user']['fullName'];
         prefs.remove('fullName');
-        final keyFullName = 'fullName';
+        const keyFullName = 'fullName';
         final fullnameValue = fullNameController.text;
         prefs.setString(keyFullName, fullnameValue);
 
@@ -127,7 +126,7 @@ class UserController extends ChangeNotifier {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-        Get.to(UpdateUser());
+        Get.to(const UserProfile());
         // Get.to(HomePage());
       } else if (response.statusCode == 401) {
         print("Erro code 401: fail token: Invalid token signature");

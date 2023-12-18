@@ -62,13 +62,20 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
       appBar: AppBar(
         title: Text("Login"),
         centerTitle: true,
+         leading: IconButton(
+    onPressed: () {
+      
+    },
+    icon:const Icon(Icons.motorcycle),
+    
+    ),
       ),
       body: Form(
         key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             ClipOval(
+            ClipOval(
               child: Image.asset(
                 'assets/logo.png',
                 width: 120,
@@ -84,26 +91,25 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
             //   fit: BoxFit.cover
             // ),
 
-                    SizedBox(
+            const SizedBox(
               height: 50,
             ),
-                   // const Divider(),
-                    SizedBox(
+            // const Divider(),
+            const SizedBox(
               height: 30,
             ),
             TextFormField(
               keyboardType: TextInputType.number,
               controller: phoneNumberController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(),
                 labelText: 'Phone number',
                 hintText: 'Enter your phone',
               ),
               validator: (phoneController) {
-               
-               String pattern = r'^0[0-9]{9,10}$';
-              
+                String pattern = r'^0[0-9]{9,10}$';
+
                 RegExp regExp = RegExp(pattern);
 
                 if (phoneController == null || phoneController.isEmpty) {
@@ -115,10 +121,9 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 return null;
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            
 
             TextFormField(
               keyboardType: TextInputType.number,
@@ -155,35 +160,33 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
               },
             ),
             GestureDetector(
-
-                  onTap: () {
-                    Get.to(ForgotPass());
-                  },
-                  child: Container(
-                    child: const Text(
-                      "Forgot password",
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                  ),
+              onTap: () {
+                Get.to(const ForgotPass());
+              },
+              child: Container(
+                child: const Text(
+                  "Forgot password",
+                  style: TextStyle(
+                      color: Colors.blue, fontWeight: FontWeight.bold),
                 ),
+                padding: const EdgeInsets.symmetric(vertical: 8),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              child:  FloatingActionButton.extended(
-                                onPressed: () {
-                                 if (_formKey.currentState!.validate()) {
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
                     logincontroller.phoneNumberController =
                         phoneNumberController;
                     logincontroller.passwordController = passwordController;
 
                     logincontroller.loginUser();
-                
                   }
-                                },
-                                icon: Icon(Icons.login),
-                                label: Text('Login'),
-                              ),
+                },
+                icon: const Icon(Icons.login),
+                label: const Text('Login'),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -194,7 +197,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(CreateAccount());
+                    Get.to(const CreateAccount());
                   },
                   child: Container(
                     child: const Text(
@@ -212,6 +215,4 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
       ),
     );
   }
-
-  
 }

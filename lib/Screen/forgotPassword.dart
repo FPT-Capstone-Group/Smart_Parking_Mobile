@@ -5,7 +5,6 @@ import 'package:parking_auto/controller/sendOtp_controller.dart';
 import 'package:parking_auto/controller/user_controller.dart';
 import 'package:provider/provider.dart';
 
-
 class ForgotPass extends StatelessWidget {
   const ForgotPass({Key? key}) : super(key: key);
 
@@ -29,11 +28,12 @@ class ForgotPassScreen extends StatefulWidget {
   const ForgotPassScreen({Key? key}) : super(key: key);
 
   @override
-  _ProviderForgotPassScreenScreenState createState() => _ProviderForgotPassScreenScreenState();
+  _ProviderForgotPassScreenScreenState createState() =>
+      _ProviderForgotPassScreenScreenState();
 }
 
 class _ProviderForgotPassScreenScreenState extends State<ForgotPassScreen> {
- final registerForm = GlobalKey<FormState>();
+  final registerForm = GlobalKey<FormState>();
   //final login = Get.put(LoginWithPhone());
 
   TextEditingController phoneController = TextEditingController();
@@ -43,7 +43,6 @@ class _ProviderForgotPassScreenScreenState extends State<ForgotPassScreen> {
 
   SendOtpController sendOtp = SendOtpController();
   UserController userController = UserController();
-
 
   bool showpassword = false;
   bool otpVisibility = false;
@@ -62,12 +61,13 @@ class _ProviderForgotPassScreenScreenState extends State<ForgotPassScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Reset Password"), leading: IconButton(
-    onPressed: () {
-      Get.to(LoginWithPhone());
-    },
-    icon: Icon(Icons.login),)
-    ),
+          title: const Text("Reset Password"),
+          leading: IconButton(
+            onPressed: () {
+              Get.to(const LoginWithPhone());
+            },
+            icon: const Icon(Icons.login),
+          )),
       body: Form(
         key: registerForm,
         //margin: EdgeInsets.all(10),
@@ -76,7 +76,7 @@ class _ProviderForgotPassScreenScreenState extends State<ForgotPassScreen> {
           children: [
             TextFormField(
               controller: phoneController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(),
                 labelText: 'Phone Number',
@@ -101,43 +101,41 @@ class _ProviderForgotPassScreenScreenState extends State<ForgotPassScreen> {
             const SizedBox(
               height: 10,
             ),
-            
             TextFormField(
-                keyboardType: TextInputType.number,
-                controller: passwordController,
-                obscureText: !showpassword, //This will obscure text dynamically
-                validator: (passwordController) {
-                  if (passwordController == null ||
-                      passwordController.isEmpty) {
-                    return 'Can\'t be empty';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(),
-                  labelText: 'New Password',
-                  hintText: 'Enter your new password',
-                  // Here is key idea
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      // Based on passwordVisible state choose the icon
-                      showpassword ? Icons.visibility : Icons.visibility_off,
-                      color: Theme.of(context).primaryColorDark,
-                    ),
-                    onPressed: () {
-                      // Update the state i.e. toogle the state of passwordVisible variable
-                      setState(() {
-                        showpassword = !showpassword;
-                      });
-                    },
+              keyboardType: TextInputType.number,
+              controller: passwordController,
+              obscureText: !showpassword, //This will obscure text dynamically
+              validator: (passwordController) {
+                if (passwordController == null || passwordController.isEmpty) {
+                  return 'Can\'t be empty';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(),
+                focusedBorder: const OutlineInputBorder(),
+                labelText: 'New Password',
+                hintText: 'Enter your new password',
+                // Here is key idea
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    // Based on passwordVisible state choose the icon
+                    showpassword ? Icons.visibility : Icons.visibility_off,
+                    color: Theme.of(context).primaryColorDark,
                   ),
+                  onPressed: () {
+                    // Update the state i.e. toogle the state of passwordVisible variable
+                    setState(() {
+                      showpassword = !showpassword;
+                    });
+                  },
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-               Visibility(
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Visibility(
               child: TextFormField(
                 controller: otpController,
                 decoration: InputDecoration(
@@ -156,32 +154,29 @@ class _ProviderForgotPassScreenScreenState extends State<ForgotPassScreen> {
               ),
               visible: otpVisibility,
             ),
-             SizedBox(
+            const SizedBox(
               height: 10,
             ),
-           Visibility(
+            Visibility(
               child: ElevatedButton(
                 onPressed: () {
                   sendOtp.phoneNumberController = phoneController;
-                  otpVisibility= true;
-                  verify= true;
+                  otpVisibility = true;
+                  verify = true;
                   submitButton = false;
 
-                  setState(() {
-                    
-                  });
-                 sendOtp.sendOtp();
-                // otpVisibility= true;
+                  setState(() {});
+                  sendOtp.sendOtp();
+                  // otpVisibility= true;
                 },
                 child: const SizedBox(
-                  height: 25,
+                    height: 25,
                     width: double.infinity,
                     child: Text(
                       "Send Otp",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20),
-                    )
-                    ),
+                    )),
                 style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),
                   primary: Colors.white,
@@ -189,20 +184,20 @@ class _ProviderForgotPassScreenScreenState extends State<ForgotPassScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
               ),
-               visible: submitButton,
+              visible: submitButton,
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-             Visibility(
+            Visibility(
               child: ElevatedButton(
                 onPressed: () {
-                    if (registerForm.currentState!.validate()) {
-                  userController.phoneController = phoneController;
-                  userController.passwordController= passwordController;
-                  userController.otpController = otpController;
-                  userController.forgotPassword();
-                    }
+                  if (registerForm.currentState!.validate()) {
+                    userController.phoneController = phoneController;
+                    userController.passwordController = passwordController;
+                    userController.otpController = otpController;
+                    userController.forgotPassword();
+                  }
                 },
                 child: const SizedBox(
                     width: double.infinity,
@@ -220,11 +215,9 @@ class _ProviderForgotPassScreenScreenState extends State<ForgotPassScreen> {
               ),
               visible: verify,
             ),
-         
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-        
           ],
         ),
       ),

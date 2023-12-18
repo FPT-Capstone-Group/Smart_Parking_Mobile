@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/Screen/registration_detail.dart';
 import 'package:parking_auto/controller/get_registraion_controller.dart';
 import 'package:parking_auto/model/registration_respone_model.dart';
@@ -19,11 +19,12 @@ class RegistrationHistory extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
   title: Text('Registration History'),
-  leading: IconButton(
+leading: IconButton(
     onPressed: () {
-      Get.to(HomePage());
+      Get.to(HomeNavBar());
     },
-    icon: Icon(Icons.home),)
+    icon:const Icon(Icons.home),
+  ),
         ),
         body: const MyStatefulWidget());
   }
@@ -56,7 +57,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
         child: const Center(child: CircularProgressIndicator()),
       );
     } else if(listData!.isEmpty) { 
-      return Center(child: Text("No data"));
+      return const Center(child: Text("No registration"));
     } {
       return ListView.builder(
         itemCount: list.length,
@@ -68,7 +69,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
               prefs.remove("registrationId");
               prefs.setString("plateNumber", item.registrationId.toString());
 
-              final needReload = await Navigator.of(context).push(
+              final needReload = await  Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => RegistrationDetail(item),
                 ),
@@ -109,7 +110,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                                   base64Decode(item.faceImage.toString()),
                                   width: 80,
                                   height: 100)
-                              : CircleAvatar(
+                              :const CircleAvatar(
                                   radius: 40.0,
                                   backgroundColor: Colors.orange,
                                   child: Text("No image"),

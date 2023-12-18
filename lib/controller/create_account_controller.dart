@@ -54,11 +54,11 @@ class CreateAccountController extends GetxController {
             textColor: Colors.white,
             fontSize: 16.0);
        username = phoneController.text;
-        final keyPhoneCurrentRegister = "phoneCurrentRegister";
+        const keyPhoneCurrentRegister = "phoneCurrentRegister";
         final valuePhoneCurrent = username;
         prefs.setString(keyPhoneCurrentRegister, valuePhoneCurrent);
 
-        Get.to(LoginWithPhone(), );
+        Get.to(const LoginWithPhone(), );
       } else if (response.statusCode == 400) {
         Fluttertoast.showToast(
             msg: "Not found.",
@@ -89,7 +89,7 @@ class CreateAccountController extends GetxController {
             fontSize: 16.0);
       }
     } catch (e) {
-      print(e);
+     // print(e);
     }
   }
 }

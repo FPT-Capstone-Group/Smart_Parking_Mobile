@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/bike_of_user.dart';
 import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,10 +23,11 @@ class ActiveDeactiveOwnerController {
       var response = await http.post(Uri.parse(url),
           headers: headers,
           body: jsonEncode({
-            "ownerId": ownerId,
+            "ownerId": ownerId.toString(),
           }));
-      // print('StatusCode ${response.statusCode}: $url');
+       //print('StatusCode ${response.statusCode}: $url');
       if (response.statusCode == 200) {
+        prefs.remove("ownerId");
         Fluttertoast.showToast(
             msg: "Active Owner Successful",
             toastLength: Toast.LENGTH_SHORT,
@@ -35,16 +36,18 @@ class ActiveDeactiveOwnerController {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-       Get.to(HomePage());
-      }else if (response.statusCode == 400) {
+         Get.to(const BikeOfUser());
+      }else if (response.statusCode == 201) {
+        prefs.remove("ownerId");
         Fluttertoast.showToast(
-            msg: "Cannot active owner. Invalid plateNumber or bike is not active",
+            msg: "Active Owner Successful",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
+        Get.to(const BikeOfUser());
       } else if (response.statusCode == 401) {
         Fluttertoast.showToast(
             msg: "Invalid token signature",
@@ -75,7 +78,7 @@ class ActiveDeactiveOwnerController {
             fontSize: 16.0);
       }
     } catch (e) {
-      print(e);
+     // print(e);
     }
   }
 
@@ -93,9 +96,9 @@ class ActiveDeactiveOwnerController {
       var response = await http.post(Uri.parse(url),
           headers: headers,
           body: jsonEncode({
-            "ownerId": ownerId,
+            "ownerId": ownerId.toString(),
           }));
-       print('StatusCode ${response.statusCode}: $url');
+      // print('StatusCode ${response.statusCode}: $url');
       if (response.statusCode == 200) {
         Fluttertoast.showToast(
             msg: "Deactive Owner Successful",
@@ -105,9 +108,17 @@ class ActiveDeactiveOwnerController {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-        Get.to(HomePage());
-      } else if (response.statusCode == 401) {
-        print("Erro code 401: fail token: Invalid token signature");
+        Get.to(const BikeOfUser());
+      } else if (response.statusCode == 201) {
+        Fluttertoast.showToast(
+            msg: "Deactive Owner Successful",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+         Get.to(const BikeOfUser());
       } else if (response.statusCode == 500) {
         Fluttertoast.showToast(
             msg: "Deactive Owner Fail",
@@ -128,7 +139,7 @@ class ActiveDeactiveOwnerController {
             fontSize: 16.0);
       }
     } catch (e) {
-      print(e);
+     // print(e);
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/face_camera_registration_owner.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/Screen/list_cards.dart';
 import 'package:parking_auto/Screen/list_onwer.dart';
 import 'package:parking_auto/Screen/parking_history_filter.dart';
@@ -20,10 +20,10 @@ class BikeDetail extends StatefulWidget {
 
 class _BikeDetail extends State<BikeDetail> {
   //late String _paymentStatus;
-  bool _isLoading = false;
+  final bool _isLoading = false;
   GetListOwnerController getListOwner = GetListOwnerController();
 
-  var plateNumber;
+  dynamic plateNumber;
   @override
   void initState() {
     super.initState();
@@ -44,16 +44,15 @@ class _BikeDetail extends State<BikeDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       centerTitle: true,
-  title: Text('Bike Detail'),
-  leading: IconButton(
-    onPressed: () {
-      Get.to(HomePage());
-    },
-    icon: Icon(Icons.home),),
-    actions: [
-      Icon(Icons.details)
-    ],
+        centerTitle: true,
+        title: const Text('Bike Detail'),
+        leading: IconButton(
+          onPressed: () {
+            Get.to(HomeNavBar());
+          },
+          icon: const Icon(Icons.home),
+        ),
+        actions: const [Icon(Icons.details)],
         backgroundColor: Colors.green,
       ),
       body: Stack(
@@ -75,12 +74,12 @@ class _BikeDetail extends State<BikeDetail> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                       const Text(
+                        const Text(
                           'Bike Information',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 24,
-                            color: const Color.fromARGB(255, 204, 43, 43),
+                            color:  Color.fromARGB(255, 204, 43, 43),
                           ),
                         ),
                         const Divider(color: Colors.green),
@@ -88,7 +87,8 @@ class _BikeDetail extends State<BikeDetail> {
                         Text('PlateNumber: ${widget.item.plateNumber}',
                             style: TextStyle(
                                 fontSize: 15, color: Colors.grey[700])),
-                        Text('Registration Number:  ${widget.item.registrationNumber}',
+                        Text(
+                            'Registration Number:  ${widget.item.registrationNumber}',
                             style: TextStyle(
                                 fontSize: 15, color: Colors.grey[700])),
                         Text('Status: ${widget.item.status}',
@@ -103,76 +103,65 @@ class _BikeDetail extends State<BikeDetail> {
                         Text('CreatedAt:  ${widget.item.createdAt}',
                             style: TextStyle(
                                 fontSize: 15, color: Colors.grey[700])),
-                            //      Text('cards:  ${widget.item.cards}',
-                            // style: TextStyle(
-                            //     fontSize: 15, color: Colors.grey[700])),
+                        //      Text('cards:  ${widget.item.cards}',
+                        // style: TextStyle(
+                        //     fontSize: 15, color: Colors.grey[700])),
                         const SizedBox(height: 10),
-                       const Divider(color: Colors.green),
+                        const Divider(color: Colors.green),
                         const SizedBox(height: 10),
-               
-                         const SizedBox(height: 10),
-                        Center( child: FloatingActionButton.extended(
-                            heroTag: "btn1",
-                                onPressed: () {
-                                  Get.to(FaceCameraImageOwner());
-                                },
-                                icon: Icon(Icons.add),
-                                label: Text('Add Owner'),
-                              ),
-                              ),
-                        const SizedBox(height: 10),
-                        Center( child: FloatingActionButton.extended(
-                                heroTag: "btn2",
-                                onPressed: () {
-                                  setPlateNumber();
-              
-                                Get.to(ListOwner());
-                                },
-                                icon: Icon(Icons.list),
-                                label: Text('List Owner'),
-                              ),
-                              ),
-                        const SizedBox(height: 10),
-                        // Center( child: FloatingActionButton.extended(
-                        //         heroTag: "btn3",
-                        //         onPressed: () {
-                        //           setBikeId();
-              
-                        //         Get.to(ListCard());
-                        //         },
-                        //         icon: Icon(Icons.list),
-                        //         label: Text('List Card'),
-                        //       ),
-                        //       ),
-                        // const SizedBox(height: 10),
-                        Center( child: FloatingActionButton.extended(
-                           heroTag: "btn4",
-                                onPressed: () {
-                                  setPlateNumber();
-                                Get.to(Demo());
-                                },
-                                icon: Icon(Icons.history),
-                                label: Text('View History'),
-                              ),
-                              ),
-                       
-                        const SizedBox(height: 10),
-                         Center( child: FloatingActionButton.extended(
-                           heroTag: "btn4",
-                                onPressed: () {
-                                                            setBikeId();
-                                                            Get.to(ListCard());
-                                },
-                                icon: Icon(Icons.history),
-                                label: Text('List Card'),
-                              ),
-                              ),
-                      ],
 
-                      
-                      
+                        const SizedBox(height: 10),
+                        Center(
+                          child: FloatingActionButton.extended(
+                            heroTag: "btn1",
+                            onPressed: () {
+                              Get.to(const FaceCameraImageOwner());
+                            },
+                            icon: const Icon(Icons.add),
+                            label: const Text('Add Owner'),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Center(
+                          child: FloatingActionButton.extended(
+                            heroTag: "btn2",
+                            onPressed: () {
+                              setPlateNumber();
+
+                              Get.to(const ListOwner());
+                            },
+                            icon: const Icon(Icons.list),
+                            label: const Text('List Owner'),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+         
+                        Center(
+                          child: FloatingActionButton.extended(
+                            heroTag: "btn4",
+                            onPressed: () {
+                              setPlateNumber();
+                              Get.to(Demo());
+                            },
+                            icon: const Icon(Icons.history),
+                            label: const Text('View History'),
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+                        Center(
+                          child: FloatingActionButton.extended(
+                            heroTag: "btn4",
+                            onPressed: () {
+                              setBikeId();
+                              Get.to(const ListCard());
+                            },
+                            icon: const Icon(Icons.history),
+                            label: const Text('List Card'),
+                          ),
+                        ),
+                      ],
                     ),
-                    
                   ),
                   Container(height: 5)
                 ],
@@ -189,38 +178,16 @@ class _BikeDetail extends State<BikeDetail> {
     );
   }
 
-  void _setState() async {
-    setState(() => _isLoading = false);
-  }
 
   void setPlateNumber() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("plateNumber");
     prefs.setString("plateNumber", widget.item.plateNumber.toString());
   }
+
   void setBikeId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("bikeId");
     prefs.setString("bikeId", widget.item.bikeId.toString());
   }
-
- Widget setupAlertDialoadContainer() {
-   List<Card>? listCard;
-  return Container(
-    height: 300.0, // Change as per your requirement
-    width: 300.0, // Change as per your requirement
-    child: ListView.builder(
-      
-      shrinkWrap: true,
-      itemCount: listCard!.length,
-      itemBuilder: (BuildContext context, int index) {
-       // final item = listCard[index];
-        return ListTile(
-          title: Text('Card Id:}'),
-        );
-      },
-    ),
-  );
-}
-
 }

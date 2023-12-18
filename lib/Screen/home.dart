@@ -30,11 +30,28 @@ class _Home_Page extends State<HomePage> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return Scaffold(
-        drawer: NavigationDrawerWidget(),
-        // endDrawer: NavigationDrawerWidget(),
+        drawer:const NavigationDrawerWidget(),
+        endDrawer: NavigationDrawerWidget(),
         appBar: AppBar(
           title: Text(_Home_Page.title),
           centerTitle: true,
+        actions: <Widget>[
+          
+          IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Create registration',
+            onPressed: () {
+            Get.to(FaceCameraRegistration());
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.add_alert),
+            tooltip: 'Notifications',
+            onPressed: () {
+             Get.to(NotificationPage());
+            },
+          ),
+        ]
         ),
         body: SingleChildScrollView(
             child: Column(
@@ -42,7 +59,7 @@ class _Home_Page extends State<HomePage> {
           children: <Widget>[
             Container(
               color: Colors.indigo,
-              child: Column(
+              child: const Column(
               
             ),
 
@@ -52,7 +69,7 @@ class _Home_Page extends State<HomePage> {
              
         
             const SizedBox(
-              height: 52.0,
+              height: 27.0,
             ),
            
             Padding(
@@ -92,7 +109,7 @@ class _Home_Page extends State<HomePage> {
                                     () => FaceCameraRegistration(),
                                   );
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Registration",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -115,7 +132,7 @@ class _Home_Page extends State<HomePage> {
                       width: 160.0,
                       height: 160.0,
                       child: Card(
-                        color: Color.fromARGB(255, 21, 21, 21),
+                        color:const Color.fromARGB(255, 21, 21, 21),
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
@@ -133,9 +150,9 @@ class _Home_Page extends State<HomePage> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Get.to(RegistrationHistory());
+                                  Get.to(const RegistrationHistory());
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Registration history",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -173,9 +190,9 @@ class _Home_Page extends State<HomePage> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Get.to(BikeOfUser());
+                                  Get.to(const BikeOfUser());
                                 },
-                                child: Text(
+                                child:const  Text(
                                   "List bike",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -183,7 +200,7 @@ class _Home_Page extends State<HomePage> {
                                       fontSize: 20.0),
                                 ),
                               ),
-                              SizedBox(
+                             const SizedBox(
                                 height: 5.0,
                               ),
                             ],
@@ -196,7 +213,7 @@ class _Home_Page extends State<HomePage> {
                       width: 160.0,
                       height: 160.0,
                       child: Card(
-                        color: Color.fromARGB(255, 21, 21, 21),
+                        color:const Color.fromARGB(255, 21, 21, 21),
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
@@ -214,9 +231,9 @@ class _Home_Page extends State<HomePage> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Get.to(NotificationPage());
+                                  Get.to(const NotificationPage());
                                 },
-                                child: Text(
+                                child:const Text(
                                   "Notify",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -256,7 +273,7 @@ class _Home_Page extends State<HomePage> {
                                 onPressed: () {
                                   Get.to(SettingsPage());
                                 },
-                                child: Text(
+                                child:const Text(
                                   "Settings",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -294,7 +311,7 @@ class _Home_Page extends State<HomePage> {
                                 onPressed: () {
                                   Get.to(UserProfile());
                                 },
-                                child: Text(
+                                child:const Text(
                                   "Profile",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -308,11 +325,14 @@ class _Home_Page extends State<HomePage> {
                       ),
                     ),
 
+                    
+
                   ],
                 ),
               ),
             )
           ],
-        )));
+        ))
+        );
   }
 }

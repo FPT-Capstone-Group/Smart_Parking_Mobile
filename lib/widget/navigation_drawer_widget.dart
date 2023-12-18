@@ -7,7 +7,6 @@ import 'package:parking_auto/Screen/face_camera_registration.dart';
 import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
-import 'package:parking_auto/controller/get_current_user.dart';
 import 'package:parking_auto/controller/login_controller.dart';
 import 'package:parking_auto/controller/logout_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,8 +53,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
               fullName: "Hi $fullName",
        
               onClicked: () {
-                 GetUserController get = GetUserController();
-                get.getUserData();
+                 Get.to(UserProfile());
               },
             ),
             Container(

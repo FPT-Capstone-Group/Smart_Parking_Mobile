@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/create_registration.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/registration_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,6 +27,12 @@ class _FaceCamera extends State<FaceCameraRegistration> {
         appBar: AppBar(
           title: const Text('Face Image'),
           centerTitle: true,
+           leading: IconButton(
+          onPressed: () {
+            Get.to(HomeNavBar());
+          },
+          icon: const Icon(Icons.home),
+        ),
         ),
         body: Builder(builder: (context) {
           if (_capturedImage != null) {
@@ -42,8 +49,8 @@ class _FaceCamera extends State<FaceCameraRegistration> {
                     onPressed: () {
                       setState(() => _capturedImage = null);
                     },
-                   // icon: Icon(Icons.reset_tv_sharp),
-                    label: Text('Capture Again'),
+                    // icon: Icon(Icons.reset_tv_sharp),
+                    label: const Text('Capture Again'),
                   ),
                   const SizedBox(width: 10),
                   FloatingActionButton.extended(
@@ -53,7 +60,7 @@ class _FaceCamera extends State<FaceCameraRegistration> {
                       );
                     },
                     //icon: Icon(Icons.next_plan),
-                    label: Text('Next'),
+                    label: const Text('Next'),
                   ),
                 ],
               ),

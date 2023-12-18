@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/Screen/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,9 +22,9 @@ class _CheckLogin extends State<CheckLogin> {
    Future<void> checkLogin() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var loginSession = prefs.getString("loginSession");
-     print("loginsession : $loginSession");
+    // print("loginsession : $loginSession");
       if(loginSession == "true"){
-         Get.to(const HomePage());
+         Get.to(HomeNavBar());
       }else{
         Get.to(const LoginWithPhone());
       }
@@ -35,7 +35,7 @@ class _CheckLogin extends State<CheckLogin> {
   Widget build(BuildContext context) => Scaffold(
      
         appBar: AppBar(
-          title: Text('Check Login'),
+          title:const  Text('Check Login'),
           centerTitle: true,
           backgroundColor: Colors.green,
         ),

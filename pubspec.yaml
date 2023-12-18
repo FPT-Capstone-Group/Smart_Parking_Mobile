@@ -60,6 +60,8 @@ dependencies:
   provider: ^6.1.1
   flutter_date_range_picker: ^0.0.14
   syncfusion_flutter_datepicker: ^19.1.57-beta
+  google_nav_bar: ^5.0.6
+  line_icons: ^2.0.3
 
 dev_dependencies:
   flutter_test:

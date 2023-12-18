@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:parking_auto/model/list_notification_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,8 +17,8 @@ class GetListNotiController{
     final queryParameters = {
         'userId': userId,
       };
-
-      final uri = Uri.https('smart-parking-server-dev.azurewebsites.net', 'api/notifi', queryParameters);
+      String url = "${ApiEndpoint.paramHost}";
+      final uri = Uri.https(url, 'api/notifi', queryParameters);
        //final uri = Uri.http('localhost:3000', 'api/notifi', queryParameters);
        
       final response = await http.get(uri, headers: {

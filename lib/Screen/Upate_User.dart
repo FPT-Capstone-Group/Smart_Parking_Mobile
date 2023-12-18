@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/user_controller.dart';
 import 'package:provider/provider.dart';
 
-const List<String> gender = <String>['Male', 'Female'];
+const List<String> gender = <String>['Male', 'FeMale'];
 
 class UpdateUser extends StatelessWidget {
   const UpdateUser({Key? key}) : super(key: key);
@@ -42,6 +42,7 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
   TextEditingController addressController = TextEditingController();
 
   String dropdownGender = gender.first;
+
   String? fullNameCurrentSavedShared;
   String? phoneCurrentSavedShared;
   bool phoneEdit = true;
@@ -50,6 +51,8 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
     super.initState();
     final postModel = Provider.of<UserController>(context, listen: false);
     postModel.getPostData();
+
+    
   }
 
   @override
@@ -62,28 +65,28 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
     ageController.text = postModel.user?.user!.age ?? "";
     //print(ageController);
     addressController.text = postModel.user?.user!.address ?? "";
-    var genderCheck = postModel.user?.user!.address ?? "";
-    if (genderCheck == "Male") {
+     final genderCheck = postModel.user?.user!.gender ?? "";
+     
+     if (genderCheck == "Male") {
       dropdownGender = gender.first;
-    } else if (genderCheck == "Female") {
+    } else{
       dropdownGender = gender.last;
-    } else {
-      dropdownGender = gender.first;
-    }
-
+    } 
+    
+   
     return Scaffold(
       appBar: AppBar(
        centerTitle: true,
   title: Text('Update Profile'),
   leading: IconButton(
     onPressed: () {
-      Get.to(HomePage());
+      Get.to(HomeNavBar());
     },
-    icon: Icon(Icons.home),
+    icon: const Icon(Icons.home),
   ),
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding:const EdgeInsets.all(20),
         child: postModel.loading
             ? Center(
                 child: Container(),
@@ -98,7 +101,7 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                     ),
                     TextFormField(
                       controller: fullNameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(),
                         labelText: 'Full Name',
@@ -118,7 +121,7 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                     ),
                     TextFormField(
                       controller: ageController,
-                      decoration: InputDecoration(
+                      decoration:const InputDecoration(
                         enabledBorder: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(),
                         labelText: 'Age',
@@ -142,7 +145,7 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                     ),
                     TextFormField(
                       controller: addressController,
-                      decoration: InputDecoration(
+                      decoration:const InputDecoration(
                         enabledBorder: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(),
                         labelText: 'Address',
@@ -171,9 +174,15 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                       ),
                       onChanged: (String? value) {
                         // This is called when the user selects an item.
+                     
+                       
+                        
+                          
+                        
                         setState(() {
                           dropdownGender = value!;
                         });
+                 
                       },
                       items:
                           gender.map<DropdownMenuItem<String>>((String value) {
@@ -200,10 +209,11 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
 
                           userController.dropGender = dropdownGender;
 
+
                           userController.updateUser();
                         }
                       },
-                      icon: Icon(Icons.update),
+                      icon:const Icon(Icons.update),
                       label: Text('Update'),
                     ),
                     const SizedBox(

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:parking_auto/model/listOwner_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +21,10 @@ class GetListOwnerController {
    
       //final uri = Uri.https('smart-parking-server-dev.azurewebsites.net', 'api/owners', queryParameters);
 
-       final uri = Uri.https('smart-parking-server-dev.azurewebsites.net', 'api/owners', queryParameters);
+        String url = "${ApiEndpoint.paramHost}";
+
+
+       final uri = Uri.https(url, 'api/owners', queryParameters);
        
       final response = await http.get(uri, headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',

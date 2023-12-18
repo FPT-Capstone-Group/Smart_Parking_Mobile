@@ -20,8 +20,8 @@ class FirebaseApi {
     }
 
     Future<void> handleBackgroudMessaging(RemoteMessage message) async{
-      print("title: ${message.notification?.title}");
-      print("body: ${message.notification?.title}");
-      print("payload: ${message.data}");
+      // print("title: ${message.notification?.title}");
+      // print("body: ${message.notification?.title}");
+      // print("payload: ${message.data}");
     }
 }

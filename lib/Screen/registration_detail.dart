@@ -4,8 +4,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:momo_vn/momo_vn.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/controller/payment_controller.dart';
 import 'package:parking_auto/controller/update_registration_controller.dart';
@@ -22,7 +23,8 @@ class RegistrationDetail extends StatefulWidget {
 }
 
 class _RegistrationDetailState extends State<RegistrationDetail> {
-  UpdateRegistrationController updateRegistration =  UpdateRegistrationController();
+  UpdateRegistrationController updateRegistration =
+      UpdateRegistrationController();
   PaymentController getData = PaymentController();
 
   Uint8List base64Decode(String source) => base64.decode(source);
@@ -71,11 +73,14 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
       paymentButton = true;
       setState(() {});
     }
-    if (registrationStatus.toString().toUpperCase() == "Active".toUpperCase()) {
-      deactiveRegistration = true;
-      setState(() {});
-    }else{
-      deactiveRegistration = false;
+    if (widget.item.expiredDate != null) {
+      String date = widget.item.expiredDate.toString();
+      DateTime parseDate =
+          new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(date);
+      var inputDate = DateTime.parse(parseDate.toString());
+      var outputFormat = DateFormat('yyyy/MM/dd');
+      var outputDate = outputFormat.format(inputDate);
+      widget.item.expiredDate = outputDate;
     }
 
     if (registrationStatus.toString().toUpperCase() ==
@@ -83,14 +88,8 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
         registrationStatus == "Verify".toString().toUpperCase()) {
       cancelButton = true;
       setState(() {});
-
-      if (registrationStatus.toString().toUpperCase() ==
-          "temporary_inactive".toString().toUpperCase()) {
-        reactiveRegistration = true;
-
-        setState(() {});
-      }
     }
+    //String expired ;
 
     _context = context;
     return Scaffold(
@@ -99,9 +98,9 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
         title: Text('Registration Detaiil'),
         leading: IconButton(
           onPressed: () {
-            Get.to(HomePage());
+            Get.to(HomeNavBar());
           },
-          icon: Icon(Icons.home),
+          icon: const Icon(Icons.home),
         ),
         backgroundColor: Colors.green,
       ),
@@ -125,7 +124,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                             height: 150,
                             //fit: BoxFit.cover,
                           )
-                        : CircleAvatar(
+                        : const CircleAvatar(
                             radius: 100.0,
                             backgroundColor: Colors.orange,
                             child: Text("No image"),
@@ -140,51 +139,48 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
-                                .copyWith(color: Color(0xFF37474F))),
-                        Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          child: Text("Amount: ${widget.item.amount} vnd",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(color: Color(0xFF37474F))),
-                        ),
+                                .copyWith(color: const Color(0xFF37474F))),
                         Text("Status: ${widget.item.registrationStatus}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: Color(0xFF999999))),
+                                .copyWith(color: const Color(0xFF999999))),
                         Text("Approved By: ${widget.item.approvedBy}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: Color(0xFF999999))),
-
-                                widget.item.expiredDate == null ?
-                        Text("Expired Date: No",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: Color(0xFF999999))): Text("Expired Date: ${widget.item.expiredDate}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: Color(0xFF999999))),
+                                .copyWith(color: const Color(0xFF999999))),
+                        widget.item.expiredDate == null
+                            ? Text("Expired Date: ",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: const Color(0xFF999999)))
+                            : Text("Expired Date: ${widget.item.expiredDate}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: const Color(0xFF999999))),
                         Text("Manufacture: ${widget.item.manufacture}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: Color(0xFF999999))),
+                                .copyWith(color: const Color(0xFF999999))),
+                        Text("Amount: ${widget.item.amount} vnd",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: const Color(0xFF999999))),
                         Text("Model: ${widget.item.model}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: Color(0xFF999999))),
+                                .copyWith(color: const Color(0xFF999999))),
                         Text("Create At: ${widget.item.createdAt}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: Color(0xFF999999))),
+                                .copyWith(color: const Color(0xFF999999))),
                       ],
                     ),
                   ),
@@ -203,21 +199,26 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                           children: [
                             Visibility(
                               child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey[300], elevation: 0,
-                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-                              ),
-                              child: const Text("Cancel", style: TextStyle(color: Color(0xFF666666))),
-                              onPressed: (){
-                                 setRegistrationId();
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey[300],
+                                  elevation: 0,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 20),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(18.0)),
+                                ),
+                                child: const Text("Cancel",
+                                    style: const TextStyle(
+                                        color: const Color(0xFF666666))),
+                                onPressed: () {
+                                  setRegistrationId();
                                   updateRegistration.cancelRegistration();
-                              },
-                            ),
+                                },
+                              ),
                               visible: cancelButton,
                               //   //visible: true,
                             ),
-
                             Visibility(
                               child: ElevatedButton(
                                 onPressed: () {
@@ -231,50 +232,21 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                                   //loginWithPhone();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey[300], elevation: 0,
-                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-                              ),
-                              child: const Text("Payment", style: TextStyle(color: Color(0xFF666666))),
+                                  backgroundColor: Colors.grey[300],
+                                  elevation: 0,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 20),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(18.0)),
+                                ),
+                                child: const Text("Payment",
+                                    style: const TextStyle(
+                                        color: const Color(0xFF666666))),
                               ),
                               visible: paymentButton,
                               //   //visible: true,
                             ),
-                            Visibility(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setRegistrationId();
-                                  updateRegistration.deactive();
-                                },
-                                 style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey[300], elevation: 0,
-                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-                              ),
-                              child: const Text("Deactive", style: TextStyle(color: Color(0xFF666666))),
-                              ),
-                              visible: deactiveRegistration,
-                              //   //visible: true,
-                            ),
-
-                            Visibility(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setRegistrationId();
-                                  updateRegistration.reactive();
-                                },
-                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey[300], elevation: 0,
-                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-                              ),
-                              child: const Text("Reactive", style: TextStyle(color: Color(0xFF666666))),
-                              ),
-                              visible: reactiveRegistration,
-                              //   //visible: true,
-                            ),
-
-                          
                           ],
                         ),
                       ],
@@ -359,6 +331,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
 
       // _paymentStatus += "\nExtra: " + _momoPaymentResult.extra!;
       // print(_paymentStatus);
+
       final rs = await getData.submitPaymentMomo(
         amount: widget.item.amount ?? 0,
         registrationId: widget.item.registrationId ?? 0,
@@ -368,7 +341,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
 
       if (rs == true) {
         Navigator.pop(_context, true);
-        Get.to(RegistrationHistory());
+        Get.to(const RegistrationHistory());
       }
 
       // _paymentStatus += "\nTình trạng: Thành công.";

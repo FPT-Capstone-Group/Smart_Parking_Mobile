@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/active_deactive_owner_controller.dart';
 import 'package:parking_auto/model/listOwner_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,56 +28,52 @@ class _RegistrationDetailState extends State<OwnerDetail> {
   Widget build(BuildContext context) {
     if (widget.item.isActive == true) {
       isActive = "True";
-    }else {
+    } else {
       isActive = "False";
     }
-    if(widget.item.relationship!.toLowerCase() != "owner"){
-      deactiVisible = true;
-      actiVisible = true;
-    }
-    if(isActive =="True")
-    {
+    // if (widget.item.relationship!.toLowerCase() != "owner") {
+    //   deactiVisible = true;
+    //   actiVisible = true;
+    // }
+    if (isActive == "True") {
       deactiVisible = true;
       actiVisible = false;
     }
-    if(isActive == "False"){
+    if (isActive == "False") {
       deactiVisible = false;
       actiVisible = true;
     }
     return Scaffold(
       appBar: AppBar(
-      centerTitle: true,
-  title: Text('Owner Detail'),
-  leading: IconButton(
-    onPressed: () {
-      Get.to(HomePage());
-    },
-    icon: Icon(Icons.home),),
-    actions: [
-      Icon(Icons.details)
-    ],
+        centerTitle: true,
+        title:const Text('Owner Detail'),
+        leading: IconButton(
+          onPressed: () {
+            Get.to(HomeNavBar());
+          },
+          icon: const Icon(Icons.home),
+        ),
+        actions: [Icon(Icons.details)],
         backgroundColor: Colors.green,
       ),
       body: Stack(
         children: [
-   
           const Padding(
-            
-             padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Text(
               "Owner Information",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: const Color.fromARGB(255, 204, 43, 43),
-                          ),
-                        ),
+              style: TextStyle(
+                fontSize: 15,
+                color: const Color.fromARGB(255, 204, 43, 43),
+              ),
+            ),
           ),
           // const Divider(),
-           const SizedBox(
-                  height: 20,
-                ),
-         // const Divider(color: Colors.green),
-                        Container(height: 5),
+          const SizedBox(
+            height: 20,
+          ),
+          // const Divider(color: Colors.green),
+          Container(height: 5),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -113,7 +109,7 @@ class _RegistrationDetailState extends State<OwnerDetail> {
                           base64Decode(widget.item.ownerFaceImage.toString()),
                           width: 250,
                           height: 250)
-                      : CircleAvatar(
+                      : const CircleAvatar(
                           radius: 40.0,
                           backgroundColor: Colors.orange,
                           child: Text("No image"),
@@ -146,7 +142,6 @@ class _RegistrationDetailState extends State<OwnerDetail> {
                       ),
                       visible: actiVisible),
                 ),
-               
               ],
             ),
           ),

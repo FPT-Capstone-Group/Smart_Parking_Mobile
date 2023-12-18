@@ -2,12 +2,8 @@ import 'package:face_camera/face_camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parking_auto/Screen/add_onwer.dart';
-import 'package:parking_auto/Screen/bike_of_user.dart';
-import 'package:parking_auto/Screen/home.dart';
+import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/Screen/login.dart';
-import 'package:parking_auto/Screen/registration_hitory.dart';
-import 'package:parking_auto/Screen/setting.dart';
 import 'package:parking_auto/controller/firebaseApi_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -49,7 +45,7 @@ Future<void> main() async {
   FaceCamera.initialize();
   // CheckLogin().checkLogin();
 
-  runApp(GetMaterialApp(debugShowCheckedModeBanner: false, home: CheckLogin()));
+  runApp(const GetMaterialApp(debugShowCheckedModeBanner: false, home: CheckLogin()));
 }
 class CheckLogin extends StatefulWidget {
   const CheckLogin({super.key});
@@ -65,9 +61,9 @@ class _CheckLogin extends State<CheckLogin> {
    Future<void> checkLogin() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var loginSession = prefs.getString("loginSession");
-     print("loginsession : $loginSession");
+    // print("loginsession : $loginSession");
       if(loginSession == "true"){
-         Get.to(const HomePage());
+         Get.to( HomeNavBar());
       }else{
         Get.to(const LoginWithPhone());
       }
@@ -81,40 +77,8 @@ class _CheckLogin extends State<CheckLogin> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginWithPhone(),
+      home: const LoginWithPhone(),
     );
   }
 }
 
-class MainScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: LoginWithPhone.routeNamed,
-      getPages: [
-        GetPage(
-          name: HomePage.routeNamed,
-          page: () => HomePage(),
-        ),
-        GetPage(
-          name: RegistrationHistory.routeNamed,
-          page: () => RegistrationHistory(),
-        ),
-        GetPage(
-          name: SettingsPage.routeNamed,
-          page: () => SettingsPage(),
-        ),
-        GetPage(
-          name: RegistrationOnwer.routeNamed,
-          page: () => RegistrationOnwer(),
-        ),
-         GetPage(
-          name: BikeOfUser.routeNamed,
-          page: () => BikeOfUser(),
-        ),
-        
-      ],
-    );
-  }
-}
