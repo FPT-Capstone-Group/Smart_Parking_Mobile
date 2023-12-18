@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:parking_auto/constants.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 
 class SendOtpController extends GetxController {
   TextEditingController phoneNumberController = TextEditingController();
  
   Future sendOtp() async {
     
-    const url = "${Constants.host}/pub/otp/send";
+    const url = "${ApiEndpoint.host}/pub/otp/send";
     
     try {
       Map<String, String> headers = {"Content-type": "application/json"};

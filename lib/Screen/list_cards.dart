@@ -4,20 +4,19 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/home.dart';
-import 'package:parking_auto/Screen/owner_detail.dart';
-import 'package:parking_auto/controller/get_list_owner_controller.dart';
-import 'package:parking_auto/model/listOwner_model.dart';
+import 'package:parking_auto/controller/get_list_cards_controller.dart';
+import 'package:parking_auto/model/listCards_model.dart';
 
-class ListOwner extends StatelessWidget {
+class ListCard extends StatelessWidget {
   static const routeNamed = '/listOwnerScreen';
-  const ListOwner({super.key});
+  const ListCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-  title: Text('List Owner'),
+  title: Text('ListCard'),
   leading: IconButton(
     onPressed: () {
       Get.to(HomePage());
@@ -41,13 +40,14 @@ class _ListOwner extends StatefulWidget {
 class __ListOwner extends State<_ListOwner> {
    Uint8List base64Decode(String source) => base64.decode(source);
   late AnimationController controller;
-  GetListOwnerController getData = GetListOwnerController();
-  List<Data>? listData;
+  GetListCardsController getData = GetListCardsController();
+  List<Cards>? listData;
 
   @override
   void initState() {
     super.initState();
     fetchData();
+    print(listData);
   }
 
   @override
@@ -60,7 +60,8 @@ class __ListOwner extends State<_ListOwner> {
         child: const Center(child: CircularProgressIndicator()),
         
       );
-    } else if(listData!.isEmpty) { 
+    } 
+    else if(listData!.isEmpty) { 
       return Center(child: Text("No data"));
     } {
       return ListView.builder(
@@ -69,15 +70,7 @@ class __ListOwner extends State<_ListOwner> {
           final item = list[index];
           return InkWell(
             onTap: () async {
-              final needReload = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => OwnerDetail(item),
-                ),
-              );
-              if (needReload == true) {
-                // Reload data
-                fetchData();
-              }
+  
             },
             child: Container(
               padding: const EdgeInsets.all(8),
@@ -104,13 +97,7 @@ class __ListOwner extends State<_ListOwner> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                         
-                          item.ownerFaceImage != null ?
-                          Image.memory(base64Decode(item.ownerFaceImage.toString()),
-                              width: 55, height: 55)  : CircleAvatar(
-                                  radius: 40.0,
-                                  backgroundColor: Colors.orange,
-                                  child: Text("No image"),
-                                ),
+
                           // Add some spacing between the image and the text
                           Container(width: 20),
                           // Add an expanded widget to take up the remaining horizontal space
@@ -122,19 +109,19 @@ class __ListOwner extends State<_ListOwner> {
                                 Container(height: 5),
                                 // Add a title widget
                                 Text(
-                                  "Full Name: ${item.fullName}"
+                                  "Card Id: ${item.cardId}"
                                 ),
                                  Container(height: 5),
                                 // Add a title widget
-                                Text(
-                                  "Relationship: ${item.relationship}",
-                                 
-                                ),
-                                // Add some spacing between the title and the subtitle
-                                Container(height: 10),
-                                // Add a subtitle widget
                                 // Text(
-                                //   "CreatedAt: ${item.}",
+                                //   "Relationship: ${item.relationship}",
+                                 
+                                // ),
+                                // // Add some spacing between the title and the subtitle
+                                // Container(height: 10),
+                                // // Add a subtitle widget
+                                // Text(
+                                //   "CreatedAt: ${item.createdAt}",
                                 //   // style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                 //   //   color: Colors.grey[500],
                                 //   // ),

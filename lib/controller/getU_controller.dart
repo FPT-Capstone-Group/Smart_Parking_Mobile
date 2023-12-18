@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:parking_auto/constants.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:parking_auto/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +17,7 @@ class GetUController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token').toString();
     try {
-      const url = '${Constants.host}/api/me';
+      const url = '${ApiEndpoint.host}/api/me';
       var response = await http.get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $token',
       });

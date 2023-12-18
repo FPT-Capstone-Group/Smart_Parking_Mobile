@@ -5,23 +5,13 @@ import 'package:parking_auto/controller/addOwner_controller.dart';
 
 const List<String> gender = <String>['Male', 'Female'];
 
-class RegistrationOnwer extends StatelessWidget {
+class RegistrationOnwer extends StatefulWidget {
    static const routeNamed = '/registrationOwnerScreen';
-
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: _RegistrationOnwer(),
-    );
-  }
+  _RegistrationOnwer createState() => _RegistrationOnwer();
 }
 
-class _RegistrationOnwer extends StatefulWidget {
-  @override
-  __RegistrationOnwer createState() => __RegistrationOnwer();
-}
-
-class __RegistrationOnwer extends State<_RegistrationOnwer> {
+class _RegistrationOnwer extends State<RegistrationOnwer> {
   final registrationOwnerForm = GlobalKey<FormState>();
   final addOnwerController = Get.put(AddOwnerController());
 
@@ -36,8 +26,16 @@ class __RegistrationOnwer extends State<_RegistrationOnwer> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Registration Owner"),
-             centerTitle: true,
+            centerTitle: true,
+  title: Text('Registration Owner'),
+  leading: IconButton(
+    onPressed: () {
+      Get.to(HomePage());
+    },
+    icon: Icon(Icons.home),),
+    // actions: [
+    //   Icon(Icons.create)
+    // ],
             backgroundColor: Colors.redAccent),
         body: Form(
             key: registrationOwnerForm,

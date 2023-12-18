@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:parking_auto/Screen/home.dart';
 import 'package:parking_auto/Screen/registration_detail.dart';
 import 'package:parking_auto/controller/get_registraion_controller.dart';
 import 'package:parking_auto/model/registration_respone_model.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationHistory extends StatelessWidget {
   static const routeNamed = '/registrationHistoryScreen';
@@ -12,8 +17,13 @@ class RegistrationHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Registration History'),
-           centerTitle: true,
+          centerTitle: true,
+  title: Text('Registration History'),
+  leading: IconButton(
+    onPressed: () {
+      Get.to(HomePage());
+    },
+    icon: Icon(Icons.home),)
         ),
         body: const MyStatefulWidget());
   }
@@ -27,7 +37,7 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _RegistrationHistory extends State<MyStatefulWidget> {
-  late AnimationController controller;
+  Uint8List base64Decode(String source) => base64.decode(source);
   GetRegistraionController getData = GetRegistraionController();
   List<Data>? listData;
 
@@ -41,19 +51,23 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     final list = listData;
     if (list == null) {
-
-     return Container(
+      return Container(
         color: Colors.grey[300],
         child: const Center(child: CircularProgressIndicator()),
       );
-    } else {
-
+    } else if(listData!.isEmpty) { 
+      return Center(child: Text("No data"));
+    } {
       return ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {
           final item = list[index];
           return InkWell(
             onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove("registrationId");
+              prefs.setString("plateNumber", item.registrationId.toString());
+
               final needReload = await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => RegistrationDetail(item),
@@ -71,26 +85,87 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 border: Border.all(),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "ID: ${item.registrationId}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
+              child: Card(
+                // Define the shape of the card
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                // Define how the card's content should be clipped
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                // Define the child widget of the card
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // Add padding around the row widget
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          item.faceImage != ""
+                              ?
+                              // Add an image widget to display an, image
+                              Image.memory(
+                                  base64Decode(item.faceImage.toString()),
+                                  width: 80,
+                                  height: 100)
+                              : CircleAvatar(
+                                  radius: 40.0,
+                                  backgroundColor: Colors.orange,
+                                  child: Text("No image"),
+                                ),
+                          // Add some spacing between the image and the text
+                          Container(width: 20),
+                          // Add an expanded widget to take up the remaining horizontal space
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                // Add some spacing between the top of the card and the title
+                                Container(height: 5),
+                                // Add a title widget
+                                Text(
+                                  "ID: ${item.registrationId}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        color: Color(0xFF37474F),
+                                      ),
+                                ),
+                                // Add some spacing between the title and the subtitle
+                                Container(height: 10),
+                                // Add a subtitle widget
+                                Text(
+                                  "Status: ${item.registrationStatus}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(
+                                        color: Colors.grey[500],
+                                      ),
+                                ),
+                                // Add some spacing between the subtitle and the text
+                                Container(height: 5),
+                                // Add a text widget to display some text
+                                Text(
+                                  'Model: ${item.model}',
+                                  maxLines: 2,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(
+                                        color: Colors.grey[500],
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                   Text(
-                    "Create to : ${item.createdAt}",
-                    ),
-                  
-                  Text(
-                    "Status: ${item.registrationStatus}",
-                  ),
-                  Text(
-                    "PlateNumber: ${item.plateNumber}",
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
@@ -110,5 +185,4 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
     }
     if (mounted) setState(() {});
   }
-  
 }

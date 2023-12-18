@@ -39,32 +39,23 @@ class _FaceCamera extends State<FaceCameraImageOwner> {
                     width: 150,
                     fit: BoxFit.fitWidth,
                   ),
-                  ElevatedButton(
-                      onPressed: () => setState(() => _capturedImage = null),
-                      child: const Text(
-                        'Capture Again',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w700),
-                      )),
-                  ElevatedButton(
-                    onPressed: () {
-                      Get.to(RegistrationOnwer());
-                    },
-                    child: const SizedBox(
-                        width: double.infinity,
-                        child: Text(
-                          "Next",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20),
-                        )),
-                    style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                      primary: Colors.white,
-                      onPrimary: Colors.blue,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
-                  ),
+
+                  FloatingActionButton.extended(
+                                onPressed: () {
+                                 setState(() => _capturedImage = null);
+                                },
+                                //icon: Icon(Icons.next_plan),
+                                label: Text('Capture Again'),
+                              ),
+
+                        const SizedBox(width: 8),
+                      FloatingActionButton.extended(
+                                onPressed: () {
+                                  Get.to(RegistrationOnwer());
+                                },
+                               // icon: Icon(Icons.next_plan),
+                                label: Text('Next'),
+                              ),
              
                 ],
               ),

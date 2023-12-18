@@ -46,28 +46,37 @@ class User {
   int? userId;
   String? fullName;
   String? username;
-  bool? isVerified;
   bool? isActive;
   String? createdAt;
   String? updatedAt;
+  String? age;
+  String? gender;
+  String? address;
 
   User(
       {this.userId,
       this.fullName,
       this.username,
-      this.isVerified,
       this.isActive,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.age,
+      this.gender,
+      this.address
+      
+      });
 
   User.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
     fullName = json['fullName'];
     username = json['username'];
-    isVerified = json['isVerified'];
     isActive = json['isActive'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    int ageInt = json['age'];
+    age = ageInt.toString();
+    gender = json['gender'];
+    address = json['address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -75,10 +84,12 @@ class User {
     data['userId'] = this.userId;
     data['fullName'] = this.fullName;
     data['username'] = this.username;
-    data['isVerified'] = this.isVerified;
     data['isActive'] = this.isActive;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+     data['age'] = this.age;
+     data['gender'] = this.gender;
+     data['address'] = this.address;
     return data;
   }
 }

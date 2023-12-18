@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parking_auto/Screen/User_Profile.dart';
 import 'package:parking_auto/Screen/bike_of_user.dart';
 import 'package:parking_auto/Screen/face_camera_registration.dart';
 import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
-import 'package:parking_auto/controller/get_current_user.dart';
 import 'package:parking_auto/widget/navigation_drawer_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,9 +40,21 @@ class _Home_Page extends State<HomePage> {
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Container(
+              color: Colors.indigo,
+              child: Column(
+              
+            ),
+
+                  
+              ),
+              
+             
+        
             const SizedBox(
               height: 52.0,
             ),
+           
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Center(
@@ -96,6 +108,9 @@ class _Home_Page extends State<HomePage> {
                         )),
                       ),
                     ),
+
+                    
+
                     SizedBox(
                       width: 160.0,
                       height: 160.0,
@@ -176,49 +191,7 @@ class _Home_Page extends State<HomePage> {
                         )),
                       ),
                     ),
-                    SizedBox(
-                      width: 160.0,
-                      height: 160.0,
-                      child: Card(
-                        color: Color.fromARGB(255, 21, 21, 21),
-                        elevation: 2.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
-                        child: Center(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/image/profile.png",
-                                width: 64.0,
-                              ),
-                             const SizedBox(
-                                height: 5.0,
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  GetUserController getUser =
-                                      GetUserController();
-                                  getUser.getUserData();
-                                  //Get.to(GetUPage());
-                                },
-                                child: Text(
-                                  "Profile",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20.0),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                            ],
-                          ),
-                        )),
-                      ),
-                    ),
+                  
                     SizedBox(
                       width: 160.0,
                       height: 160.0,
@@ -296,6 +269,45 @@ class _Home_Page extends State<HomePage> {
                         )),
                       ),
                     ),
+
+                     SizedBox(
+                      width: 160.0,
+                      height: 160.0,
+                      child: Card(
+                        color: Color.fromARGB(255, 21, 21, 21),
+                        elevation: 2.0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                        child: Center(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/image/profile.png",
+                                width: 64.0,
+                              ),
+                             const SizedBox(
+                                height: 5.0,
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Get.to(UserProfile());
+                                },
+                                child: Text(
+                                  "Profile",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                      ),
+                    ),
+
                   ],
                 ),
               ),

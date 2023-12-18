@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:momo_vn/momo_vn.dart';
+import 'package:parking_auto/Screen/home.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
-import 'package:parking_auto/controller/cancelRegistration_controller.dart';
 import 'package:parking_auto/controller/payment_controller.dart';
+import 'package:parking_auto/controller/update_registration_controller.dart';
 import 'package:parking_auto/model/registration_respone_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,19 +22,19 @@ class RegistrationDetail extends StatefulWidget {
 }
 
 class _RegistrationDetailState extends State<RegistrationDetail> {
-  CancelRegistrationController cancelRegistrationController = CancelRegistrationController();
+  UpdateRegistrationController updateRegistration =  UpdateRegistrationController();
   PaymentController getData = PaymentController();
 
-  
   Uint8List base64Decode(String source) => base64.decode(source);
-  
 
   late MomoVn _momoPay;
   late PaymentResponse _momoPaymentResult;
   //late String _paymentStatus;
-  bool paymentButton=false;
+  bool paymentButton = false;
   bool _isLoading = false;
   bool cancelButton = false;
+  bool deactiveRegistration = true;
+  bool reactiveRegistration = false;
 
   late BuildContext _context;
 
@@ -61,175 +62,235 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
 
   @override
   Widget build(BuildContext context) {
-    var registrationStatus;
+    String registrationStatus;
     registrationStatus = widget.item.registrationStatus.toString();
-    if(registrationStatus.toString().toUpperCase() == "Verified".toUpperCase() || registrationStatus.toString().toUpperCase() == "Expired".toString().toUpperCase()  ){
-        paymentButton = true;
-         setState(() {});
+    if (registrationStatus.toString().toUpperCase() ==
+            "Verified".toUpperCase() ||
+        registrationStatus.toString().toUpperCase() ==
+            "Expired".toString().toUpperCase()) {
+      paymentButton = true;
+      setState(() {});
     }
-    if(registrationStatus.toString().toUpperCase() == "Created".toString().toUpperCase() || registrationStatus == "Verify".toString().toUpperCase()  ){
-        cancelButton = true;
-         setState(() {});
+    if (registrationStatus.toString().toUpperCase() == "Active".toUpperCase()) {
+      deactiveRegistration = true;
+      setState(() {});
+    }else{
+      deactiveRegistration = false;
     }
-   
+
+    if (registrationStatus.toString().toUpperCase() ==
+            "Created".toString().toUpperCase() ||
+        registrationStatus == "Verify".toString().toUpperCase()) {
+      cancelButton = true;
+      setState(() {});
+
+      if (registrationStatus.toString().toUpperCase() ==
+          "temporary_inactive".toString().toUpperCase()) {
+        reactiveRegistration = true;
+
+        setState(() {});
+      }
+    }
+
     _context = context;
     return Scaffold(
-      appBar: AppBar( title: Text('Registration detail'),
-          centerTitle: true,
-          backgroundColor: Colors.green,),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Registration Detaiil'),
+        leading: IconButton(
+          onPressed: () {
+            Get.to(HomePage());
+          },
+          icon: Icon(Icons.home),
+        ),
+        backgroundColor: Colors.green,
+      ),
       body: Stack(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                  Text(
-                  "RegistrationId: ${widget.item.registrationId}",
-                  style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6)),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    child: widget.item.faceImage != ""
+                        ? Image.memory(
+                            base64Decode(widget.item.faceImage.toString()),
+                            width: 150,
+                            height: 150,
+                            //fit: BoxFit.cover,
+                          )
+                        : CircleAvatar(
+                            radius: 100.0,
+                            backgroundColor: Colors.orange,
+                            child: Text("No image"),
+                          ),
                   ),
-               ),
-                Text(
-                  "Status: ${widget.item.registrationStatus}",
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-               
-                Text(
-                  "Approuved By: ${widget.item.approvedBy}",
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "PlateNumber: ${widget.item.plateNumber}", style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                 Text(
-                  "Model:  ${widget.item.model}", style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                 Text(
-                  "Manufacture:  ${widget.item.manufacture}", style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                 Text(
-                  "Registration Number:  ${widget.item.registrationNumber}", style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "Gender:  ${widget.item.gender}", style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "Price: ${widget.item.amount}" + " vnd",
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.red,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-               
-                const SizedBox(height: 5),
-                Center(child: Image.memory(base64Decode(widget.item.faceImage.toString()), width: 250, height: 250)
-                ),
-                const SizedBox(height: 5),  
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Plate Number: ${widget.item.plateNumber}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(color: Color(0xFF37474F))),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          child: Text("Amount: ${widget.item.amount} vnd",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(color: Color(0xFF37474F))),
+                        ),
+                        Text("Status: ${widget.item.registrationStatus}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Color(0xFF999999))),
+                        Text("Approved By: ${widget.item.approvedBy}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Color(0xFF999999))),
 
-                 Visibility(
-              child: ElevatedButton(
-                onPressed: () {
-                  setPlateNumber();
-                    cancelRegistrationController.cancelRegistration();
-                },
-                child: const SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      "Cancel ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20),
-                    )),
-                style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  primary: Colors.white,
-                  onPrimary: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                ),
+                                widget.item.expiredDate == null ?
+                        Text("Expired Date: No",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Color(0xFF999999))): Text("Expired Date: ${widget.item.expiredDate}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Color(0xFF999999))),
+                        Text("Manufacture: ${widget.item.manufacture}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Color(0xFF999999))),
+                        Text("Model: ${widget.item.model}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Color(0xFF999999))),
+                        Text("Create At: ${widget.item.createdAt}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Color(0xFF999999))),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: const Divider(height: 1),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        //Text("Tonight's availability", style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Color(0xFF37474F))),
+                        Container(height: 5),
+                        Row(
+                          children: [
+                            Visibility(
+                              child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey[300], elevation: 0,
+                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                              ),
+                              child: const Text("Cancel", style: TextStyle(color: Color(0xFF666666))),
+                              onPressed: (){
+                                 setRegistrationId();
+                                  updateRegistration.cancelRegistration();
+                              },
+                            ),
+                              visible: cancelButton,
+                              //   //visible: true,
+                            ),
+
+                            Visibility(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  final price = widget.item.amount ?? 0;
+                                  _payment(
+                                    amount: price,
+                                    fee: 0,
+                                    description: "Smart - Parking",
+                                    username: "SmartParking",
+                                  );
+                                  //loginWithPhone();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey[300], elevation: 0,
+                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                              ),
+                              child: const Text("Payment", style: TextStyle(color: Color(0xFF666666))),
+                              ),
+                              visible: paymentButton,
+                              //   //visible: true,
+                            ),
+                            Visibility(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  setRegistrationId();
+                                  updateRegistration.deactive();
+                                },
+                                 style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey[300], elevation: 0,
+                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                              ),
+                              child: const Text("Deactive", style: TextStyle(color: Color(0xFF666666))),
+                              ),
+                              visible: deactiveRegistration,
+                              //   //visible: true,
+                            ),
+
+                            Visibility(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  setRegistrationId();
+                                  updateRegistration.reactive();
+                                },
+                               style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey[300], elevation: 0,
+                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                              ),
+                              child: const Text("Reactive", style: TextStyle(color: Color(0xFF666666))),
+                              ),
+                              visible: reactiveRegistration,
+                              //   //visible: true,
+                            ),
+
+                          
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  /* Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    child: TextButton(
+                      style: TextButton.styleFrom(primary: Colors.transparent),
+                      child: Text("RESERVE", style: TextStyle(color: MyColorsSample.primary),),
+                      onPressed: (){},
+                    ),
+                  ),
+                  Container(height: 5)*/
+                ],
               ),
-              visible: cancelButton,
-              //visible: true,
-            ),
-              
-                 Visibility(
-              child: ElevatedButton(
-                onPressed: () {
-                  
-                  final price = widget.item.amount ?? 0;
-                      _payment(
-                        amount: price,
-                        fee: 0,
-                        description: "Smart - Parking",
-                        username: "SmartParking",
-                      );
-                  //loginWithPhone();
-                },
-                child: const SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      "Payment ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20),
-                    )),
-                style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  primary: Colors.white,
-                  onPrimary: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                ),
-              ),
-              visible: paymentButton,
-              //visible: true,
-            ),
-              ],
             ),
           ),
           if (_isLoading)
@@ -255,7 +316,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
       merchantNameLabel: 'Smart Parking',
       orderLabel: 'Smart Parking',
       partner: 'merchant',
-      appScheme: "",
+      appScheme: "MOMOV2U120231123",
       merchantCode: 'MOMOV2U120231123',
       partnerCode: 'MOMOV2U120231123',
       amount: amount,
@@ -263,7 +324,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
       fee: fee,
       description: description,
       username: username,
-      // extra: "{}",
+      extra: "{}",
       isTestMode: true,
     );
     try {
@@ -282,6 +343,22 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
   void _setState() async {
     // _paymentStatus = 'Đã chuyển thanh toán';
     if (_momoPaymentResult.isSuccess == true) {
+      //  print("resule");
+      // print(_momoPaymentResult.toString());
+      // print("payment respone");
+      // print(_momoPaymentResult.data);
+      //  print("payment message");
+      //  print(_momoPaymentResult.message);
+      // print("extra");
+
+      // print( _momoPaymentResult.extra!);
+      // print("token");
+      // print(_momoPaymentResult.token);
+      //  print("phone");
+      //   print(_momoPaymentResult.phoneNumber);
+
+      // _paymentStatus += "\nExtra: " + _momoPaymentResult.extra!;
+      // print(_paymentStatus);
       final rs = await getData.submitPaymentMomo(
         amount: widget.item.amount ?? 0,
         registrationId: widget.item.registrationId ?? 0,
@@ -297,7 +374,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
       // _paymentStatus += "\nTình trạng: Thành công.";
       // _paymentStatus +=
       //     "\nSố điện thoại: " + _momoPaymentResult.phoneNumber.toString();
-      // //_paymentStatus += "\nExtra: " + _momoPaymentResult.extra!;
+      //_paymentStatus += "\nExtra: " + _momoPaymentResult.extra!;
       // _paymentStatus += "\nToken: " + _momoPaymentResult.token.toString();
     } else {
       await _showToast(false);
@@ -322,10 +399,10 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
       _setState();
     });
   }
-  void setPlateNumber() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.remove("registrationId");
+
+  void setRegistrationId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("registrationId");
     prefs.setString("registrationId", widget.item.registrationId.toString());
-    
   }
 }

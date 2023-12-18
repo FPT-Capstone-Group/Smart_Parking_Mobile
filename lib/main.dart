@@ -6,8 +6,6 @@ import 'package:parking_auto/Screen/add_onwer.dart';
 import 'package:parking_auto/Screen/bike_of_user.dart';
 import 'package:parking_auto/Screen/home.dart';
 import 'package:parking_auto/Screen/login.dart';
-import 'package:parking_auto/Screen/parking_history.dart';
-import 'package:parking_auto/Screen/profilePage.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
 import 'package:parking_auto/controller/firebaseApi_controller.dart';
@@ -17,12 +15,30 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //firebase option FlutterApp (gmail:hekimta@gmail.com)
+  // const firebaseOptions = FirebaseOptions(
+  //   appId: '1:227756988291:android:1d5994daf1ad04216988b6',
+  //   apiKey: 'AIzaSyBpEjaXOCmL44SqegshN1pyiDXV6Tfyanw',
+  //   projectId: 'flutterapp-c26b5',
+  //   messagingSenderId: '227756988291',
+  //   authDomain: 'flutterapp-c26b5.firebaseapp.com',
+  // );
+
+   //firebase option FlutterApp (gmail:hekimta@gmail.com)
+  // const firebaseOptions = FirebaseOptions(
+  //   appId: '1:227756988291:android:1d5994daf1ad04216988b6',
+  //   apiKey: 'AIzaSyBpEjaXOCmL44SqegshN1pyiDXV6Tfyanw',
+  //   projectId: 'flutterapp-c26b5',
+  //   messagingSenderId: '227756988291',
+  //   authDomain: 'flutterapp-c26b5.firebaseapp.com',
+  // );
+
+  //firebase option smart-parking (gmail:hekimta@gmail.com)
   const firebaseOptions = FirebaseOptions(
-    appId: '1:227756988291:android:1d5994daf1ad04216988b6',
-    apiKey: 'AIzaSyBpEjaXOCmL44SqegshN1pyiDXV6Tfyanw',
-    projectId: 'flutterapp-c26b5',
-    messagingSenderId: '227756988291',
-    authDomain: 'flutterapp-c26b5.firebaseapp.com',
+    appId: '1:601251091983:android:a7fd23a34760410193f57a',
+    apiKey: 'AIzaSyAZ1gYbNl6qwQHpAEV08ZvJakjXnonsO5o',
+    projectId: 'smart-parking-5fd71',
+    messagingSenderId: '601251091983',
+    authDomain: 'smart-parking-5fd71.firebaseapp.com',
   );
 
   await Firebase.initializeApp(options: firebaseOptions);
@@ -78,10 +94,6 @@ class MainScreen extends StatelessWidget {
       initialRoute: LoginWithPhone.routeNamed,
       getPages: [
         GetPage(
-          name: ProfilePage.routeNamed,
-          page: () => ProfilePage(),
-        ),
-        GetPage(
           name: HomePage.routeNamed,
           page: () => HomePage(),
         ),
@@ -101,10 +113,7 @@ class MainScreen extends StatelessWidget {
           name: BikeOfUser.routeNamed,
           page: () => BikeOfUser(),
         ),
-         GetPage(
-          name: ParkingHistory.routeNamed,
-          page: () => ParkingHistory(),
-        ),
+        
       ],
     );
   }

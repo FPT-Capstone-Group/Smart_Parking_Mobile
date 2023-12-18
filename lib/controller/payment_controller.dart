@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:parking_auto/constants.dart';
+import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentController {
@@ -12,7 +12,7 @@ class PaymentController {
     required int registrationId,
   }) async {
     try {
-      String url = "${Constants.host}/api/payments";
+      String url = "${ApiEndpoint.host}/api/payments";
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token').toString();

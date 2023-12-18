@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parking_auto/Screen/User_Profile.dart';
 import 'package:parking_auto/Screen/bike_of_user.dart';
 import 'package:parking_auto/Screen/face_camera_registration.dart';
 import 'package:parking_auto/Screen/notification.dart';
@@ -167,8 +168,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
     switch (index) {
       case 0:
 
-        GetUserController get = GetUserController();
-                get.getUserData();
+        Get.to(UserProfile());
         break;
       case 1:
        Get.to(FaceCameraRegistration());
