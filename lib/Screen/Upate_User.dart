@@ -43,16 +43,13 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
 
   String dropdownGender = gender.first;
 
-  String? fullNameCurrentSavedShared;
-  String? phoneCurrentSavedShared;
-  bool phoneEdit = true;
   @override
   void initState() {
     super.initState();
     final postModel = Provider.of<UserController>(context, listen: false);
     postModel.getPostData();
 
-    
+     
   }
 
   @override
@@ -61,17 +58,10 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
     //int? age = postModel.user?.user!.age;
     //String? age = postModel.user?.user!.age.toString();
 
-    fullNameController.text = postModel.user?.user!.fullName ?? "";
-    ageController.text = postModel.user?.user!.age ?? "";
-    //print(ageController);
-    addressController.text = postModel.user?.user!.address ?? "";
-     final genderCheck = postModel.user?.user!.gender ?? "";
-     
-     if (genderCheck == "Male") {
-      dropdownGender = gender.first;
-    } else{
-      dropdownGender = gender.last;
-    } 
+  //  fullNameController.text = postModel.user?.user!.fullName ?? "";
+  //   ageController.text = postModel.user?.user!.age ?? "";
+  //   //print(ageController);
+  //   addressController.text = postModel.user?.user!.address ?? "";
     
    
     return Scaffold(
@@ -92,6 +82,7 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                 child: Container(),
               )
             : Center(
+              child: SingleChildScrollView(
                 child: Form(
                   key: editProfileKey,
                   // margin: EdgeInsets.all(20),
@@ -175,10 +166,8 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                       onChanged: (String? value) {
                         // This is called when the user selects an item.
                      
-                       
-                        
-                          
-                        
+         
+
                         setState(() {
                           dropdownGender = value!;
                         });
@@ -221,6 +210,7 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                     ),
                   ]),
                 ),
+              )
               ),
       ),
     );

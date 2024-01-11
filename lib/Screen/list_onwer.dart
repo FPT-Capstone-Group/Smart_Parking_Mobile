@@ -49,6 +49,7 @@ class __ListOwner extends State<_ListOwner> {
 
   @override
   Widget build(BuildContext context) {
+    
     final list = listData;
     if (list == null) {
       return Container(
@@ -60,6 +61,7 @@ class __ListOwner extends State<_ListOwner> {
     }
     {
       return ListView.builder(
+     
         itemCount: list.length,
         itemBuilder: (context, index) {
           final item = list[index];
@@ -75,7 +77,8 @@ class __ListOwner extends State<_ListOwner> {
                 fetchData();
               }
             },
-            child: Container(
+            child: SingleChildScrollView(
+            child:   Container(
               padding: const EdgeInsets.all(8),
               margin: const EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -90,6 +93,7 @@ class __ListOwner extends State<_ListOwner> {
                 // Define how the card's content should be clipped
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 // Define the child widget of the card
+                
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -99,16 +103,18 @@ class __ListOwner extends State<_ListOwner> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          item.ownerFaceImage != null
-                              ? Image.memory(
-                                  base64Decode(item.ownerFaceImage.toString()),
-                                  width: 55,
-                                  height: 55)
-                              : const CircleAvatar(
-                                  radius: 40.0,
-                                  backgroundColor: Colors.orange,
-                                  child: Text("No image"),
-                                ),
+                          
+                          // item.ownerFaceImage != null
+                          //     ? Image.memory(
+                          //         base64Decode(item.ownerFaceImage.toString()),
+                          //         width: 55,
+                          //         height: 55)
+                          //     : const CircleAvatar(
+                          //         radius: 40.0,
+                          //         backgroundColor: Colors.orange,
+                          //         child: Text("No image"),
+                          //       ),
+
                           // Add some spacing between the image and the text
                           Container(width: 20),
                           // Add an expanded widget to take up the remaining horizontal space
@@ -117,44 +123,30 @@ class __ListOwner extends State<_ListOwner> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 // Add some spacing between the top of the card and the title
-                                Container(height: 5),
-                                // Add a title widget
-                                Text("Full Name: ${item.fullName}"),
-                                Container(height: 5),
+                                Container(height: 2),
+                               // Add a title widget
+                               Text("Name: ${item.fullName}"),
+                                Container(height: 2),
                                 // Add a title widget
                                 Text(
                                   "Relationship: ${item.relationship}",
                                 ),
                                 // Add some spacing between the title and the subtitle
-                                Container(height: 10),
-                                // Add a subtitle widget
-                                // Text(
-                                //   "CreatedAt: ${item.}",
-                                //   // style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                //   //   color: Colors.grey[500],
-                                //   // ),
-                                // ),
-                                // // Add some spacing between the subtitle and the text
-                                // Container(height: 5),
-                                // // Add a text widget to display some text
-                                // Text(
-                                //   'Model: ${item.model}',
-                                //   maxLines: 2,
-                                //   style:
-                                //       Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                //     color: Colors.grey[500],
-                                //   ),
-                                // ),
+                                Container(height: 2),
+                          
                               ],
                             ),
+                          
                           ),
                         ],
                       ),
                     ),
                   ],
                 ),
-              ),
+              
             ),
+            ),
+            )
           );
         },
       );

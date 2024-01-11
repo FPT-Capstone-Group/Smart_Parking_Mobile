@@ -56,10 +56,11 @@ class UserController extends ChangeNotifier {
       var response = await http.get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $token',
       });
-     
+     print(response.statusCode.toString() + " url" + url.toString() );
       if (response.statusCode == 200) {
       final Map<String, dynamic> parsed = json.decode(response.body);
         final data = Data.fromJson(parsed['data']);
+       
         user = data;
       } else if (response.statusCode == 401) {
         print("Erro code 401: fail token: Invalid token signature");
@@ -102,7 +103,7 @@ class UserController extends ChangeNotifier {
           headers: headers,
           body: jsonEncode({
             "gender": gender,
-            "fullName": fullNameController.text,
+            "userFullName": fullNameController.text,
             "age": age,
             "address": addressController.text,
           }));

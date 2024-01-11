@@ -83,7 +83,7 @@ class __NotificationPage extends State<_NotificationPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      Column(
+                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
@@ -91,31 +91,26 @@ class __NotificationPage extends State<_NotificationPage> {
                                         const  SizedBox(
                                             height: 20,
                                           ),
-                                          //  Text(
-                                          //   "Notification Id:  ${item.notificationId}",
-                                          //   style: const TextStyle(
-                                          //       fontSize: 15,
-                                          //       color: Colors.black,
-                                          //       fontWeight: FontWeight.normal),
-                                          // ),
+                                        
+                                         
                                           Text(
                                             "Message:  ${item.message}",
                                             style: const TextStyle(
-                                                fontSize: 10,
+                                                fontSize: 5,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal),
                                           ),
                                           Text(
                                             "Notification Type: ${item.notificationType}",
                                             style: const TextStyle(
-                                                fontSize: 10,
+                                                fontSize: 5,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal),
                                           ),
                                            Text(
                                             "Created: ${item.createdAt}",
                                             style: const TextStyle(
-                                                fontSize: 10,
+                                                fontSize: 5,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal),
                                           ),

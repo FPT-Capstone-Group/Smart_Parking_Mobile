@@ -64,7 +64,7 @@ class Data {
  
 
     registrationId = json['registrationId'];
-    registrationStatus = json['status'];
+    registrationStatus = json['registrationStatus'];
     approvedBy = json['approvedBy'];
     expiredDate = json['expiredDate'];
     faceImage = json['faceImage'];
@@ -78,7 +78,7 @@ class Data {
     updatedAt = json['updatedAt'];
     model = json['model'];
     registrationNumber = json['registrationNumber'];
-    manufacture = json['manufacture'];
+    manufacture = json['manufacturer'];
     gender = json['gender'];
     userId = json['userId'];
     amount = json['amount'];
@@ -90,7 +90,7 @@ class Data {
 
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['registrationId'] = this.registrationId;
-    data['status'] = this.registrationStatus;
+    data['registrationStatus'] = this.registrationStatus;
     data['approvedBy'] = this.approvedBy;
     data['expiredDate'] = this.expiredDate;
     data['faceImage'] = this.faceImage;
@@ -102,7 +102,7 @@ class Data {
     data['updatedAt'] = this.updatedAt;
     data['model'] = this.model;
     data['registrationNumber'] = this.registrationNumber;
-    data['manufacture'] = this.manufacture;
+    data['manufacturer'] = this.manufacture;
     data['gender'] = this.gender;
     data['userId'] = this.userId;
     data['amount'] = this.amount;

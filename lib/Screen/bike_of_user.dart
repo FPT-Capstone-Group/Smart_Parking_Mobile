@@ -70,6 +70,7 @@ class _BikeOfUsers extends State<_BikeOfUser> {
                 fetchData();
               }
             },
+            child: SingleChildScrollView(
             child: Container(
               height: 100,
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -104,13 +105,13 @@ class _BikeOfUsers extends State<_BikeOfUser> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
-                          "Registration Number:  ${item.registrationNumber}",
-                          style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal),
-                        ),
+                        // Text(
+                        //   "Registration Number:  ${item.registrationNumber}",
+                        //   style: const TextStyle(
+                        //       fontSize: 15,
+                        //       color: Colors.black,
+                        //       fontWeight: FontWeight.normal),
+                        // ),
                         Text(
                           "Plate Number:  ${item.plateNumber}",
                           style: const TextStyle(
@@ -136,6 +137,7 @@ class _BikeOfUsers extends State<_BikeOfUser> {
                 ),
               ),
             ),
+            )
           );
         },
       );

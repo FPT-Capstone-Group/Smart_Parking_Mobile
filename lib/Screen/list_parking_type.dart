@@ -2,44 +2,43 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:parking_auto/Screen/homee.dart';
-import 'package:parking_auto/Screen/registration_detail.dart';
-import 'package:parking_auto/controller/get_registraion_controller.dart';
-import 'package:parking_auto/model/registration_respone_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:parking_auto/Screen/parking_type_detail.dart';
+import 'package:parking_auto/controller/get_list_parking_type_controller.dart';
+import 'package:parking_auto/model/listParkingType_model.dart';
 
-class RegistrationHistory extends StatelessWidget {
-  static const routeNamed = '/registrationHistoryScreen';
-  const RegistrationHistory({super.key});
+class ListParkingType extends StatelessWidget {
+  static const routeNamed = '/ListParkingTypeScreen';
+  const ListParkingType({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-  title: Text('Registration History'),
-leading: IconButton(
-    onPressed: () {
-      Get.to(HomeNavBar());
-    },
-    icon:const Icon(Icons.home),
-  ),
+          title: const Text('List Parking Type'),
+          // leading: IconButton(
+          //   onPressed: () {
+          //     Get.to(const HomePage());
+          //   },
+          //   icon: const Icon(Icons.home),
+          // ),
+          // actions: [Icon(Icons.list)],
         ),
-        body: const MyStatefulWidget());
+        body: const _ListParkingType());
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
+class _ListParkingType extends StatefulWidget {
+  const _ListParkingType({super.key});
 
   @override
-  State<MyStatefulWidget> createState() => _RegistrationHistory();
+  State<_ListParkingType> createState() => ___ListParkingType();
 }
 
-class _RegistrationHistory extends State<MyStatefulWidget> {
+class ___ListParkingType extends State<_ListParkingType> {
   Uint8List base64Decode(String source) => base64.decode(source);
-  GetRegistraionController getData = GetRegistraionController();
+  late AnimationController controller;
+  GetListParkingTypeController getData = GetListParkingTypeController();
   List<Data>? listData;
 
   @override
@@ -50,28 +49,27 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    
     final list = listData;
     if (list == null) {
       return Container(
         color: Colors.grey[300],
         child: const Center(child: CircularProgressIndicator()),
       );
-    } else if(listData!.isEmpty) { 
-      return const Center(child: Text("No registration"));
-    } {
+    } else if (listData!.isEmpty) {
+      return const Center(child: Text("No parking type found"));
+    }
+    {
       return ListView.builder(
+     
         itemCount: list.length,
         itemBuilder: (context, index) {
           final item = list[index];
           return InkWell(
             onTap: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.remove("registrationId");
-              prefs.setString("plateNumber", item.registrationId.toString());
-
-              final needReload = await  Navigator.of(context).push(
+              final needReload = await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => RegistrationDetail(item),
+                  builder: (context) => ParkingTypeDetail(item),
                 ),
               );
               if (needReload == true) {
@@ -80,7 +78,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
               }
             },
             child: SingleChildScrollView(
-            child: Container(
+            child:   Container(
               padding: const EdgeInsets.all(8),
               margin: const EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -95,6 +93,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                 // Define how the card's content should be clipped
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 // Define the child widget of the card
+                
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -104,18 +103,9 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          // item.faceImage != ""
-                          //     ?
-                          //     // Add an image widget to display an, image
-                          //     Image.memory(
-                          //         base64Decode(item.faceImage.toString()),
-                          //         width: 80,
-                          //         height: 100)
-                          //     :const CircleAvatar(
-                          //         radius: 40.0,
-                          //         backgroundColor: Colors.orange,
-                          //         child: Text("No image"),
-                          //       ),
+                          
+                      
+
                           // Add some spacing between the image and the text
                           Container(width: 20),
                           // Add an expanded widget to take up the remaining horizontal space
@@ -124,41 +114,28 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 // Add some spacing between the top of the card and the title
-                                Container(height: 5),
+                                Container(height: 2),
+                               // Add a title widget
+                               Text("Name: ${item.parkingTypeName}"),
+                                Container(height: 2),
                                 // Add a title widget
                                 Text(
-                                  "Plate Number: ${item.plateNumber}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                        color: Colors.grey[500],
-                                      ),
+                                  "Fee: ${item.parkingTypeFee}",
                                 ),
                                 // Add some spacing between the title and the subtitle
-                                Container(height: 10),
-                                // Add a subtitle widget
-                                Text(
-                                  "Status: ${item.registrationStatus}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(
-                                        color: Colors.grey[500],
-                                      ),
-                                ),
-                                // Add some spacing between the subtitle and the text
-                                // Add a text widget to display some text
-                                
+                                Container(height: 2),
+                          
                               ],
                             ),
+                          
                           ),
                         ],
                       ),
                     ),
                   ],
                 ),
-              ),
+              
+            ),
             ),
             )
           );

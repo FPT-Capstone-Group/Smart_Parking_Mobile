@@ -65,7 +65,8 @@ class _CheckLogin extends State<CheckLogin> {
       if(loginSession == "true"){
          Get.to( HomeNavBar());
       }else{
-        Get.to(const LoginWithPhone());
+        //Get.to(const OrderRegistration());
+       Get.to(const LoginWithPhone());
       }
 
     }

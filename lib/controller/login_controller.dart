@@ -40,9 +40,11 @@ class LoginController extends GetxController {
       // print("device :  + $deviceFireBasetoken");
 
       if (response.statusCode == 200) {
-   prefs.remove("phoneCurrentRegister");
+      prefs.remove("phoneCurrentRegister");
         var loginArr = json.decode(response.body);
-        roleUer = loginArr['data']['user']['role'];
+
+        roleUer = loginArr['data']['user']['roleName'];
+        print("22");
         if (roleUer =='user') {
           loginSession = "true";
           prefs.setString('loginSession', loginSession);
@@ -54,7 +56,7 @@ class LoginController extends GetxController {
           prefs.setString('token', token);
 
           //save fullName
-          fullName = loginArr['data']['user']['fullName'];
+          fullName = loginArr['data']['user']['userFullName'];
           //fullName = loginArr['data']['fullName'];
           prefs.remove('fullName');
           final keyFullName = 'fullName';
@@ -98,6 +100,10 @@ class LoginController extends GetxController {
               textColor: Colors.white,
               fontSize: 16.0);
         }
+
+       
+
+
       } else if (response.statusCode == 404) {
         Fluttertoast.showToast(
             msg: "Not found.",

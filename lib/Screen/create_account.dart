@@ -43,6 +43,7 @@ class _CreateAccount extends State<CreateAccount> {
       body: Form(
         key: registerForm,
         //margin: EdgeInsets.all(10),
+        child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -216,6 +217,7 @@ class _CreateAccount extends State<CreateAccount> {
             ),
           ],
         ),
+        )
       ),
     );
   }

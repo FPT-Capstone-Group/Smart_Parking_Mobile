@@ -262,6 +262,7 @@ class ListData extends StatelessWidget {
               // fetchData();
             }
           },
+          child: SingleChildScrollView(
           child: Container(
             height: 100,
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -317,7 +318,7 @@ class ListData extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          ),)
         );
       },
     );

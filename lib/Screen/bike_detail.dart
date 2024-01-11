@@ -4,6 +4,7 @@ import 'package:parking_auto/Screen/face_camera_registration_owner.dart';
 import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/Screen/list_cards.dart';
 import 'package:parking_auto/Screen/list_onwer.dart';
+import 'package:parking_auto/Screen/package_order.dart';
 import 'package:parking_auto/Screen/parking_history_filter.dart';
 import 'package:parking_auto/controller/get_list_owner_controller.dart';
 import 'package:parking_auto/model/listBike_model.dart';
@@ -59,6 +60,7 @@ class _BikeDetail extends State<BikeDetail> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -115,6 +117,7 @@ class _BikeDetail extends State<BikeDetail> {
                           child: FloatingActionButton.extended(
                             heroTag: "btn1",
                             onPressed: () {
+                              setPlateNumber();
                               Get.to(const FaceCameraImageOwner());
                             },
                             icon: const Icon(Icons.add),
@@ -156,8 +159,21 @@ class _BikeDetail extends State<BikeDetail> {
                               setBikeId();
                               Get.to(const ListCard());
                             },
-                            icon: const Icon(Icons.history),
+                            icon: const Icon(Icons.list),
                             label: const Text('List Card'),
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+                        Center(
+                          child: FloatingActionButton.extended(
+                            heroTag: "btn5",
+                            onPressed: () {
+                              setBikeId();
+                              Get.to(const PackageOrder());
+                            },
+                            icon: const Icon(Icons.list),
+                            label: const Text('Parking Order'),
                           ),
                         ),
                       ],
@@ -167,6 +183,7 @@ class _BikeDetail extends State<BikeDetail> {
                 ],
               ),
             ),
+            )
           ),
           if (_isLoading)
             Container(
@@ -184,7 +201,7 @@ class _BikeDetail extends State<BikeDetail> {
     prefs.remove("plateNumber");
     prefs.setString("plateNumber", widget.item.plateNumber.toString());
   }
-
+  
   void setBikeId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("bikeId");

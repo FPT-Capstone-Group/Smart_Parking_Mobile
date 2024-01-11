@@ -22,6 +22,8 @@ class _RegistrationOnwer extends State<RegistrationOnwer> {
 
   String dropdownGender = gender.first;
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,26 +67,26 @@ class _RegistrationOnwer extends State<RegistrationOnwer> {
                   },
                 ),
                 const SizedBox(height: 10),
-                TextFormField(
-                  controller: plateNumberController,
-                  decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(),
-                    labelText: 'Plate number',
-                    hintText: 'Enter your plate number',
-                  ),
-                  keyboardType: TextInputType.text,
-                  validator: (plateNumberController) {
-                    if (plateNumberController == null ||
-                        plateNumberController.isEmpty) {
-                      return 'Can\'t be empty';
-                    }
-                    if (plateNumberController.length < 5) {
-                      return 'Too short';
-                    }
-                    return null;
-                  },
-                ),
+                // TextFormField(
+                //   controller: plateNumberController,
+                //   decoration: const InputDecoration(
+                //     enabledBorder: OutlineInputBorder(),
+                //     focusedBorder: OutlineInputBorder(),
+                //     labelText: 'Plate number',
+                //     hintText: 'Enter your plate number',
+                //   ),
+                //   keyboardType: TextInputType.text,
+                //   validator: (plateNumberController) {
+                //     if (plateNumberController == null ||
+                //         plateNumberController.isEmpty) {
+                //       return 'Can\'t be empty';
+                //     }
+                //     if (plateNumberController.length < 5) {
+                //       return 'Too short';
+                //     }
+                //     return null;
+                //   },
+                // ),
                 const SizedBox(height: 10),
                 //Divider(color: Colors.white70),
                 TextFormField(
@@ -135,7 +137,7 @@ class _RegistrationOnwer extends State<RegistrationOnwer> {
                         addOnwerController.dropGender = dropdownGender;
                         addOnwerController.fullNameController =
                             fullNameController;
-                        addOnwerController.plateNumberController =
+                       // addOnwerController.plateNumberController =
                             plateNumberController;
                         addOnwerController.relationshipController =
                             relationshipController;

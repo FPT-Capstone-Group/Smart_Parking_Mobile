@@ -44,6 +44,14 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
   @override
   Widget build(BuildContext context) {
     final postModel = Provider.of<UserController>(context);
+    var age;
+    
+    if(postModel.user?.user!.age == 0){
+      age = " ";
+    }else{
+      age = postModel.user?.user!.age;
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -61,6 +69,7 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
           child: Container(
           ),
         ):Center(
+          child: SingleChildScrollView(
           child: Column(
             children: [
                 const SizedBox(height: 90),
@@ -90,14 +99,39 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(postModel.user?.user!.fullName ?? "", style: Theme.of(context).textTheme.headline4),
-              Text(postModel.user?.user!.username ?? "", style: Theme.of(context).textTheme.bodyText2),
-              Text(postModel.user?.user!.age ?? "", style: Theme.of(context).textTheme.bodyText2),
-              // postModel.user?.user!.age == null ?
-              // Text('', style: Theme.of(context).textTheme.bodyText2):Text('${postModel.user?.user!.age}', style: Theme.of(context).textTheme.bodyText2),
+              
+              postModel.user?.user!.fullName != null ? 
+              Text("Full Name: ${postModel.user?.user!.fullName}", style: Theme.of(context).textTheme.headline6): 
+              Text("Full Name: ", style: Theme.of(context).textTheme.headline6),
 
-              Text(postModel.user?.user!.address ?? "", style: Theme.of(context).textTheme.bodyText2),
-              Text(postModel.user?.user!.gender ?? "", style: Theme.of(context).textTheme.bodyText2),
+              postModel.user?.user!.username != null ? 
+              Text("Phone: ${postModel.user?.user!.username}", style: Theme.of(context).textTheme.headline6): 
+              Text("Phone: ", style: Theme.of(context).textTheme.headline6),
+
+             // postModel.user?.user!.age != null ? 
+              Text("Age: ${age}", style: Theme.of(context).textTheme.headline6),
+             // Text("Age: ", style: Theme.of(context).textTheme.headline4),
+
+              postModel.user?.user!.address != null ? 
+              Text("Address: ${postModel.user?.user!.address}", style: Theme.of(context).textTheme.headline6): 
+              Text("Address: ", style: Theme.of(context).textTheme.headline6),
+
+              postModel.user?.user!.gender != null ? 
+              Text("Gender: ${postModel.user?.user!.gender}", style: Theme.of(context).textTheme.headline6): 
+              Text("Gender: ", style: Theme.of(context).textTheme.headline6),
+
+              // Text(postModel.user?.user!.username ?? "", style: Theme.of(context).textTheme.bodyText2),
+              
+              
+              // Text(age, style: Theme.of(context).textTheme.bodyText2),
+
+             
+              //     Text(postModel.user?.user!.address ?? "", style: Theme.of(context).textTheme.bodyText2),
+             
+              //     Text(postModel.user?.user!.gender ?? "", style: Theme.of(context).textTheme.bodyText2),
+
+              // Text(postModel.user?.user!.address ?? "", style: Theme.of(context).textTheme.bodyText2),
+              // Text(postModel.user?.user!.gender ?? "", style: Theme.of(context).textTheme.bodyText2),
               const SizedBox(height: 20),
 
               /// -- BUTTON
@@ -122,23 +156,14 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
                                 label:const Text('Change Password'),
                               ),
               ),
-              // const SizedBox(height: 5),
-              //  SizedBox(
-              //   width: 200,
-              //   child: FloatingActionButton.extended(
-              //                   onPressed: () {
-              //                     Get.to(HomePage());
-              //                   },
-              //                   icon: Icon(Icons.home),
-              //                   label: Text('Home'),
-              //                 ),
-              // ),
+    
               const SizedBox(height: 30),
               const Divider(),
               const SizedBox(height: 10),
 
             ],
           ),
+          )
         ),
       ),
     );

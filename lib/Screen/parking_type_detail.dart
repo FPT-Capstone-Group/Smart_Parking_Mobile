@@ -1,54 +1,29 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/active_deactive_owner_controller.dart';
-import 'package:parking_auto/model/listOwner_model.dart';
+import 'package:parking_auto/model/listParkingType_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class OwnerDetail extends StatefulWidget {
-  const OwnerDetail(this.item, {super.key});
+class ParkingTypeDetail extends StatefulWidget {
+  const ParkingTypeDetail(this.item, {super.key});
 
   final Data item;
 
   @override
-  State<OwnerDetail> createState() => _RegistrationDetailState();
+  State<ParkingTypeDetail> createState() => _ParkingTyypeDetail();
 }
 
-class _RegistrationDetailState extends State<OwnerDetail> {
+class _ParkingTyypeDetail extends State<ParkingTypeDetail> {
   ActiveDeactiveOwnerController owner = ActiveDeactiveOwnerController();
 
-  Uint8List base64Decode(String source) => base64.decode(source);
-  var isActive;
-  bool actiVisible = false;
-  bool deactiVisible = false;
   @override
   Widget build(BuildContext context) {
-    // if (widget.item.status == "active") {
-    //   isActive = "True";
-    // } else {
-    //   isActive = "False";
-    // }
-    // if (widget.item.relationship!.toLowerCase() != "owner") {
-    //   deactiVisible = true;
-    //   actiVisible = true;
-    // }
 
-    isActive = widget.item.status;
-    if (isActive == "active") {
-      deactiVisible = true;
-      actiVisible = false;
-    }
-    if (isActive == "inactive") {
-      deactiVisible = false;
-      actiVisible = true;
-    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title:const Text('Owner Detail'),
+        title:const Text('Parking Type Detail'),
         leading: IconButton(
           onPressed: () {
             Get.to(HomeNavBar());
@@ -63,7 +38,7 @@ class _RegistrationDetailState extends State<OwnerDetail> {
           const Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Owner Information",
+              "Parking Type Information",
               style: TextStyle(
                 fontSize: 15,
                 color: const Color.fromARGB(255, 204, 43, 43),
@@ -90,64 +65,47 @@ class _RegistrationDetailState extends State<OwnerDetail> {
                 ),
                 const Divider(),
                 Container(height: 10),
-                Text("Full Name: ${widget.item.fullName}"),
+                Text("Parking Type Name: ${widget.item.parkingTypeName}"),
                 const SizedBox(
                   height: 5,
                 ),
-                Text("Relationship:  ${widget.item.relationship}"),
+                Text("Parking Type Status:  ${widget.item.parkingTypeStatus}"),
                 const SizedBox(
                   height: 5,
                 ),
-                Text("Gender:  ${widget.item.gender}"),
-                Text("Owner status:  ${widget.item.status}"),
+                Text("Parking Type Group:  ${widget.item.parkingTypeGroup}"),
+                Text("Parking Type Fee:  ${widget.item.parkingTypeFee}"),
+                Text("Description:  ${widget.item.description}"),
                 const SizedBox(
                   height: 5,
                 ),
                 const Divider(color: Colors.white70),
                 const SizedBox(height: 5),
 
-                // Center(
-                //   child:
-
-                //    widget.item.ownerFaceImage != null
-                //       ? Image.memory(
-                //           base64Decode(widget.item.ownerFaceImage.toString()),
-                //           width: 250,
-                //           height: 250)
-                //       : const CircleAvatar(
-                //           radius: 40.0,
-                //           backgroundColor: Colors.orange,
-                //           child: Text("No image"),
-                //         ),
-                // ),
-
-                
+            
                 const SizedBox(height: 5),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Visibility(
+               Center(
+                 // padding: const EdgeInsets.symmetric(vertical: 16),
                       child: FloatingActionButton.extended(
                         onPressed: () {
-                          ownerId();
+                          setParkingTypeId();
                           owner.deactiveOwner();
                         },
                         icon: Icon(Icons.login),
-                        label: Text('DeActive'),
+                        label: Text('Create'),
                       ),
-                      visible: deactiVisible),
+                 
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Visibility(
+                Center(
+                //  padding: const EdgeInsets.symmetric(vertical: 16),
+                
                       child: FloatingActionButton.extended(
                         onPressed: () {
-                          ownerId();
-                          owner.activeOwner();
+                         
                         },
                         icon: Icon(Icons.login),
-                        label: Text('Active'),
+                        label: Text('Cancel'),
                       ),
-                      visible: actiVisible),
                 ),
               ],
             ),
@@ -157,9 +115,9 @@ class _RegistrationDetailState extends State<OwnerDetail> {
     );
   }
 
-  void ownerId() async {
+  void setParkingTypeId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("ownerId");
-    prefs.setString("ownerId", widget.item.ownerId.toString());
+    prefs.remove("parkingTypeId");
+    prefs.setString("parkingTypeId", widget.item.parkingTypeId.toString());
   }
 }

@@ -56,10 +56,10 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     ownerId = json['ownerId'];
-    fullName = json['fullName'];
+    fullName = json['ownerFullName'];
     gender = json['gender'];
     relationship = json['relationship'];
-    status = json['status'];
+    status = json['ownerStatus'];
     ownerFaceImage = json['ownerFaceImage'];
     plateNumber = json['plateNumber'];
 
@@ -75,10 +75,10 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['bikeId'] = this.bikeId;
-    data['fullName'] = this.fullName;
+    data['ownerFullName'] = this.fullName;
     data['gender'] = this.gender;
     data['relationship'] = this.relationship;
-    data['status'] = this.status;
+    data['ownerStatus'] = this.status;
     data['ownerFaceImage'] = this.ownerFaceImage;
     data['plateNumber'] = this.plateNumber;
     data['createdAt'] = this.createdAt;

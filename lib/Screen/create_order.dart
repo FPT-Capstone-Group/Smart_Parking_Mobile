@@ -4,18 +4,16 @@ import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/addOwner_controller.dart';
 import 'package:parking_auto/controller/registration_controller.dart';
 
-//const List<String> list = <String>['One Month', 'One Year'];
-const List<String> gender = <String>['Male', 'Female'];
 
-class Registration extends StatefulWidget {
-  const Registration({super.key});
+class CreateOrder extends StatefulWidget {
+  const CreateOrder({super.key});
   //final String urlImage;
 
   @override
-  State<Registration> createState() => _Registration();
+  State<CreateOrder> createState() => _CreateOrder();
 }
 
-class _Registration extends State<Registration> {
+class _CreateOrder extends State<CreateOrder> {
   final registrationForm = GlobalKey<FormState>();
   final addOnwerController = Get.put(AddOwnerController());
 
@@ -26,8 +24,7 @@ class _Registration extends State<Registration> {
   TextEditingController registrationNumberController = TextEditingController();
 
   bool relationship = false;
-  //String dropdownFee = list.first;
-  String dropdownGender = gender.first;
+
 
   RegistrationController registration = RegistrationController();
 
@@ -36,7 +33,7 @@ class _Registration extends State<Registration> {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
-            title: const Text('Registration'),
+            title: const Text('Create Order'),
             leading: IconButton(
               onPressed: () {
                 Get.to(HomeNavBar());
@@ -135,41 +132,10 @@ class _Registration extends State<Registration> {
                 ),
                 const SizedBox(height: 10),
 
-                // DropdownButton<String>(
-                //   value: dropdownGender,
-                //   icon: const Icon(Icons.arrow_downward),
-                //   elevation: 16,
-                //   style: const TextStyle(color: Colors.deepPurple),
-                //   underline: Container(
-                //     height: 2,
-                //     color: Colors.deepPurpleAccent,
-                //   ),
-                //   onChanged: (String? value) {
-                //     // This is called when the user selects an item.
-                //     setState(() {
-                //       dropdownGender = value!;
-                //     });
-                //   },
-                //   items: gender.map<DropdownMenuItem<String>>((String value) {
-                //     return DropdownMenuItem<String>(
-                //       value: value,
-                //       child: Text(value),
-                //     );
-                //   }).toList(),
-                // ),
-                //---------dropdownButton value------
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
-
-                   // registration.dropGender = dropdownGender;
-                    registration.plateNumberController = plateNumberController;
-                    registration.manufactureController = manufactureController;
-                    registration.modelBikeController = modelBikeController;
-                    registration.registrationNumberController =
-                        registrationNumberController;
-
-                    registration.create(context);
+                  
                   },
                   child: const SizedBox(
                       width: double.infinity,
