@@ -46,7 +46,7 @@ class __ListOwner extends State<_ListOwner> {
   void initState() {
     super.initState();
     fetchData();
-    print(listData);
+    
   }
 
   @override
@@ -74,6 +74,7 @@ class __ListOwner extends State<_ListOwner> {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 border: Border.all(),
               ),
+              child: SingleChildScrollView(
               child: Card(
                 // Define the shape of the card
                 shape: RoundedRectangleBorder(
@@ -103,31 +104,7 @@ class __ListOwner extends State<_ListOwner> {
                                 // Add a title widget
                                 Text("Card Id: ${item.cardId}"),
                                 Container(height: 5),
-                                // Add a title widget
-                                // Text(
-                                //   "Relationship: ${item.relationship}",
-
-                                // ),
-                                // // Add some spacing between the title and the subtitle
-                                // Container(height: 10),
-                                // // Add a subtitle widget
-                                // Text(
-                                //   "CreatedAt: ${item.createdAt}",
-                                //   // style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                //   //   color: Colors.grey[500],
-                                //   // ),
-                                // ),
-                                // // Add some spacing between the subtitle and the text
-                                // Container(height: 5),
-                                // // Add a text widget to display some text
-                                // Text(
-                                //   'Model: ${item.model}',
-                                //   maxLines: 2,
-                                //   style:
-                                //       Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                //     color: Colors.grey[500],
-                                //   ),
-                                // ),
+                            
                               ],
                             ),
                           ),
@@ -137,6 +114,7 @@ class __ListOwner extends State<_ListOwner> {
                   ],
                 ),
               ),
+              )
             ),
           );
         },

@@ -53,7 +53,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     bikeId = json['bikeId'];
-    fullname = json['fullname'];
+    fullname = json['fullName'];
     username = json['username'];
     gender = json['gender'];
     age = json['age'];
@@ -67,7 +67,7 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['bikeId'] = this.bikeId;
-    data['fullname'] = this.fullname;
+    data['fullName'] = this.fullname;
     data['username'] = this.username;
     data['gender'] = this.gender;
     data['age'] = this.age;

@@ -6,6 +6,8 @@ const List<String> list = <String>['VN', 'EN'];
 
 class SettingsPage extends StatefulWidget {
   static const routeNamed = 'settingScreen';
+   const SettingsPage({super.key});
+
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }

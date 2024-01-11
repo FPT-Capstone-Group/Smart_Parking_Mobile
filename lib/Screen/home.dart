@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/User_Profile.dart';
 import 'package:parking_auto/Screen/bike_of_user.dart';
+import 'package:parking_auto/Screen/create_registration.dart';
 import 'package:parking_auto/Screen/face_camera_registration.dart';
 import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
@@ -106,7 +107,7 @@ class _Home_Page extends State<HomePage> {
                                 onPressed: () {
                                   // Get.to(Registration());
                                   Get.to(
-                                    () => FaceCameraRegistration(),
+                                    () =>const Registration(),
                                   );
                                 },
                                 child: const Text(

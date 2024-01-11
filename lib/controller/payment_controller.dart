@@ -12,6 +12,7 @@ class PaymentController {
     required int registrationId,
   }) async {
     try {
+      print('amount controller: $amount');
       String url = "${ApiEndpoint.host}/api/payments";
 
       SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -118,7 +118,7 @@ class UpdateRegistrationController {
       if ( response.statusCode == 200) {
         prefs.remove("registrationId");
         Fluttertoast.showToast(
-            msg: "Cancel registration success",
+            msg: "Registration canceled successfully",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -127,10 +127,30 @@ class UpdateRegistrationController {
             fontSize: 16.0);
             
             Get.to(RegistrationHistory());
-      } else {
+      } else if( response.statusCode == 404){
         print(response.statusCode);
         Fluttertoast.showToast(
-            msg: "Cancel registration fail",
+            msg: "Registration not found",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }else if( response.statusCode == 400){
+        print(response.statusCode);
+        Fluttertoast.showToast(
+            msg: "Registration cannot be canceled in paid or active status",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }else if( response.statusCode == 500){
+        print(response.statusCode);
+        Fluttertoast.showToast(
+            msg: "Internal Server Error",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,

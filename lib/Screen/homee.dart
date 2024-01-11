@@ -4,7 +4,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:parking_auto/Screen/User_Profile.dart';
 import 'package:parking_auto/Screen/bike_of_user.dart';
 import 'package:parking_auto/Screen/home.dart';
-import 'package:parking_auto/Screen/registration_hitory.dart';
+import 'package:parking_auto/Screen/setting.dart';
 
 class HomeNavBar extends StatefulWidget {
   @override
@@ -19,8 +19,9 @@ class _ExampleState extends State<HomeNavBar> {
   static const List<Widget> _widgetOptions = <Widget>[
    HomePage(),
     BikeOfUser(),
-    RegistrationHistory(),
+    SettingsPage(),
     UserProfile(),
+
   ];
 
   @override
@@ -68,8 +69,8 @@ class _ExampleState extends State<HomeNavBar> {
                 ),
                 
                 GButton(
-                  icon: LineIcons.history,
-                  text: 'Registration History',
+                  icon: Icons.settings,
+                  text: 'Settings',
                 ),
                 GButton(
                   icon: LineIcons.user,

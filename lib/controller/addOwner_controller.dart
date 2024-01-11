@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AddOwnerController extends GetxController{
   TextEditingController fullNameController = TextEditingController();
-  TextEditingController plateNumberController = TextEditingController();
+ // TextEditingController plateNumberController = TextEditingController();
   TextEditingController relationshipController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   var dropGender;
@@ -19,6 +19,7 @@ class AddOwnerController extends GetxController{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token').toString();
     var imageBase64 = prefs.getString('imageBase64').toString();
+     var plateNumberController = prefs.getString('plateNumber').toString();
     try {
 
       String url = "${ApiEndpoint.host}/api/owners/create";
@@ -37,7 +38,7 @@ class AddOwnerController extends GetxController{
           headers: headers,
           body: jsonEncode({
             "fullName": fullNameController.text,
-            "plateNumber": plateNumberController.text,
+            "plateNumber": plateNumberController,
             "ownerFaceImage": imageBase64,
             "relationship": relationshipController.text,
             "gender": gender,
@@ -50,7 +51,7 @@ class AddOwnerController extends GetxController{
       if ( code.toString() == "201") {
       
         Fluttertoast.showToast(
-            msg: "Add owner success",
+            msg: "Owner Added",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -59,9 +60,18 @@ class AddOwnerController extends GetxController{
             fontSize: 16.0);
             
             Get.to(HomeNavBar());
-      } else {
+      } else if ( code.toString() == "400"){
         Fluttertoast.showToast(
-            msg: "Add owner fail",
+            msg: "Cannot create owner",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }else if ( code.toString() == "500"){
+        Fluttertoast.showToast(
+            msg: "Internal Server Error",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -69,6 +79,7 @@ class AddOwnerController extends GetxController{
             textColor: Colors.white,
             fontSize: 16.0);
       }
+
     } catch (e) {
       //print(e);
     }
