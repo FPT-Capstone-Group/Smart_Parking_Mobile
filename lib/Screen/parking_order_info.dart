@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/homee.dart';
+import 'package:parking_auto/controller/create_order_controller.dart';
 import 'package:parking_auto/controller/get_parking_order_info_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ParkingOrderInfo extends StatelessWidget {
@@ -30,6 +32,9 @@ class ProviderDemoScreen extends StatefulWidget {
 }
 
 class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
+  var parkingTypeId;
+  var expiredDate;
+  var parkingOrderAmount;
   @override
   void initState() {
    
@@ -42,6 +47,9 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
   @override
   Widget build(BuildContext context) {
     final postModel = Provider.of<GetParkingOrderInfoController>(context);
+    parkingTypeId = postModel.user?.parkingTypeId;
+    expiredDate = postModel.user?.expiredDate;
+    parkingOrderAmount = postModel.user?.parkingOrderAmount;
 
     return Scaffold(
       appBar: AppBar(
@@ -63,38 +71,7 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
           child: SingleChildScrollView(
           child: Column(
             children: [
-               // const SizedBox(height: 90),
-              /// -- IMAGE
-              //  const Text(
-              //             'Parking order Information',
-              //             textAlign: TextAlign.center,
-              //             style: TextStyle(
-              //               fontSize: 24,
-              //               color:  Color.fromARGB(255, 204, 43, 43),
-              //             ),
-              //           ),
-              //           const Divider(color: Colors.green),
-              //           Container(height: 5),
-              // const SizedBox(height: 10),
-              
-
-              // Text("plateNumber: ${postModel.user?.plateNumber}", style: Theme.of(context).textTheme.headline6),
-             
-              // const SizedBox(height: 10),
-          
-              // Text("parkingTypeName: ${postModel.user?.parkingTypeName}", style: Theme.of(context).textTheme.headline6),
-
-              // const SizedBox(height: 10),
-              // postModel.user?.expiredDate != null ? 
-              // Text("expiredDate: ${postModel.user?.expiredDate}", style: Theme.of(context).textTheme.headline6): 
-              // Text("expiredDate: ", style: Theme.of(context).textTheme.headline6),
-              // const SizedBox(height: 10),
-              // postModel.user?.parkingOrderAmount != null ? 
-              // Text("parkingOrderAmount: ${postModel.user?.parkingOrderAmount}", style: Theme.of(context).textTheme.headline6): 
-              // Text("parkingOrderAmount: ", style: Theme.of(context).textTheme.headline6),
-
-    
-              // const SizedBox(height: 20),
+         
 
               Container(
                     padding: const EdgeInsets.all(11),
@@ -135,28 +112,37 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
               const SizedBox(height: 10),
               /// -- BUTTON
               SizedBox(
-                width: 100,
+                width: 130,
                 child: FloatingActionButton.extended(
-                                onPressed: () {
-                                
+                                onPressed: () async{
+                                 print("parkingTypeId: ${parkingTypeId}");
+                                  print("expiredDate: ${expiredDate}");
+                                  print("parkingOrderAmount: ${parkingOrderAmount}");
+                                   SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString("parkingTypeId", parkingTypeId);
+                                    prefs.setString("expiredDate", expiredDate);
+                                    prefs.setString("parkingOrderAmount", parkingOrderAmount);
+
+                                    CreateOrderController create = CreateOrderController();
+                                    create.createOrder();
                                 },
                                 icon:const Icon(Icons.edit),
-                                label: Text('Create'),
+                                label: Text('Create Order'),
                               ),
               ),
-              const SizedBox(height: 10),
-               SizedBox(
-                width: 100,
-                child: FloatingActionButton.extended(
-                                onPressed: () {
+              // const SizedBox(height: 10),
+              //  SizedBox(
+              //   width: 100,
+              //   child: FloatingActionButton.extended(
+              //                   onPressed: ()  {
                                 
-                                },
-                                icon:const Icon(Icons.change_circle_outlined),
-                                label:const Text('Cancel'),
-                              ),
-              ),
+              //                   },
+              //                   icon:const Icon(Icons.change_circle_outlined),
+              //                   label:const Text('Cancel'),
+              //                 ),
+              // ),
     
-              const SizedBox(height: 10),
+               const SizedBox(height: 10),
               const Divider(),
               const SizedBox(height: 10),
 
@@ -167,4 +153,6 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
       ),
     );
   }
+
+   
 }

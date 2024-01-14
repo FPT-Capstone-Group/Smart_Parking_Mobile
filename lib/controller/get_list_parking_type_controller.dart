@@ -17,8 +17,8 @@ class GetListParkingTypeController {
     final response = await http.get(Uri.parse(url), headers: {
       'Authorization': 'Bearer $token',
     });
-     print("url $url");
-     print(response.statusCode);
+    //  print("url $url");
+    //  print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body)['data']['parkingTypes'] as List;
 

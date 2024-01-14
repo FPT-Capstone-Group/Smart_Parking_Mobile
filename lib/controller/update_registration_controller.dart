@@ -61,19 +61,19 @@ class UpdateRegistrationController {
    final queryParameters = {
         'registrationId': registrationId,
       };
-      print("vao");
+    //  print("vao");
       //final uri = Uri.https('smart-parking-server-dev.azurewebsites.net', 'api/owners', queryParameters);
 
        final uri = Uri.http('smart-parking-server-dev.azurewebsites.net', 'api/registrations/deactive/', queryParameters);
-        print("test");
-        print("uri: $uri");
+       // print("test");
+      //  print("uri: $uri");
       final response = await http.get(uri, headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
         HttpHeaders.contentTypeHeader: 'application/json',
       });
-      print("trong");
-        print("uri: $uri");
-        print(response.statusCode);
+      // print("trong");
+      //   print("uri: $uri");
+      //   print(response.statusCode);
     if (response.statusCode == 200) {
       prefs.remove("registrationId");
        Fluttertoast.showToast(

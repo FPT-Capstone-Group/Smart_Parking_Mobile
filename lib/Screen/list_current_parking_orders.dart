@@ -2,20 +2,20 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:parking_auto/Screen/owner_detail.dart';
-import 'package:parking_auto/controller/get_list_owner_controller.dart';
-import 'package:parking_auto/model/listOwner_model.dart';
+import 'package:parking_auto/Screen/current_order_detail.dart';
+import 'package:parking_auto/controller/get_current_parking_ordert_controller.dart';
+import 'package:parking_auto/model/listParkingOrder_model.dart';
 
-class ListOwner extends StatelessWidget {
+class ListCurrentParkingOrder extends StatelessWidget {
   static const routeNamed = '/listOwnerScreen';
-  const ListOwner({super.key});
+  const ListCurrentParkingOrder({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('List Owners'),
+          title: const Text('List Current Parking Order'),
           // leading: IconButton(
           //   onPressed: () {
           //     Get.to(const HomePage());
@@ -24,21 +24,21 @@ class ListOwner extends StatelessWidget {
           // ),
           // actions: [Icon(Icons.list)],
         ),
-        body: const _ListOwner());
+        body: const _ListCurrentParkingOrder());
   }
 }
 
-class _ListOwner extends StatefulWidget {
-  const _ListOwner({super.key});
+class _ListCurrentParkingOrder extends StatefulWidget {
+  const _ListCurrentParkingOrder({super.key});
 
   @override
-  State<_ListOwner> createState() => __ListOwner();
+  State<_ListCurrentParkingOrder> createState() => ___ListCurrentParkingOrder();
 }
 
-class __ListOwner extends State<_ListOwner> {
+class ___ListCurrentParkingOrder extends State<_ListCurrentParkingOrder> {
   Uint8List base64Decode(String source) => base64.decode(source);
   late AnimationController controller;
-  GetListOwnerController getData = GetListOwnerController();
+  GetListCurrentParkingOrderController getData = GetListCurrentParkingOrderController();
   List<Data>? listData;
 
   @override
@@ -57,7 +57,7 @@ class __ListOwner extends State<_ListOwner> {
         child: const Center(child: CircularProgressIndicator()),
       );
     } else if (listData!.isEmpty) {
-      return const Center(child: Text("No owner found"));
+      return const Center(child: Text("No order found"));
     }
     {
       return ListView.builder(
@@ -69,7 +69,7 @@ class __ListOwner extends State<_ListOwner> {
             onTap: () async {
               final needReload = await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => OwnerDetail(item),
+                  builder: (context) => CurrentOrderDetail(item),
                 ),
               );
               if (needReload == true) {
@@ -104,17 +104,7 @@ class __ListOwner extends State<_ListOwner> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           
-                          item.ownerFaceImage != null
-                              ? Image.memory(
-                                  base64Decode(item.ownerFaceImage.toString()),
-                                  width: 55,
-                                  height: 55)
-                              : const CircleAvatar(
-                                  radius: 40.0,
-                                  backgroundColor: Colors.orange,
-                                  child: Text("No image"),
-                                ),
-
+                        
                           // Add some spacing between the image and the text
                           Container(width: 20),
                           // Add an expanded widget to take up the remaining horizontal space
@@ -125,11 +115,11 @@ class __ListOwner extends State<_ListOwner> {
                                 // Add some spacing between the top of the card and the title
                                 Container(height: 2),
                                // Add a title widget
-                               Text("Name: ${item.fullName}"),
+                               Text("Status: ${item.parkingOrderStatus}"),
                                 Container(height: 2),
                                 // Add a title widget
                                 Text(
-                                  "Relationship: ${item.relationship}",
+                                  "Created At: ${item.createdAt}",
                                 ),
                                 // Add some spacing between the title and the subtitle
                                 Container(height: 2),

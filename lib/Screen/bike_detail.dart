@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:parking_auto/Screen/face_camera_registration_owner.dart';
 import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/Screen/list_cards.dart';
+import 'package:parking_auto/Screen/list_current_parking_orders.dart';
 import 'package:parking_auto/Screen/list_onwer.dart';
+import 'package:parking_auto/Screen/list_parking_order.dart';
 import 'package:parking_auto/Screen/package_order.dart';
 import 'package:parking_auto/Screen/parking_history_filter.dart';
 import 'package:parking_auto/controller/get_list_owner_controller.dart';
@@ -20,6 +22,7 @@ class BikeDetail extends StatefulWidget {
 }
 
 class _BikeDetail extends State<BikeDetail> {
+  bool ParkingOrder =true;
   //late String _paymentStatus;
   final bool _isLoading = false;
   GetListOwnerController getListOwner = GetListOwnerController();
@@ -28,6 +31,11 @@ class _BikeDetail extends State<BikeDetail> {
   @override
   void initState() {
     super.initState();
+  //   if(widget.item.status == "active"){
+  //     ParkingOrder = false;
+  //   }else{
+  //     ParkingOrder = true;
+  //   }
   }
 
   Future<void> initPlatformState() async {
@@ -112,9 +120,10 @@ class _BikeDetail extends State<BikeDetail> {
                         const Divider(color: Colors.green),
                         const SizedBox(height: 10),
 
-                        const SizedBox(height: 10),
-                        Center(
-                          child: FloatingActionButton.extended(
+                     //   const SizedBox(height: 10),
+                        Row( mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                             FloatingActionButton.extended(
                             heroTag: "btn1",
                             onPressed: () {
                               setPlateNumber();
@@ -123,10 +132,9 @@ class _BikeDetail extends State<BikeDetail> {
                             icon: const Icon(Icons.add),
                             label: const Text('Add Owner'),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        Center(
-                          child: FloatingActionButton.extended(
+                    
+                       // const SizedBox(height: 10),
+                      FloatingActionButton.extended(
                             heroTag: "btn2",
                             onPressed: () {
                               setPlateNumber();
@@ -136,11 +144,14 @@ class _BikeDetail extends State<BikeDetail> {
                             icon: const Icon(Icons.list),
                             label: const Text('List Owner'),
                           ),
+                     
+                            ],
                         ),
+                    
                         const SizedBox(height: 10),
-         
-                        Center(
-                          child: FloatingActionButton.extended(
+                        Row(mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          FloatingActionButton.extended(
                             heroTag: "btn4",
                             onPressed: () {
                               setPlateNumber();
@@ -149,11 +160,7 @@ class _BikeDetail extends State<BikeDetail> {
                             icon: const Icon(Icons.history),
                             label: const Text('View History'),
                           ),
-                        ),
-
-                        const SizedBox(height: 10),
-                        Center(
-                          child: FloatingActionButton.extended(
+                          FloatingActionButton.extended(
                             heroTag: "btn4",
                             onPressed: () {
                               setBikeId();
@@ -162,18 +169,53 @@ class _BikeDetail extends State<BikeDetail> {
                             icon: const Icon(Icons.list),
                             label: const Text('List Card'),
                           ),
-                        ),
-
+                        ],),
+                   
                         const SizedBox(height: 10),
-                        Center(
-                          child: FloatingActionButton.extended(
+
+                        Row(mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                              Visibility(child: FloatingActionButton.extended(
                             heroTag: "btn5",
                             onPressed: () {
                               setBikeId();
                               Get.to(const PackageOrder());
                             },
                             icon: const Icon(Icons.list),
-                            label: const Text('Parking Order'),
+                            label: const Text('Order'),
+                          ), visible: ParkingOrder,),
+                          FloatingActionButton.extended(
+                            heroTag: "btn7",
+                            onPressed: () {
+                              setBikeId();
+                              Get.to(const ListCurrentParkingOrder());
+                            },
+                            icon: const Icon(Icons.list),
+                            label: const Text('Get Current Order'),
+                          ),
+                        ],),
+                        // Center(
+                        //   child: Visibility(child: FloatingActionButton.extended(
+                        //     heroTag: "btn5",
+                        //     onPressed: () {
+                        //       setBikeId();
+                        //       Get.to(const PackageOrder());
+                        //     },
+                        //     icon: const Icon(Icons.list),
+                        //     label: const Text('Parking Order'),
+                        //   ), visible: ParkingOrder,),
+
+                        // ),
+
+                         Center(
+                          child: FloatingActionButton.extended(
+                            heroTag: "btn7",
+                            onPressed: () {
+                              setBikeId();
+                              Get.to(const ListParkingOrder());
+                            },
+                            icon: const Icon(Icons.list),
+                            label: const Text('Get All Order'),
                           ),
                         ),
                       ],

@@ -90,8 +90,11 @@ class _Registration extends State<Registration> {
                         plateNumberController.isEmpty) {
                       return 'Can\'t be empty';
                     }
-                    if (plateNumberController.length < 2) {
+                    if (plateNumberController.length < 6) {
                       return 'Too short';
+                    }
+                    if (plateNumberController.length >10) {
+                      return 'Too long';
                     }
                     return null;
                   },
@@ -161,7 +164,7 @@ class _Registration extends State<Registration> {
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
-
+                       if (registrationForm.currentState!.validate()) {
                    // registration.dropGender = dropdownGender;
                     registration.plateNumberController = plateNumberController;
                     registration.manufactureController = manufactureController;
@@ -170,6 +173,7 @@ class _Registration extends State<Registration> {
                         registrationNumberController;
 
                     registration.create(context);
+                       }
                   },
                   child: const SizedBox(
                       width: double.infinity,

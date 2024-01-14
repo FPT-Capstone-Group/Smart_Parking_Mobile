@@ -3,29 +3,31 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart';
 import 'package:parking_auto/apiEndpoint.dart';
-import 'package:parking_auto/model/listOwner_model.dart';
+import 'package:parking_auto/model/listParkingOrder_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GetListOwnerController {
-  var plateNumberController;
+class GetListCurrentParkingOrderController {
+  
+  var bikeId;
   
   Future<List<Data>> fetchData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token').toString();
-    var plateNumberController = prefs.getString('plateNumber').toString();
+    var bikeId = prefs.getString('bikeId').toString();
  
    final queryParameters = {
-        'plateNumber': plateNumberController,
+        'bikeId': bikeId,
       };
 
         String url = "${ApiEndpoint.paramHost}";
 
         //for localhost
-       //final uri = Uri.http(url, 'api/owners', queryParameters);
+       //final uri = Uri.http(url, 'api/parkingOrders/getAllParkingOrdersByBike', queryParameters);
 
        //for https
-       final uri = Uri.https(url, 'api/owners', queryParameters);
+       final uri = Uri.https(url, 'api/parkingOrders/getAllParkingOrdersByBike', queryParameters);
        print("url $uri");
        print("1");
       final response = await http.get(uri, headers: {
@@ -36,7 +38,7 @@ class GetListOwnerController {
      print(response.statusCode);
     if (response.statusCode == 200) {
       prefs.remove("plateNumber");
-      final jsonResponse = json.decode(response.body)['data']['owners'] as List;
+      final jsonResponse = json.decode(response.body)['data']['parkingOrders'] as List;
 
       final x = jsonResponse.map((data) => Data.fromJson(data)).toList();
       //x.sort((a, b) => b.ownerId!.compareTo(a.ownerId!));

@@ -19,7 +19,7 @@ class GetUserController {
       final x = jsonResponse.map((data) => Data.fromJson(data)).toList();
       return x;
     } else {
-      print("else != 200");
+    //  print("else != 200");
       throw Exception('Unexpected error occured!');
     }
   }

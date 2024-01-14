@@ -50,7 +50,7 @@ class User {
  String? userStatus;
   String? createdAt;
   String? updatedAt;
-  String? age;
+  int? age;
   String? gender;
   String? address;
 
@@ -76,12 +76,13 @@ class User {
   userStatus = json['userStatus'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    int ageInt = json['age'] ?? 0;
-    if(ageInt ==0){
-      age = "";
-    }else{
-      age = ageInt.toString();
-    }
+    age = json['age'];
+    // int ageInt = json['age'] ?? 0;
+    // if(ageInt ==0){
+    //   age = "";
+    // }else{
+    //   age = ageInt.toString();
+    // }
     
     gender = json['gender'] ?? "";
     address = json['address'] ?? "";

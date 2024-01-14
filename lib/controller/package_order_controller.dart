@@ -28,7 +28,7 @@ class PackageOrderInfoController extends ChangeNotifier {
       var response = await http.get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $token',
       });
-     print(response.statusCode.toString() + " url" + url.toString() );
+    // print(response.statusCode.toString() + " url" + url.toString() );
       if (response.statusCode == 200) {
       final Map<String, dynamic> parsed = json.decode(response.body);
         final data = Data.fromJson(parsed['data']);

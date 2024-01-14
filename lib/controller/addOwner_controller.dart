@@ -20,6 +20,7 @@ class AddOwnerController extends GetxController{
     var token = prefs.getString('token').toString();
     var imageBase64 = prefs.getString('imageBase64').toString();
      var plateNumberController = prefs.getString('plateNumber').toString();
+     
     try {
 
       String url = "${ApiEndpoint.host}/api/owners/create";
@@ -37,7 +38,7 @@ class AddOwnerController extends GetxController{
       var response = await http.post(Uri.parse(url),
           headers: headers,
           body: jsonEncode({
-            "fullName": fullNameController.text,
+            "ownerFullName": fullNameController.text,
             "plateNumber": plateNumberController,
             "ownerFaceImage": imageBase64,
             "relationship": relationshipController.text,
