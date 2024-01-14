@@ -55,14 +55,14 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
   @override
   Widget build(BuildContext context) {
     final postModel = Provider.of<UserController>(context);
-    //int? age = postModel.user?.user!.age;
-    //String? age = postModel.user?.user!.age.toString();
+    // int? age = postModel.user?.user!.age;
+    // String? age = postModel.user?.user!.age.toString();
 
-  //  fullNameController.text = postModel.user?.user!.fullName ?? "";
-  //   ageController.text = postModel.user?.user!.age ?? "";
-  //   //print(ageController);
-  //   addressController.text = postModel.user?.user!.address ?? "";
-    
+   fullNameController.text = postModel.user?.user!.fullName ?? "";
+    ageController.text = postModel.user?.user!.age.toString() ?? "";
+    //print(ageController);
+    addressController.text = postModel.user?.user!.address ?? "";
+ 
    
     return Scaffold(
       appBar: AppBar(
@@ -82,13 +82,14 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                 child: Container(),
               )
             : Center(
-              child: SingleChildScrollView(
+            //  child: SingleChildScrollView(scrollDirection: Axis.vertical,
+       
                 child: Form(
                   key: editProfileKey,
                   // margin: EdgeInsets.all(20),
                   child: ListView(children: [
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     TextFormField(
                       controller: fullNameController,
@@ -192,7 +193,7 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                               fullNameController;
                           userController.addressController = addressController;
 
-                          age = int.parse(ageController.text);
+                         age = int.parse(ageController.text);
 
                           userController.age = age;
 
@@ -212,7 +213,7 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                 ),
               )
               ),
-      ),
-    );
+      );
+  //  );
   }
 }

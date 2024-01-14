@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:parking_auto/Screen/User_Profile.dart';
 import 'package:parking_auto/Screen/bike_of_user.dart';
 import 'package:parking_auto/Screen/create_registration.dart';
-import 'package:parking_auto/Screen/face_camera_registration.dart';
 import 'package:parking_auto/Screen/notification.dart';
 import 'package:parking_auto/Screen/registration_hitory.dart';
 import 'package:parking_auto/Screen/setting.dart';
@@ -42,7 +41,7 @@ class _Home_Page extends State<HomePage> {
             icon: const Icon(Icons.add),
             tooltip: 'Create registration',
             onPressed: () {
-            Get.to(FaceCameraRegistration());
+            Get.to(Registration());
             },
           ),
           IconButton(

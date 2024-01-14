@@ -44,7 +44,6 @@ class LoginController extends GetxController {
         var loginArr = json.decode(response.body);
 
         roleUer = loginArr['data']['user']['roleName'];
-        print("22");
         if (roleUer =='user') {
           loginSession = "true";
           prefs.setString('loginSession', loginSession);
@@ -59,14 +58,14 @@ class LoginController extends GetxController {
           fullName = loginArr['data']['user']['userFullName'];
           //fullName = loginArr['data']['fullName'];
           prefs.remove('fullName');
-          final keyFullName = 'fullName';
+          String keyFullName = 'fullName';
           final fullnameValue = fullName;
           prefs.setString(keyFullName, fullnameValue);
 
           //save phone login current
           phoneCurrent = loginArr['data']['user']['username'];
           //phoneCurrent = loginArr['data']['username'];
-          final keyPhoneCurrent = 'phoneCurrent';
+          String keyPhoneCurrent = 'phoneCurrent';
           final valuePhoneCurrent = phoneCurrent;
           prefs.setString(keyPhoneCurrent, valuePhoneCurrent);
 

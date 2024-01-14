@@ -31,7 +31,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
   late MomoVn _momoPay;
   late PaymentResponse _momoPaymentResult;
   //late String _paymentStatus;
-  bool paymentButton = false;
+  bool paymentButton = true;
   bool _isLoading = false;
   bool cancelButton = false;
   bool deactiveRegistration = true;
@@ -222,7 +222,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                             Visibility(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  final price = widget.item.amount ?? 0;
+                                  final price = widget.item.amount ?? 1000;
                                   _payment(
                                     amount: price,
                                     fee: 0,
