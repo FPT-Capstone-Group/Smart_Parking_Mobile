@@ -11,7 +11,7 @@ class LogoutController extends GetxController {
       prefs.remove('token');
       prefs.remove('imagePath');
       prefs.remove("loginSession");
-   Get.to(LoginWithPhone());
+   Get.to(const LoginWithPhone());
     
   }
 }

@@ -26,14 +26,14 @@ class _ParkingHistoryDetail extends State<ParkingHistoryDetail> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Parking History Detail'),
+        title:const Text('Parking History Detail'),
         leading: IconButton(
           onPressed: () {
             Get.to(HomeNavBar());
           },
           icon: const Icon(Icons.home),
         ),
-        actions: [Icon(Icons.details)],
+        actions: const [Icon(Icons.details)],
         backgroundColor: Colors.green,
       ),
       body: Row(

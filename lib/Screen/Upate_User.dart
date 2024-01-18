@@ -20,7 +20,7 @@ class UpdateUser extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: UpdateUserScreen()),
+          home: const UpdateUserScreen()),
     );
   }
 }
@@ -59,15 +59,20 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
     // String? age = postModel.user?.user!.age.toString();
 
    fullNameController.text = postModel.user?.user!.fullName ?? "";
+   if(postModel.user?.user!.age == null || postModel.user?.user!.age == ""){
+    ageController.text = "";
+   }else{
     ageController.text = postModel.user?.user!.age.toString() ?? "";
-    //print(ageController);
+   }
+   // ageController.text = postModel.user?.user!.age.toString() ?? " ";
+    //print(" age ${ageController.text}");
     addressController.text = postModel.user?.user!.address ?? "";
  
    
     return Scaffold(
       appBar: AppBar(
        centerTitle: true,
-  title: Text('Update Profile'),
+  title: const Text('Update Profile'),
   leading: IconButton(
     onPressed: () {
       Get.to(HomeNavBar());
@@ -204,7 +209,7 @@ class _ProviderDemoScreenState extends State<UpdateUserScreen> {
                         }
                       },
                       icon:const Icon(Icons.update),
-                      label: Text('Update'),
+                      label:const Text('Update'),
                     ),
                     const SizedBox(
                       height: 10,

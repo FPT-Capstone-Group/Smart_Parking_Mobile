@@ -26,18 +26,18 @@ class _RegistrationDetailState extends State<NotificationDetail> {
           },
           icon: const Icon(Icons.home),
         ),
-        actions: [Icon(Icons.details)],
+        actions:const [Icon(Icons.details)],
         backgroundColor: Colors.green,
       ),
       body: Stack(
         children: [
           const Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Text(
               "Notification Information",
               style: TextStyle(
                 fontSize: 15,
-                color: const Color.fromARGB(255, 204, 43, 43),
+                color: Color.fromARGB(255, 204, 43, 43),
               ),
             ),
           ),

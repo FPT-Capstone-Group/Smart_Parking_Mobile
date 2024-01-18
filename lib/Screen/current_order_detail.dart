@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:momo_vn/momo_vn.dart';
-import 'package:parking_auto/Screen/bike_of_user.dart';
 import 'package:parking_auto/Screen/homee.dart';
+import 'package:parking_auto/Screen/list_current_parking_orders.dart';
 import 'package:parking_auto/controller/get_current_parking_ordert_controller.dart';
 import 'package:parking_auto/controller/payment_order_parking_controller.dart';
 import 'package:parking_auto/model/listParkingOrder_model.dart';
@@ -248,7 +248,7 @@ class _CurrentOrderDetail extends State<CurrentOrderDetail> {
       );
 
       await _showToast(rs);
-      Get.to(const BikeOfUser());
+      Get.to(const ListCurrentParkingOrder());
       // if (rs == true) {
       //   Navigator.pop(_context, true);
       //   Get.to(const BikeOfUser());

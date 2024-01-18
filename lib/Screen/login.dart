@@ -84,17 +84,9 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
               ),
             ),
 
-            // new Image.asset(
-            //   'assets/logo.png',
-            //   width: 100.0,
-            //   height: 100.0,
-            //   fit: BoxFit.cover
-            // ),
-
             const SizedBox(
               height: 50,
             ),
-            // const Divider(),
             const SizedBox(
               height: 30,
             ),

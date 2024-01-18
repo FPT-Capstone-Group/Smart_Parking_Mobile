@@ -16,13 +16,6 @@ class ListOwner extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: const Text('List Owners'),
-          // leading: IconButton(
-          //   onPressed: () {
-          //     Get.to(const HomePage());
-          //   },
-          //   icon: const Icon(Icons.home),
-          // ),
-          // actions: [Icon(Icons.list)],
         ),
         body: const _ListOwner());
   }

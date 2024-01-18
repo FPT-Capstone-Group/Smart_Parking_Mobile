@@ -20,7 +20,7 @@ class ParkingOrderInfo extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-        home:ProviderDemoScreen()
+        home:const ProviderDemoScreen()
       ),);
   }
 }
@@ -47,9 +47,9 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
   @override
   Widget build(BuildContext context) {
     final postModel = Provider.of<GetParkingOrderInfoController>(context);
-    parkingTypeId = postModel.user?.parkingTypeId;
-    expiredDate = postModel.user?.expiredDate;
-    parkingOrderAmount = postModel.user?.parkingOrderAmount;
+    parkingTypeId = postModel.info?.parkingTypeId;
+    expiredDate = postModel.info?.expiredDate;
+    parkingOrderAmount = postModel.info?.parkingOrderAmount;
 
     return Scaffold(
       appBar: AppBar(
@@ -78,23 +78,24 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Plate Number: ${postModel.user?.plateNumber}",
+                        Text("Plate Number: ${postModel.info?.plateNumber}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(color: const Color(0xFF999999))),
-                        Text("Parking Type Name: ${postModel.user?.parkingTypeName}",
+                               
+                        Text("Parking Type Name: ${postModel.info?.parkingTypeName}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(color: const Color(0xFF999999))),
-                        Text("Expired Date: ${postModel.user?.expiredDate}",
+                        Text("Expired Date: ${postModel.info?.expiredDate}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(color: const Color(0xFF999999))),
                       
-                           Text("Amount: ${postModel.user?.parkingOrderAmount} ",
+                           Text("Amount: ${postModel.info?.parkingOrderAmount} ",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleMedium!
@@ -115,9 +116,9 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
                 width: 130,
                 child: FloatingActionButton.extended(
                                 onPressed: () async{
-                                 print("parkingTypeId: ${parkingTypeId}");
-                                  print("expiredDate: ${expiredDate}");
-                                  print("parkingOrderAmount: ${parkingOrderAmount}");
+                                //  print("parkingTypeId: $parkingTypeId");
+                                //   print("expiredDate: $expiredDate");
+                                //   print("parkingOrderAmount: $parkingOrderAmount");
                                    SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString("parkingTypeId", parkingTypeId);
                                     prefs.setString("expiredDate", expiredDate);
@@ -127,20 +128,10 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
                                     create.createOrder();
                                 },
                                 icon:const Icon(Icons.edit),
-                                label: Text('Create Order'),
+                                label:const Text('Create Order'),
                               ),
               ),
-              // const SizedBox(height: 10),
-              //  SizedBox(
-              //   width: 100,
-              //   child: FloatingActionButton.extended(
-              //                   onPressed: ()  {
-                                
-              //                   },
-              //                   icon:const Icon(Icons.change_circle_outlined),
-              //                   label:const Text('Cancel'),
-              //                 ),
-              // ),
+
     
                const SizedBox(height: 10),
               const Divider(),

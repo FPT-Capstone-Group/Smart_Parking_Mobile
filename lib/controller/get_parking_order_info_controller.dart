@@ -12,20 +12,20 @@ import 'package:parking_auto/model/parkingOrderInfo_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetParkingOrderInfoController extends ChangeNotifier {
- Data? user;
+ Data? info;
   bool loading = false;
   
 
   getPostData() async {
     loading = true;
-    user = (await getData())!;
+    info = (await getData())!;
     loading = false;
 
     notifyListeners();
   }
 
   Future<Data?> getData() async {
-     Data? user;
+     Data? info;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token').toString();
     var bikeId = prefs.getString('bikeId').toString();
@@ -57,7 +57,7 @@ class GetParkingOrderInfoController extends ChangeNotifier {
       //print(parsed);
         final data = Data.fromJson(parsed['data']);
  
-        user = data;
+        info = data;
     //print(user.bikeId);
       } else if (response.statusCode == 400) {
          Fluttertoast.showToast(
@@ -107,7 +107,7 @@ class GetParkingOrderInfoController extends ChangeNotifier {
     } catch (e) {
       log(e.toString());
     }
-    return user;
+    return info;
   }
 
  

@@ -31,10 +31,10 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
   late MomoVn _momoPay;
   late PaymentResponse _momoPaymentResult;
   //late String _paymentStatus;
-  bool paymentButton = true;
+  bool paymentButton = false;
   bool _isLoading = false;
   bool cancelButton = false;
-  bool deactiveRegistration = true;
+  bool deactiveRegistration = false;
   bool reactiveRegistration = false;
 
   late BuildContext _context;
@@ -63,38 +63,22 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
 
   @override
   Widget build(BuildContext context) {
-    // String registrationStatus;
-    // registrationStatus = widget.item.registrationStatus.toString();
-    // if (registrationStatus.toString().toUpperCase() ==
-    //         "Verified".toUpperCase() ||
-    //     registrationStatus.toString().toUpperCase() ==
-    //         "Expired".toString().toUpperCase()) {
-    //   paymentButton = true;
-    //   setState(() {});
-    // }
-    // if (widget.item.expiredDate != null) {
-    //   String date = widget.item.expiredDate.toString();
-    //   DateTime parseDate =
-    //       new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(date);
-    //   var inputDate = DateTime.parse(parseDate.toString());
-    //   var outputFormat = DateFormat('yyyy-MM-dd');
-    //   var outputDate = outputFormat.format(inputDate);
-    //   widget.item.expiredDate = outputDate;
-    // }
+    String registrationStatus;
+    registrationStatus = widget.item.registrationStatus.toString();
 
-    // if (registrationStatus.toString().toUpperCase() ==
-    //         "Created".toString().toUpperCase() ||
-    //     registrationStatus == "Verify".toString().toUpperCase()) {
-    //   cancelButton = true;
-    //   setState(() {});
-    // }
+    if (registrationStatus.toString().toUpperCase() ==
+            "Pending".toString().toUpperCase() ||
+        registrationStatus == "Verified".toString().toUpperCase()) {
+      cancelButton = true;
+      setState(() {});
+    }
     //String expired ;
 
     _context = context;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Registration Detaiil'),
+        title: const Text('Registration Detaiil'),
         leading: IconButton(
           onPressed: () {
             Get.to(HomeNavBar());
@@ -106,166 +90,140 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6)),
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  // Container(
-                  //   padding: const EdgeInsets.all(15),
-                  //   child: widget.item.faceImage != ""
-                  //       ? Image.memory(
-                  //           base64Decode(widget.item.faceImage.toString()),
-                  //           width: 150,
-                  //           height: 150,
-                  //           //fit: BoxFit.cover,
-                  //         )
-                  //       : const CircleAvatar(
-                  //           radius: 100.0,
-                  //           backgroundColor: Colors.orange,
-                  //           child: Text("No image"),
-                  //         ),
-                  // ),
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Plate Number: ${widget.item.plateNumber}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(color: const Color(0xFF37474F))),
-                        Text("Status: ${widget.item.registrationStatus}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: const Color(0xFF999999))),
-                        Text("Approved By: ${widget.item.approvedBy}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: const Color(0xFF999999))),
-                        widget.item.expiredDate == null
-                            ? Text("Expired Date: ",
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6)),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Plate Number: ${widget.item.plateNumber}",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .titleMedium!
-                                    .copyWith(color: const Color(0xFF999999)))
-                            : Text("Expired Date: ${widget.item.expiredDate}",
+                                    .headlineSmall!
+                                    .copyWith(color: const Color(0xFF37474F))),
+                            Text("Status: ${widget.item.registrationStatus}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleMedium!
                                     .copyWith(color: const Color(0xFF999999))),
-                        Text("Manufacture: ${widget.item.manufacture}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: const Color(0xFF999999))),
-                        // Text("Amount: ${widget.item.amount} vnd",
-                        //     style: Theme.of(context)
-                        //         .textTheme
-                        //         .titleMedium!
-                        //         .copyWith(color: const Color(0xFF999999))),
-                        Text("Model: ${widget.item.model}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: const Color(0xFF999999))),
-                        Text("Create At: ${widget.item.createdAt}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: const Color(0xFF999999))),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    child: const Divider(height: 1),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        //Text("Tonight's availability", style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Color(0xFF37474F))),
-                        Container(height: 5),
-                        Row(
-                          children: [
-                            Visibility(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.grey[300],
-                                  elevation: 0,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 0, horizontal: 20),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(18.0)),
+                            Text("Approved By: ${widget.item.approvedBy}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: const Color(0xFF999999))),
+                            widget.item.expiredDate == null
+                                ? Text("Expired Date: ",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                            color: const Color(0xFF999999)))
+                                : Text(
+                                    "Expired Date: ${widget.item.expiredDate}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                            color: const Color(0xFF999999))),
+                            Text("Manufacture: ${widget.item.manufacture}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: const Color(0xFF999999))),
+                            Text("Model: ${widget.item.model}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: const Color(0xFF999999))),
+                            Text("Create At: ${widget.item.createdAt}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: const Color(0xFF999999))),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        child: const Divider(height: 1),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            //Text("Tonight's availability", style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Color(0xFF37474F))),
+                            Container(height: 5),
+                            Row(
+                              children: [
+                                Visibility(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.grey[300],
+                                      elevation: 0,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 20),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0)),
+                                    ),
+                                    child: const Text("Cancel",
+                                        style: const TextStyle(
+                                            color: const Color(0xFF666666))),
+                                    onPressed: () {
+                                      setRegistrationId();
+                                      updateRegistration.cancelRegistration();
+                                    },
+                                  ),
+                                  visible: cancelButton,
+                                  //   //visible: true,
                                 ),
-                                child: const Text("Cancel",
-                                    style: const TextStyle(
-                                        color: const Color(0xFF666666))),
-                                onPressed: () {
-                                  setRegistrationId();
-                                  updateRegistration.cancelRegistration();
-                                },
-                              ),
-                              visible: cancelButton,
-                              //   //visible: true,
-                            ),
-                            Visibility(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  final price = widget.item.amount ?? 1000;
-                                  _payment(
-                                    amount: price,
-                                    fee: 0,
-                                    description: "Smart - Parking",
-                                    username: "SmartParking",
-                                  );
-                                  //loginWithPhone();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.grey[300],
-                                  elevation: 0,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 0, horizontal: 20),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(18.0)),
+                                Visibility(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      final price = widget.item.amount ?? 1000;
+                                      _payment(
+                                        amount: price,
+                                        fee: 0,
+                                        description: "Smart - Parking",
+                                        username: "SmartParking",
+                                      );
+                                      //loginWithPhone();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.grey[300],
+                                      elevation: 0,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 20),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0)),
+                                    ),
+                                    child: const Text("Payment",
+                                        style: const TextStyle(
+                                            color: const Color(0xFF666666))),
+                                  ),
+                                  visible: paymentButton,
+                                  //   //visible: true,
                                 ),
-                                child: const Text("Payment",
-                                    style: const TextStyle(
-                                        color: const Color(0xFF666666))),
-                              ),
-                              visible: paymentButton,
-                              //   //visible: true,
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                
+                    ],
                   ),
-                  /* Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: TextButton(
-                      style: TextButton.styleFrom(primary: Colors.transparent),
-                      child: Text("RESERVE", style: TextStyle(color: MyColorsSample.primary),),
-                      onPressed: (){},
-                    ),
-                  ),
-                  Container(height: 5)*/
-                ],
-              ),
-            ),
-            )
-          ),
+                ),
+              )),
           if (_isLoading)
             Container(
               color: Colors.grey.withOpacity(0.3),
@@ -316,22 +274,7 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
   void _setState() async {
     // _paymentStatus = 'Đã chuyển thanh toán';
     if (_momoPaymentResult.isSuccess == true) {
-      //  print("resule");
-      // print(_momoPaymentResult.toString());
-      // print("payment respone");
-      // print(_momoPaymentResult.data);
-      //  print("payment message");
-      //  print(_momoPaymentResult.message);
-      // print("extra");
-
-      // print( _momoPaymentResult.extra!);
-      // print("token");
-      // print(_momoPaymentResult.token);
-      //  print("phone");
-      //   print(_momoPaymentResult.phoneNumber);
-
-      // _paymentStatus += "\nExtra: " + _momoPaymentResult.extra!;
-      // print(_paymentStatus);
+     
 
       final rs = await getData.submitPaymentMomo(
         amount: widget.item.amount ?? 0,

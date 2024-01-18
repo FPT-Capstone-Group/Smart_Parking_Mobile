@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parking_auto/Screen/homee.dart';
+import 'package:parking_auto/Screen/parking_order_info.dart';
 import 'package:parking_auto/controller/active_deactive_owner_controller.dart';
 import 'package:parking_auto/model/listParkingType_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +31,7 @@ class _ParkingTyypeDetail extends State<ParkingTypeDetail> {
           },
           icon: const Icon(Icons.home),
         ),
-        actions: [Icon(Icons.details)],
+        actions:const [Icon(Icons.details)],
         backgroundColor: Colors.green,
       ),
       body: Stack(
@@ -56,25 +57,22 @@ class _ParkingTyypeDetail extends State<ParkingTypeDetail> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text("Owner ID: ${widget.item.ownerId}"),
-                // const SizedBox(
-                //   height: 5,
-                // ),
+         
                 const SizedBox(
                   height: 10,
                 ),
                 const Divider(),
                 Container(height: 10),
-                Text("Parking Type Name: ${widget.item.parkingTypeName}"),
+                Text("Name: ${widget.item.parkingTypeName}"),
                 const SizedBox(
                   height: 5,
                 ),
-                Text("Parking Type Status:  ${widget.item.parkingTypeStatus}"),
+                Text("Status:  ${widget.item.parkingTypeStatus}"),
                 const SizedBox(
                   height: 5,
                 ),
-                Text("Parking Type Group:  ${widget.item.parkingTypeGroup}"),
-                Text("Parking Type Fee:  ${widget.item.parkingTypeFee}"),
+                Text("Group:  ${widget.item.parkingTypeGroup}"),
+                Text("Fee:  ${widget.item.parkingTypeFee}"),
                 Text("Description:  ${widget.item.description}"),
                 const SizedBox(
                   height: 5,
@@ -87,26 +85,19 @@ class _ParkingTyypeDetail extends State<ParkingTypeDetail> {
                Center(
                  // padding: const EdgeInsets.symmetric(vertical: 16),
                       child: FloatingActionButton.extended(
-                        onPressed: () {
-                          setParkingTypeId();
-                          owner.deactiveOwner();
+                        onPressed: () async{
+             
+                             SharedPreferences prefs = await SharedPreferences.getInstance();
+                              prefs.remove("parkingTypeId");
+                              prefs.setString("parkingTypeId", widget.item.parkingTypeId.toString());
+                          Get.to(const ParkingOrderInfo());
                         },
-                        icon: Icon(Icons.login),
-                        label: Text('Create'),
+                        icon:const Icon(Icons.login),
+                        label:const Text('Next'),
                       ),
                  
                 ),
-                Center(
-                //  padding: const EdgeInsets.symmetric(vertical: 16),
-                
-                      child: FloatingActionButton.extended(
-                        onPressed: () {
-                         
-                        },
-                        icon: Icon(Icons.login),
-                        label: Text('Cancel'),
-                      ),
-                ),
+              
               ],
             ),
           ),
@@ -115,9 +106,5 @@ class _ParkingTyypeDetail extends State<ParkingTypeDetail> {
     );
   }
 
-  void setParkingTypeId() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("parkingTypeId");
-    prefs.setString("parkingTypeId", widget.item.parkingTypeId.toString());
-  }
+
 }

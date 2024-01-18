@@ -34,8 +34,6 @@ class Data {
   String? expiredDate;
   String? createdAt;
   String? updatedAt;
-  int? bikeId;
-  int? parkingTypeId;
 
   // Array? cards;
 
@@ -46,8 +44,7 @@ class Data {
     this.expiredDate,
     this.createdAt,
     this.updatedAt,
-    this.bikeId,
-    this.parkingTypeId,
+
     //this.cards
   });
 
@@ -58,8 +55,6 @@ class Data {
     expiredDate = json['expiredDate'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    bikeId = json['bikeId'];
-    parkingTypeId = json['parkingTypeId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -70,8 +65,6 @@ class Data {
     data['expiredDate'] = this.expiredDate;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
-    data['bikeId'] = this.bikeId;
-    data['parkingTypeId'] = this.parkingTypeId;
 
     return data;
   }

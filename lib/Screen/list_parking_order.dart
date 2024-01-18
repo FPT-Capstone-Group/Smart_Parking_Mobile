@@ -51,7 +51,7 @@ class __ListParkingOrder extends State<_ListParkingOrder> {
         child: const Center(child: CircularProgressIndicator()),
       );
     } else if (listData!.isEmpty) {
-      return const Center(child: Text("No parking order found"));
+      return const Center(child: Text("No order found"));
     }
     {
       return ListView.builder(

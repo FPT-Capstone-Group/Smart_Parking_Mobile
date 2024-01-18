@@ -35,7 +35,7 @@ class CreateAccountController extends GetxController {
           headers: headers,
           body: jsonEncode({
             "fullName": fullNameController.text,
-            "username": phoneController.text,
+            "userFullName": phoneController.text,
             "password": passwordController.text,
             "otpToken": otpController.text,
              "firebaseToken": otpController.text,

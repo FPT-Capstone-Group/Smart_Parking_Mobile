@@ -20,7 +20,7 @@ class UserProfile extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-        home:ProviderDemoScreen()
+        home:const ProviderDemoScreen()
       ),);
   }
 }
@@ -101,24 +101,24 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
               const SizedBox(height: 10),
               
               postModel.user?.user!.fullName != null ? 
-              Text("Full Name: ${postModel.user?.user!.fullName}", style: Theme.of(context).textTheme.headline6): 
-              Text("Full Name: ", style: Theme.of(context).textTheme.headline6),
+              Text("Full Name: ${postModel.user?.user!.fullName}", style: Theme.of(context).textTheme.headlineSmall): 
+              Text("Full Name: ", style: Theme.of(context).textTheme.headlineSmall),
 
               postModel.user?.user!.username != null ? 
-              Text("Phone: ${postModel.user?.user!.username}", style: Theme.of(context).textTheme.headline6): 
-              Text("Phone: ", style: Theme.of(context).textTheme.headline6),
+              Text("Phone: ${postModel.user?.user!.username}", style: Theme.of(context).textTheme.headlineSmall): 
+              Text("Phone: ", style: Theme.of(context).textTheme.headlineSmall),
 
-             // postModel.user?.user!.age != null ? 
-              Text("Age: ${age}", style: Theme.of(context).textTheme.headline6),
-             // Text("Age: ", style: Theme.of(context).textTheme.headline4),
+              postModel.user?.user!.age != null ? 
+              Text("Age: $age", style: Theme.of(context).textTheme.headlineSmall):
+              Text("Age: ", style: Theme.of(context).textTheme.headlineSmall),
 
               postModel.user?.user!.address != null ? 
-              Text("Address: ${postModel.user?.user!.address}", style: Theme.of(context).textTheme.headline6): 
-              Text("Address: ", style: Theme.of(context).textTheme.headline6),
+              Text("Address: ${postModel.user?.user!.address}", style: Theme.of(context).textTheme.headlineSmall): 
+              Text("Address: ", style: Theme.of(context).textTheme.headlineSmall),
 
               postModel.user?.user!.gender != null ? 
-              Text("Gender: ${postModel.user?.user!.gender}", style: Theme.of(context).textTheme.headline6): 
-              Text("Gender: ", style: Theme.of(context).textTheme.headline6),
+              Text("Gender: ${postModel.user?.user!.gender}", style: Theme.of(context).textTheme.headlineSmall): 
+              Text("Gender: ", style: Theme.of(context).textTheme.headlineSmall),
 
               // Text(postModel.user?.user!.username ?? "", style: Theme.of(context).textTheme.bodyText2),
               
@@ -142,7 +142,7 @@ class _ProviderDemoScreenState extends State<ProviderDemoScreen> {
                                   Get.to(const UpdateUser());
                                 },
                                 icon:const Icon(Icons.edit),
-                                label: Text('Edit'),
+                                label: const Text('Edit'),
                               ),
               ),
               const SizedBox(height: 5),

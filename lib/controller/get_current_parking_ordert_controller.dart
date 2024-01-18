@@ -24,10 +24,10 @@ class GetListCurrentParkingOrderController {
         String url = "${ApiEndpoint.paramHost}";
 
         //for localhost
-       //final uri = Uri.http(url, 'api/parkingOrders/getAllParkingOrdersByBike', queryParameters);
+       //final uri = Uri.http(url, 'api/parkingOrders/getCurrentPendingParkingOrder', queryParameters);
 
        //for https
-       final uri = Uri.https(url, 'api/parkingOrders/getAllParkingOrdersByBike', queryParameters);
+       final uri = Uri.https(url, 'api/parkingOrders/getCurrentPendingParkingOrder', queryParameters);
        print("url $uri");
        print("1");
       final response = await http.get(uri, headers: {
