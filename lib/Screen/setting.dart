@@ -183,7 +183,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text("Close")),
+                      child:const Text("Close")),
                 ],
               );
             });

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart';
 import 'package:parking_auto/Screen/homee.dart';
 import 'package:parking_auto/controller/get_list_owner_controller.dart';
 import 'package:parking_auto/model/listParkingOrder_model.dart';
@@ -15,7 +15,7 @@ class ParkingOrderDetail extends StatefulWidget {
 }
 
 class _ParkingOrderDetail extends State<ParkingOrderDetail> {
-  bool ParkingOrder =true;
+  //bool parkingOrder =true;
   //late String _paymentStatus;
   final bool _isLoading = false;
   GetListOwnerController getListOwner = GetListOwnerController();
@@ -42,15 +42,15 @@ class _ParkingOrderDetail extends State<ParkingOrderDetail> {
   @override
   Widget build(BuildContext context) {
 
-       if (widget.item.expiredDate != null) {
-      String date = widget.item.expiredDate.toString();
-      DateTime parseDate =
-          new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(date);
-      var inputDate = DateTime.parse(parseDate.toString());
-      var outputFormat = DateFormat('yyyy-MM-dd');
-      var outputDate = outputFormat.format(inputDate);
-      widget.item.expiredDate = outputDate;
-    }
+      //  if (widget.item.expiredDate != null) {
+      // String date = widget.item.expiredDate.toString();
+      // DateTime parseDate =
+      //     new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(date);
+      // var inputDate = DateTime.parse(parseDate.toString());
+      // var outputFormat = DateFormat('yyyy-MM-dd');
+      // var outputDate = outputFormat.format(inputDate);
+      // widget.item.expiredDate = outputDate;
+    //}
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -116,51 +116,6 @@ class _ParkingOrderDetail extends State<ParkingOrderDetail> {
                         const SizedBox(height: 10),
 
 
-                        // Row(mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //       Visibility(child: FloatingActionButton.extended(
-                        //     heroTag: "btn5",
-                        //     onPressed: () {
-                        //       setBikeId();
-                        //       Get.to(const PackageOrder());
-                        //     },
-                        //     icon: const Icon(Icons.list),
-                        //     label: const Text('Parking Order'),
-                        //   ), visible: ParkingOrder,),
-                        //   FloatingActionButton.extended(
-                        //     heroTag: "btn7",
-                        //     onPressed: () {
-                        //       setBikeId();
-                        //       Get.to(const CurrentParkingOrder());
-                        //     },
-                        //     icon: const Icon(Icons.list),
-                        //     label: const Text('Get Current Order'),
-                        //   ),
-                        // ],),
-                        // Center(
-                        //   child: Visibility(child: FloatingActionButton.extended(
-                        //     heroTag: "btn5",
-                        //     onPressed: () {
-                        //       setBikeId();
-                        //       Get.to(const PackageOrder());
-                        //     },
-                        //     icon: const Icon(Icons.list),
-                        //     label: const Text('Parking Order'),
-                        //   ), visible: ParkingOrder,),
-
-                        // ),
-
-                        //  Center(
-                        //   child: FloatingActionButton.extended(
-                        //     heroTag: "btn7",
-                        //     onPressed: () {
-                        //       setBikeId();
-                        //       Get.to(const ListParkingOrder());
-                        //     },
-                        //     icon: const Icon(Icons.list),
-                        //     label: const Text('Get All Order'),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

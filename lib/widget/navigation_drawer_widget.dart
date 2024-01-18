@@ -39,13 +39,13 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
     });
   }
 
-  final padding = EdgeInsets.symmetric(horizontal: 20);
+  final padding = const EdgeInsets.symmetric(horizontal: 20);
   @override
   Widget build(BuildContext context) {
 
     return Drawer(
       child: Material(
-        color: Color.fromRGBO(50, 75, 205, 1),
+        color: const Color.fromRGBO(50, 75, 205, 1),
         child: ListView(
           children: <Widget>[
             buildHeader(
@@ -53,7 +53,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
               fullName: "Hi $fullName",
        
               onClicked: () {
-                 Get.to(UserProfile());
+                 Get.to(const UserProfile());
               },
             ),
             Container(
@@ -62,7 +62,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                 children: [
                   const SizedBox(height: 12),
                   // buildSearchField(),
-                  Divider(color: Colors.white70),
+                 const Divider(color: Colors.white70),
                   const SizedBox(height: 24),
                   buildMenuItem(
                     text: 'Profile',
@@ -95,7 +95,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   ),
       
                   const SizedBox(height: 24),
-                  Divider(color: Colors.white70),
+                 const Divider(color: Colors.white70),
                   const SizedBox(height: 16),
                 
                   const SizedBox(height: 16),
@@ -121,7 +121,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
       InkWell(
         onTap: onClicked,
         child: Container(
-          padding: padding.add(EdgeInsets.symmetric(vertical: 40)),
+          padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
           child: Row(
             children: [
               Column(
@@ -129,12 +129,12 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                 children: [
                   Text(
                     fullName,
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style:const TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ],
               ),
-              Spacer(),
-              CircleAvatar(
+             const Spacer(),
+             const CircleAvatar(
                 radius: 24,
                 backgroundColor: Color.fromRGBO(30, 60, 168, 1),
                 child: Icon(Icons.face, color: Colors.white),
@@ -149,12 +149,12 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
     required IconData icon,
     VoidCallback? onClicked,
   }) {
-    final color = Colors.white;
-    final hoverColor = Colors.white70;
+    const color = Colors.white;
+    const hoverColor = Colors.white70;
 
     return ListTile(
       leading: Icon(icon, color: color),
-      title: Text(text, style: TextStyle(color: color)),
+      title: Text(text, style:const TextStyle(color: color)),
       hoverColor: hoverColor,
       onTap: onClicked,
     );
@@ -166,28 +166,28 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
     switch (index) {
       case 0:
 
-        Get.to(UserProfile());
+        Get.to(const UserProfile());
         break;
       case 1:
-       Get.to(FaceCameraRegistration());
+       Get.to(const FaceCameraRegistration());
       
         break;
       case 2:
-      Get.to(RegistrationHistory());
+      Get.to(const RegistrationHistory());
       
         break;
       case 3:
-       Get.to(NotificationPage());
+       Get.to(const NotificationPage());
      
         break;
       case 4:
-       Get.to(BikeOfUser());
+       Get.to(const BikeOfUser());
       
         break;
      
       case 5:
  
-        Get.to(SettingsPage());
+        Get.to(const SettingsPage());
       
         break;
     }

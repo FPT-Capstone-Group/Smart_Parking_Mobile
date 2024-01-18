@@ -45,8 +45,12 @@ class ___ListCurrentParkingOrder extends State<_ListCurrentParkingOrder> {
   void initState() {
     super.initState();
     fetchData();
+   // getPlateNumber();
   }
-
+  // void getPlateNumber() async{
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   var plateNumber = prefs.getString('plateNumber').toString();
+  // }
   @override
   Widget build(BuildContext context) {
     
@@ -64,7 +68,7 @@ class ___ListCurrentParkingOrder extends State<_ListCurrentParkingOrder> {
      
         itemCount: list.length,
         itemBuilder: (context, index) {
-          final item = list[index];
+          final item = list[index]; 
           return InkWell(
             onTap: () async {
               final needReload = await Navigator.of(context).push(
@@ -97,6 +101,7 @@ class ___ListCurrentParkingOrder extends State<_ListCurrentParkingOrder> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                  
                     // Add padding around the row widget
                     Padding(
                       padding: const EdgeInsets.all(15),

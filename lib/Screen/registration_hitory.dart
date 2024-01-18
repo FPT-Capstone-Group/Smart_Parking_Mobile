@@ -18,7 +18,7 @@ class RegistrationHistory extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-  title: Text('Registration History'),
+  title:const Text('Registration History'),
 leading: IconButton(
     onPressed: () {
       Get.to(HomeNavBar());
@@ -104,19 +104,7 @@ class _RegistrationHistory extends State<MyStatefulWidget> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          // item.faceImage != ""
-                          //     ?
-                          //     // Add an image widget to display an, image
-                          //     Image.memory(
-                          //         base64Decode(item.faceImage.toString()),
-                          //         width: 80,
-                          //         height: 100)
-                          //     :const CircleAvatar(
-                          //         radius: 40.0,
-                          //         backgroundColor: Colors.orange,
-                          //         child: Text("No image"),
-                          //       ),
-                          // Add some spacing between the image and the text
+                      
                           Container(width: 20),
                           // Add an expanded widget to take up the remaining horizontal space
                           Expanded(

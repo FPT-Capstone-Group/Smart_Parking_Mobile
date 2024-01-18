@@ -55,7 +55,7 @@ class LoginController extends GetxController {
           prefs.setString('token', token);
 
           //save fullName
-          fullName = loginArr['data']['user']['userFullName'];
+          fullName = loginArr['data']['user']['userFullName'] ?? "";
           //fullName = loginArr['data']['fullName'];
           prefs.remove('fullName');
           String keyFullName = 'fullName';

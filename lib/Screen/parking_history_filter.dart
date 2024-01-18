@@ -6,8 +6,9 @@ import 'package:parking_auto/model/parking_session_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Demo extends StatefulWidget {
+  const Demo({super.key});
   @override
-  _DemoState createState() => new _DemoState();
+  _DemoState createState() => _DemoState();
 }
 
 class _DemoState extends State<Demo> {
@@ -43,7 +44,7 @@ class _DemoState extends State<Demo> {
           // actions: [Icon(Icons.history)],
         ),
         body: Container(
-            padding: EdgeInsets.all(15),
+            padding:const EdgeInsets.all(15),
             child: Column(children: [
               Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

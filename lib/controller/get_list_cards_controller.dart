@@ -24,17 +24,21 @@ class GetListCardsController {
 
        String url = "${ApiEndpoint.paramHost}";
 
-       final uri = Uri.https(url, 'api/bikes/getAllCardsByBikeId', queryParameters);
+       // sv https 
+       final uri = Uri.https(url, 'api/cards/getAllCardsByBikeId', queryParameters);
+
+       //local host
+       //final uri = Uri.http(url, 'api/cards/getAllCardsByBikeId', queryParameters);
        
       final response = await http.get(uri, headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
         HttpHeaders.contentTypeHeader: 'application/json',
       });
      
-       // print("uri: $uri");
+        print("uri: $uri code: ${response.statusCode}");
        // print(response.statusCode);
     if (response.statusCode == 200) {
-      prefs.remove("plateNumber");
+     // prefs.remove("plateNumber");
       final jsonResponse = json.decode(response.body)['data'] as List;
 
       final x = jsonResponse.map((data) => Cards.fromJson(data)).toList();

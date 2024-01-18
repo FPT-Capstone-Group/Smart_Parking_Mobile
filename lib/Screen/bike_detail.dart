@@ -6,7 +6,7 @@ import 'package:parking_auto/Screen/list_cards.dart';
 import 'package:parking_auto/Screen/list_current_parking_orders.dart';
 import 'package:parking_auto/Screen/list_onwer.dart';
 import 'package:parking_auto/Screen/list_parking_order.dart';
-import 'package:parking_auto/Screen/package_order.dart';
+import 'package:parking_auto/Screen/list_parking_type.dart';
 import 'package:parking_auto/Screen/parking_history_filter.dart';
 import 'package:parking_auto/controller/get_list_owner_controller.dart';
 import 'package:parking_auto/model/listBike_model.dart';
@@ -129,7 +129,7 @@ class _BikeDetail extends State<BikeDetail> {
                               setPlateNumber();
                               Get.to(const FaceCameraImageOwner());
                             },
-                            icon: const Icon(Icons.add),
+                           // icon: const Icon(Icons.add),
                             label: const Text('Add Owner'),
                           ),
                     
@@ -141,7 +141,7 @@ class _BikeDetail extends State<BikeDetail> {
 
                               Get.to(const ListOwner());
                             },
-                            icon: const Icon(Icons.list),
+                          //  icon: const Icon(Icons.list),
                             label: const Text('List Owner'),
                           ),
                      
@@ -157,7 +157,7 @@ class _BikeDetail extends State<BikeDetail> {
                               setPlateNumber();
                               Get.to(Demo());
                             },
-                            icon: const Icon(Icons.history),
+                          //  icon: const Icon(Icons.history),
                             label: const Text('View History'),
                           ),
                           FloatingActionButton.extended(
@@ -166,11 +166,10 @@ class _BikeDetail extends State<BikeDetail> {
                               setBikeId();
                               Get.to(const ListCard());
                             },
-                            icon: const Icon(Icons.list),
+                          //  icon: const Icon(Icons.list),
                             label: const Text('List Card'),
                           ),
                         ],),
-                   
                         const SizedBox(height: 10),
 
                         Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -179,10 +178,10 @@ class _BikeDetail extends State<BikeDetail> {
                             heroTag: "btn5",
                             onPressed: () {
                               setBikeId();
-                              Get.to(const PackageOrder());
+                              Get.to(const ListParkingType());
                             },
-                            icon: const Icon(Icons.list),
-                            label: const Text('Order'),
+                          //  icon: const Icon(Icons.list),
+                            label: const Text('Create Order'),
                           ), visible: ParkingOrder,),
                           FloatingActionButton.extended(
                             heroTag: "btn7",
@@ -190,23 +189,11 @@ class _BikeDetail extends State<BikeDetail> {
                               setBikeId();
                               Get.to(const ListCurrentParkingOrder());
                             },
-                            icon: const Icon(Icons.list),
-                            label: const Text('Get Current Order'),
+                           // icon: const Icon(Icons.list),
+                            label: const Text('Current Order'),
                           ),
                         ],),
-                        // Center(
-                        //   child: Visibility(child: FloatingActionButton.extended(
-                        //     heroTag: "btn5",
-                        //     onPressed: () {
-                        //       setBikeId();
-                        //       Get.to(const PackageOrder());
-                        //     },
-                        //     icon: const Icon(Icons.list),
-                        //     label: const Text('Parking Order'),
-                        //   ), visible: ParkingOrder,),
-
-                        // ),
-
+                       const SizedBox(height: 10),
                          Center(
                           child: FloatingActionButton.extended(
                             heroTag: "btn7",
@@ -214,7 +201,7 @@ class _BikeDetail extends State<BikeDetail> {
                               setBikeId();
                               Get.to(const ListParkingOrder());
                             },
-                            icon: const Icon(Icons.list),
+                          //  icon: const Icon(Icons.list),
                             label: const Text('Get All Order'),
                           ),
                         ),

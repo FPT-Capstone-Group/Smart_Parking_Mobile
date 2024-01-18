@@ -55,13 +55,13 @@ class _RegistrationDetailState extends State<OwnerDetail> {
           },
           icon: const Icon(Icons.home),
         ),
-        actions: [Icon(Icons.details)],
+        actions:const [Icon(Icons.details)],
         backgroundColor: Colors.green,
       ),
       body: Stack(
         children: [
           const Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Text(
               "Owner Information",
               style: TextStyle(
@@ -106,20 +106,20 @@ class _RegistrationDetailState extends State<OwnerDetail> {
                 const Divider(color: Colors.white70),
                 const SizedBox(height: 5),
 
-                // Center(
-                //   child:
+                Center(
+                  child:
 
-                //    widget.item.ownerFaceImage != null
-                //       ? Image.memory(
-                //           base64Decode(widget.item.ownerFaceImage.toString()),
-                //           width: 250,
-                //           height: 250)
-                //       : const CircleAvatar(
-                //           radius: 40.0,
-                //           backgroundColor: Colors.orange,
-                //           child: Text("No image"),
-                //         ),
-                // ),
+                   widget.item.ownerFaceImage != null
+                      ? Image.memory(
+                          base64Decode(widget.item.ownerFaceImage.toString()),
+                          width: 250,
+                          height: 250)
+                      : const CircleAvatar(
+                          radius: 40.0,
+                          backgroundColor: Colors.orange,
+                          child: Text("No image"),
+                        ),
+                ),
 
                 
                 const SizedBox(height: 5),

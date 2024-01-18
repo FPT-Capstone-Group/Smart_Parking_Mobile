@@ -25,12 +25,13 @@ class ParkingSessionController extends GetxController{
         'dateStart' : dateStart,
         'dateEnd' : dateEnd,
       };
+     
       //final uri = Uri.http('${ApiEmdpoint.paramHost}', 'api/owners', queryParameters);
 
       //final uri = Uri.http('localhost:3000', '/api/registrations/cancel', queryParameters);
       String url = "${ApiEndpoint.paramHost}";
 
-      final uri = Uri.https(url, '/api/sessions/', queryParameters);
+      final uri = Uri.https(url, '/api/parkingSessions/', queryParameters);
       final response = await http.get(uri, headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
         HttpHeaders.contentTypeHeader: 'application/json',
@@ -50,7 +51,7 @@ class ParkingSessionController extends GetxController{
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    throw Exception('Failed to load Owner');
+    throw Exception('Failed to load parking history');
   }
 
   }

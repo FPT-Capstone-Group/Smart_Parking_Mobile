@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:parking_auto/Screen/list_current_parking_orders.dart';
 import 'package:parking_auto/apiEndpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,6 +21,7 @@ class CreateOrderController {
       var expiredDate = prefs.getString('expiredDate').toString();
       var parkingOrderAmount = prefs.getString('parkingOrderAmount').toString();
 
+      print("bike id : ${bikeId}");
       Map<String, String> headers = {
         "Content-type": "application/json",
         'Authorization': 'Bearer $token',
@@ -43,7 +46,10 @@ class CreateOrderController {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-      
+            
+            Get.to(const 
+             ListCurrentParkingOrder(),
+          );
       } else if (response.statusCode == 401) {
           Fluttertoast.showToast(
             msg: "Create Order Fail",

@@ -22,12 +22,12 @@ class NotificationPage extends StatelessWidget {
             icon: const Icon(Icons.home),
           ),
         ),
-        body: const _NotificationPage());
+        body: _NotificationPage());
   }
 }
 
 class _NotificationPage extends StatefulWidget {
-  const _NotificationPage({super.key});
+ // const _NotificationPage({super.key});
 
   @override
   State<_NotificationPage> createState() => __NotificationPage();
@@ -94,52 +94,54 @@ class __NotificationPage extends State<_NotificationPage> {
                         // Add padding around the row widget
                         Padding(
                           padding: const EdgeInsets.all(15),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                             
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    // Add some spacing between the top of the card and the title
-                                    Container(height: 5),
-                                    // Add a title widget
-                                    SizedBox(
-                                      width: 220.0,
-                                      child: Text(
-                                        "Message: ${item.message}",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: false,
-                                        style:const  TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 10.0),
+                          child: Expanded(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                               
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      // Add some spacing between the top of the card and the title
+                                      Container(height: 5),
+                                      // Add a title widget
+                                      SizedBox(
+                                      //  width: 220.0,
+                                        child: Text(
+                                          "Message: ${item.message}",
+                                          // maxLines: 1,
+                                          // overflow: TextOverflow.ellipsis,
+                                          // softWrap: false,
+                                          style:const  TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 10.0),
+                                        ),
                                       ),
-                                    ),
-                                    // Add some spacing between the title and the subtitle
-                                    Container(height: 10),
-                                    // Add a subtitle widget
-                                    SizedBox(
-                                      width: 220.0,
-                                      child: Text(
-                                        "Time: ${item.createdAt}",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: false,
-                                        style:const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 10.0),
+                                      // Add some spacing between the title and the subtitle
+                                      Container(height: 10),
+                                      // Add a subtitle widget
+                                      SizedBox(
+                                        width: 220.0,
+                                        child: Text(
+                                          "Time: ${item.createdAt}",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: false,
+                                          style:const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 10.0),
+                                        ),
                                       ),
-                                    ),
-                                    // Add some spacing between the subtitle and the text
-                                    // Add a text widget to display some text
-                                  ],
+                                      // Add some spacing between the subtitle and the text
+                                      // Add a text widget to display some text
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],

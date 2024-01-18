@@ -7,6 +7,8 @@ const List<String> gender = <String>['Male', 'Female'];
 
 class RegistrationOnwer extends StatefulWidget {
   static const routeNamed = '/registrationOwnerScreen';
+   const RegistrationOnwer({super.key});
+
   @override
   _RegistrationOnwer createState() => _RegistrationOnwer();
 }
@@ -67,26 +69,7 @@ class _RegistrationOnwer extends State<RegistrationOnwer> {
                   },
                 ),
                 const SizedBox(height: 10),
-                // TextFormField(
-                //   controller: plateNumberController,
-                //   decoration: const InputDecoration(
-                //     enabledBorder: OutlineInputBorder(),
-                //     focusedBorder: OutlineInputBorder(),
-                //     labelText: 'Plate number',
-                //     hintText: 'Enter your plate number',
-                //   ),
-                //   keyboardType: TextInputType.text,
-                //   validator: (plateNumberController) {
-                //     if (plateNumberController == null ||
-                //         plateNumberController.isEmpty) {
-                //       return 'Can\'t be empty';
-                //     }
-                //     if (plateNumberController.length < 5) {
-                //       return 'Too short';
-                //     }
-                //     return null;
-                //   },
-                // ),
+              
                 const SizedBox(height: 10),
                 //Divider(color: Colors.white70),
                 TextFormField(
