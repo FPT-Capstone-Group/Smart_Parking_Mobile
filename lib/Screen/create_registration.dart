@@ -55,7 +55,7 @@ class _Registration extends State<Registration> {
                 const SizedBox(height: 5),
                 const Divider(color: Colors.white70),
                 const Text(
-                  'User infor',
+                  'Bike infor',
                   textAlign: TextAlign.left,
                 ),
                 TextFormField(

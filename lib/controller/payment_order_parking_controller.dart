@@ -13,9 +13,7 @@ class PaymentParkingOrderController {
      required String parkingOrderId,
   }) async {
     try {
-      // print('amount controller: $amount');
-      //  print('transactionId: $transactionId');
-      //   print('parkingOrderId: $parkingOrderId');
+    
       String url = "${ApiEndpoint.host}/api/payments/pay";
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -33,7 +31,7 @@ class PaymentParkingOrderController {
             "parkingOrderId": parkingOrderId,
           }));
 
-           //print(response.statusCode.toString() + " url" + url.toString() );
+           print(response.statusCode.toString() + " url" + url.toString() );
       if (response.statusCode == 200) {
        
         Fluttertoast.showToast(
