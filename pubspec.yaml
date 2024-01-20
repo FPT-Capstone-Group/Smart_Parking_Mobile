@@ -63,6 +63,7 @@ dependencies:
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.3
   flutter_local_notifications: ^16.2.0
+  uuid: ^4.2.2
 
 dev_dependencies:
   flutter_test:
