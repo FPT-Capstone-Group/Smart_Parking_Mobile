@@ -119,20 +119,20 @@ class _RegistrationDetailState extends State<RegistrationDetail> {
                                     .textTheme
                                     .titleMedium!
                                     .copyWith(color: const Color(0xFF999999))),
-                            widget.item.expiredDate == null
-                                ? Text("Expired Date: ",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                            color: const Color(0xFF999999)))
-                                : Text(
-                                    "Expired Date: ${widget.item.expiredDate}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                            color: const Color(0xFF999999))),
+                            // widget.item.expiredDate == null
+                            //     ? Text("Expired Date: ",
+                            //         style: Theme.of(context)
+                            //             .textTheme
+                            //             .titleMedium!
+                            //             .copyWith(
+                            //                 color: const Color(0xFF999999)))
+                            //     : Text(
+                            //         "Expired Date: ${widget.item.expiredDate}",
+                            //         style: Theme.of(context)
+                            //             .textTheme
+                            //             .titleMedium!
+                            //             .copyWith(
+                            //                 color: const Color(0xFF999999))),
                             Text("Manufacture: ${widget.item.manufacture}",
                                 style: Theme.of(context)
                                     .textTheme

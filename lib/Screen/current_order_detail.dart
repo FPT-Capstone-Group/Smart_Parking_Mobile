@@ -144,7 +144,7 @@ class _CurrentOrderDetail extends State<CurrentOrderDetail> {
                                     onPressed: () {
                                       paymentAmount =
                                           widget.item.parkingOrderAmount;
-                                      // parkingOrderId = widget.item.parkingOrderId;
+                                       parkingOrderId = widget.item.parkingOrderId;
 
                                       //  final price = widget.item.parkingOrderAmount ?? 0;
                                       // print("price: $price");
@@ -233,8 +233,8 @@ class _CurrentOrderDetail extends State<CurrentOrderDetail> {
       amount: amount,
       orderId: widget.item.parkingOrderId.toString(),
       fee: 0,
-      description: "no",
-      username: "0867698543",
+      description: "Smart Parking",
+      username: "Smart Parking",
       extra: "{}",
       isTestMode: true,
     );
